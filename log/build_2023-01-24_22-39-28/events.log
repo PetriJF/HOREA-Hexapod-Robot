@@ -1,0 +1,98 @@
+[0.000000] (-) TimerEvent: {}
+[0.001909] (leg_controller) JobQueued: {'identifier': 'leg_controller', 'dependencies': OrderedDict()}
+[0.002584] (leg_controller) JobStarted: {'identifier': 'leg_controller'}
+[0.099204] (-) TimerEvent: {}
+[0.199978] (-) TimerEvent: {}
+[0.300724] (-) TimerEvent: {}
+[0.401524] (-) TimerEvent: {}
+[0.502332] (-) TimerEvent: {}
+[0.603029] (-) TimerEvent: {}
+[0.703858] (-) TimerEvent: {}
+[0.804530] (-) TimerEvent: {}
+[0.905254] (-) TimerEvent: {}
+[1.005940] (-) TimerEvent: {}
+[1.106696] (-) TimerEvent: {}
+[1.207415] (-) TimerEvent: {}
+[1.310840] (-) TimerEvent: {}
+[1.414660] (-) TimerEvent: {}
+[1.515597] (-) TimerEvent: {}
+[1.616309] (-) TimerEvent: {}
+[1.717186] (-) TimerEvent: {}
+[1.817914] (-) TimerEvent: {}
+[1.918732] (-) TimerEvent: {}
+[2.019519] (-) TimerEvent: {}
+[2.120182] (-) TimerEvent: {}
+[2.220879] (-) TimerEvent: {}
+[2.321597] (-) TimerEvent: {}
+[2.422310] (-) TimerEvent: {}
+[2.523042] (-) TimerEvent: {}
+[2.623763] (-) TimerEvent: {}
+[2.724491] (-) TimerEvent: {}
+[2.825190] (-) TimerEvent: {}
+[2.925996] (-) TimerEvent: {}
+[3.023636] (leg_controller) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'develop', '--uninstall', '--editable', '--build-directory', '/home/pi/hexapod/build/leg_controller/build'], 'cwd': '/home/pi/hexapod/build/leg_controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pi', 'SSH_CLIENT': '192.168.1.11 53092 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pi', 'OLDPWD': '/home/pi', 'SSH_TTY': '/dev/pts/0', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/pi/hexapod/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '4', 'ROS_LOCALHOST_ONLY': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/pi/hexapod/install/leg_controller:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/pi/hexapod/build/leg_controller', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.11 53092 192.168.1.14 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[3.035055] (-) TimerEvent: {}
+[3.137862] (-) TimerEvent: {}
+[3.238589] (-) TimerEvent: {}
+[3.339341] (-) TimerEvent: {}
+[3.440056] (-) TimerEvent: {}
+[3.540757] (-) TimerEvent: {}
+[3.641436] (-) TimerEvent: {}
+[3.742110] (-) TimerEvent: {}
+[3.842809] (-) TimerEvent: {}
+[3.943555] (-) TimerEvent: {}
+[4.044242] (-) TimerEvent: {}
+[4.144974] (-) TimerEvent: {}
+[4.245731] (-) TimerEvent: {}
+[4.288116] (leg_controller) StdoutLine: {'line': b'running develop\n'}
+[4.345887] (-) TimerEvent: {}
+[4.446604] (-) TimerEvent: {}
+[4.547306] (-) TimerEvent: {}
+[4.647997] (-) TimerEvent: {}
+[4.748708] (-) TimerEvent: {}
+[4.849422] (-) TimerEvent: {}
+[4.950128] (-) TimerEvent: {}
+[5.050907] (-) TimerEvent: {}
+[5.151868] (-) TimerEvent: {}
+[5.166640] (leg_controller) CommandEnded: {'returncode': 0}
+[5.170164] (leg_controller) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/leg_controller', 'build', '--build-base', '/home/pi/hexapod/build/leg_controller/build', 'install', '--record', '/home/pi/hexapod/build/leg_controller/install.log', '--single-version-externally-managed'], 'cwd': '/home/pi/hexapod/src/leg_controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pi', 'SSH_CLIENT': '192.168.1.11 53092 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pi', 'OLDPWD': '/home/pi', 'SSH_TTY': '/dev/pts/0', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/pi/hexapod/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '4', 'ROS_LOCALHOST_ONLY': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/pi/hexapod/install/leg_controller:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/pi/hexapod/build/leg_controller', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.11 53092 192.168.1.14 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[5.252033] (-) TimerEvent: {}
+[5.352861] (-) TimerEvent: {}
+[5.453970] (-) TimerEvent: {}
+[5.554646] (-) TimerEvent: {}
+[5.655335] (-) TimerEvent: {}
+[5.756009] (-) TimerEvent: {}
+[5.856707] (-) TimerEvent: {}
+[5.957390] (-) TimerEvent: {}
+[6.058063] (-) TimerEvent: {}
+[6.158767] (-) TimerEvent: {}
+[6.259552] (-) TimerEvent: {}
+[6.339776] (leg_controller) StdoutLine: {'line': b'running egg_info\n'}
+[6.342355] (leg_controller) StdoutLine: {'line': b'writing ../../build/leg_controller/leg_controller.egg-info/PKG-INFO\n'}
+[6.343462] (leg_controller) StdoutLine: {'line': b'writing dependency_links to ../../build/leg_controller/leg_controller.egg-info/dependency_links.txt\n'}
+[6.344381] (leg_controller) StdoutLine: {'line': b'writing entry points to ../../build/leg_controller/leg_controller.egg-info/entry_points.txt\n'}
+[6.345409] (leg_controller) StdoutLine: {'line': b'writing requirements to ../../build/leg_controller/leg_controller.egg-info/requires.txt\n'}
+[6.346189] (leg_controller) StdoutLine: {'line': b'writing top-level names to ../../build/leg_controller/leg_controller.egg-info/top_level.txt\n'}
+[6.356297] (leg_controller) StdoutLine: {'line': b"reading manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'\n"}
+[6.359715] (-) TimerEvent: {}
+[6.360512] (leg_controller) StdoutLine: {'line': b"writing manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'\n"}
+[6.361241] (leg_controller) StdoutLine: {'line': b'running build\n'}
+[6.361800] (leg_controller) StdoutLine: {'line': b'running build_py\n'}
+[6.362408] (leg_controller) StdoutLine: {'line': b'copying leg_controller/servo_move.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller\n'}
+[6.364646] (leg_controller) StdoutLine: {'line': b'running install\n'}
+[6.366290] (leg_controller) StdoutLine: {'line': b'running install_lib\n'}
+[6.369634] (leg_controller) StdoutLine: {'line': b'copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/servo_move.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller\n'}
+[6.373180] (leg_controller) StdoutLine: {'line': b'byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servo_move.py to servo_move.cpython-310.pyc\n'}
+[6.377082] (leg_controller) StdoutLine: {'line': b'running install_data\n'}
+[6.379616] (leg_controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.386365] (leg_controller) StdoutLine: {'line': b"removing '/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[6.388375] (leg_controller) StdoutLine: {'line': b'Copying ../../build/leg_controller/leg_controller.egg-info to /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info\n'}
+[6.394811] (leg_controller) StdoutLine: {'line': b'running install_scripts\n'}
+[6.459937] (-) TimerEvent: {}
+[6.477303] (leg_controller) StdoutLine: {'line': b'Installing legs_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller\n'}
+[6.479345] (leg_controller) StdoutLine: {'line': b"writing list of installed files to '/home/pi/hexapod/build/leg_controller/install.log'\n"}
+[6.560264] (-) TimerEvent: {}
+[6.605664] (leg_controller) CommandEnded: {'returncode': 0}
+[6.660357] (-) TimerEvent: {}
+[6.675850] (leg_controller) JobEnded: {'identifier': 'leg_controller', 'rc': 0}
+[6.679004] (-) EventReactorShutdown: {}

@@ -1,0 +1,27 @@
+[3.094s] Invoking command in '/home/pi/hexapod/build/leg_controller': PYTHONPATH=/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/pi/hexapod/build/leg_controller/build
+[4.361s] running develop
+[5.246s] Invoked command in '/home/pi/hexapod/build/leg_controller' returned '0': PYTHONPATH=/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/pi/hexapod/build/leg_controller/build
+[5.255s] Invoking command in '/home/pi/hexapod/src/leg_controller': PYTHONPATH=/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/leg_controller build --build-base /home/pi/hexapod/build/leg_controller/build install --record /home/pi/hexapod/build/leg_controller/install.log --single-version-externally-managed
+[6.431s] running egg_info
+[6.433s] writing ../../build/leg_controller/leg_controller.egg-info/PKG-INFO
+[6.434s] writing dependency_links to ../../build/leg_controller/leg_controller.egg-info/dependency_links.txt
+[6.435s] writing entry points to ../../build/leg_controller/leg_controller.egg-info/entry_points.txt
+[6.436s] writing requirements to ../../build/leg_controller/leg_controller.egg-info/requires.txt
+[6.437s] writing top-level names to ../../build/leg_controller/leg_controller.egg-info/top_level.txt
+[6.446s] reading manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'
+[6.450s] writing manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'
+[6.451s] running build
+[6.452s] running build_py
+[6.452s] copying leg_controller/servo_move.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
+[6.455s] running install
+[6.456s] running install_lib
+[6.460s] copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/servo_move.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
+[6.464s] byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servo_move.py to servo_move.cpython-310.pyc
+[6.468s] running install_data
+[6.470s] running install_egg_info
+[6.477s] removing '/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info' (and everything under it)
+[6.479s] Copying ../../build/leg_controller/leg_controller.egg-info to /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info
+[6.485s] running install_scripts
+[6.568s] Installing legs_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
+[6.570s] writing list of installed files to '/home/pi/hexapod/build/leg_controller/install.log'
+[6.700s] Invoked command in '/home/pi/hexapod/src/leg_controller' returned '0': PYTHONPATH=/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/leg_controller build --build-base /home/pi/hexapod/build/leg_controller/build install --record /home/pi/hexapod/build/leg_controller/install.log --single-version-externally-managed

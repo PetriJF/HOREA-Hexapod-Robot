@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "test_node = leg_controller.servo_move:main"
+            "legs_node = leg_controller.servo_move:main"
         ],
     },
 )
