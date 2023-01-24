@@ -1,0 +1,3 @@
+[console_scripts]
+test_node = leg_controller.servo_move:main
+

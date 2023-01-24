@@ -1,0 +1,98 @@
+[1.126s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/pi/hexapod']
+[1.126s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/pi/hexapod'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], topological_order=False, names_only=False, paths_only=True, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffff90c95d80>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0xffff91728fd0>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0xffff91728fd0>>)
+[1.567s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.568s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.568s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.568s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.569s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.569s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/pi/hexapod'
+[1.570s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['ignore', 'ignore_ament_install']
+[1.571s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'ignore'
+[1.571s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'ignore_ament_install'
+[1.572s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['colcon_pkg']
+[1.572s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'colcon_pkg'
+[1.573s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['colcon_meta']
+[1.573s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'colcon_meta'
+[1.573s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['ros']
+[1.574s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'ros'
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['cmake', 'python']
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'cmake'
+[1.715s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'python'
+[1.716s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extensions ['python_setup_py']
+[1.717s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod) by extension 'python_setup_py'
+[1.718s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/build) by extensions ['ignore', 'ignore_ament_install']
+[1.719s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/build) by extension 'ignore'
+[1.719s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/build) ignored
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['ignore', 'ignore_ament_install']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'ignore'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'ignore_ament_install'
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['colcon_pkg']
+[1.724s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'colcon_pkg'
+[1.725s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['colcon_meta']
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'colcon_meta'
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['ros']
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'ros'
+[1.729s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['cmake', 'python']
+[1.729s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'cmake'
+[1.729s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'python'
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extensions ['python_setup_py']
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development) by extension 'python_setup_py'
+[1.731s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['ignore', 'ignore_ament_install']
+[1.732s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'ignore'
+[1.733s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'ignore_ament_install'
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['colcon_pkg']
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'colcon_pkg'
+[1.735s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['colcon_meta']
+[1.736s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'colcon_meta'
+[1.737s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['ros']
+[1.737s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'ros'
+[1.738s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['cmake', 'python']
+[1.739s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'cmake'
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'python'
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extensions ['python_setup_py']
+[1.741s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/demos) by extension 'python_setup_py'
+[1.742s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['ignore', 'ignore_ament_install']
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'ignore'
+[1.745s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'ignore_ament_install'
+[1.746s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['colcon_pkg']
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'colcon_pkg'
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['colcon_meta']
+[1.748s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'colcon_meta'
+[1.749s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['ros']
+[1.749s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'ros'
+[1.751s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['cmake', 'python']
+[1.752s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'cmake'
+[1.759s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'python'
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extensions ['python_setup_py']
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/development/legacy) by extension 'python_setup_py'
+[1.769s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/install) by extensions ['ignore', 'ignore_ament_install']
+[1.770s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/install) by extension 'ignore'
+[1.770s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/install) ignored
+[1.772s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/log) by extensions ['ignore', 'ignore_ament_install']
+[1.772s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/log) by extension 'ignore'
+[1.773s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/log) ignored
+[1.774s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['ignore', 'ignore_ament_install']
+[1.774s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'ignore'
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'ignore_ament_install'
+[1.780s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['colcon_pkg']
+[1.780s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'colcon_pkg'
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['colcon_meta']
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'colcon_meta'
+[1.782s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['ros']
+[1.782s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'ros'
+[1.782s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['cmake', 'python']
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'cmake'
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'python'
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extensions ['python_setup_py']
+[1.784s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src) by extension 'python_setup_py'
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extensions ['ignore', 'ignore_ament_install']
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extension 'ignore'
+[1.786s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extension 'ignore_ament_install'
+[1.787s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extensions ['colcon_pkg']
+[1.787s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extension 'colcon_pkg'
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extensions ['colcon_meta']
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extension 'colcon_meta'
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extensions ['ros']
+[1.790s] Level 1:colcon.colcon_core.package_identification:_identify(/home/pi/hexapod/src/leg_controller) by extension 'ros'
+[1.804s] DEBUG:colcon.colcon_core.package_identification:Package '/home/pi/hexapod/src/leg_controller' with type 'ros.ament_python' and name 'leg_controller'
+[1.805s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
