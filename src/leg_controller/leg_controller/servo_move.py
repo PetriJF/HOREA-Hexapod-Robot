@@ -5,16 +5,7 @@ from time import *
 from adafruit_servokit import ServoKit
 from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, legReferencing
 
-class hexMotorControl(Node):
-
-    COXA_LEN = 71.5
-    FEMUR_LEN = 100.02
-    FOOT_HEIGHT = 0
-    TIBIA_LEN = 150 + FOOT_HEIGHT
-        
-    leftLegsAddr: float
-    rightLegsAddr: float
-
+class hexMotorControl(Node):    
     def __init__(self):
         super().__init__("hex_legs_controller")
         
