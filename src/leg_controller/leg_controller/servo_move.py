@@ -17,10 +17,17 @@ class hexMotorControl(Node):
 
     def __init__(self):
         super().__init__("hex_legs_controller")
-        # TODO: Add the addresses of the 2 i2c controllers
-        self.kitL = ServoKit(channels=16, address=65) # 41 in hex
-        self.kitR = ServoKit(channels=16, address=66) # 42 in hex
         
+        self.kitL = ServoKit(channels=16, address=65) # 41 in hex
+        self.kitL.servo[0].set_pulse_width_range(500, 2500)
+        
+        self.kitR = ServoKit(channels=16, address=66) # 42 in hex
+        self.kitR.servo[0].set_pulse_width_range(500, 2500)
+        for i in range(0, 9):
+            self.kitL.servo[i].set_pulse_width_range(500, 2500)
+            self.kitR.servo[i].set_pulse_width_range(500, 2500)
+            
+
     def setLegServoAngles(self, legRef, hipAngle=float, shoulderAngle=float, kneeAngle=float):
         if legRef.side == False:
             self.kitL.servo[legRef.hip].angle = hipAngle
@@ -32,7 +39,7 @@ class hexMotorControl(Node):
             self.kitR.servo[legRef.shoulder].angle = shoulderAngle
             self.kitR.servo[legRef.knee].angle = kneeAngle 
 
-        self.get_logger().info(legRef.description + " moved to hip: " + str(hipAngle) + ", shoulder: " + str(hipAngle) + ", knee: " + str(kneeAngle))    
+        self.get_logger().info(legRef.description + " moved to hip: " + str(hipAngle) + ", shoulder: " + str(shoulderAngle) + ", knee: " + str(kneeAngle))    
 
 
 def main(args = None):
@@ -41,18 +48,18 @@ def main(args = None):
     # Node
     node = hexMotorControl()  # create a node 
     
-    node.setLegServoAngles(LB, 90, 90, 90)
-    node.setLegServoAngles(RB, 90, 90, 90)
+    node.setLegServoAngles(LB, 30, 90, 90)
+    node.setLegServoAngles(RB, 90, 90+30, 90+60)
     sleep(2.0)
 
-    node.setLegServoAngles(LB, 90 + 45, 90 + 45, 90 + 45)
-    node.setLegServoAngles(RB, 90 + 45, 90 + 45, 90 + 45)
+    #node.setLegServoAngles(LB, 90 + 45, 90 + 45, 90 + 45)
+    #node.setLegServoAngles(RB, 90 + 45, 90 + 45, 90 + 45)
     sleep(2.0)
 
     #node.setLegServoAngles(LB, 90 - 45, 90 - 45, 90 - 45)
     #sleep(2.0)
     
-    #rclpy.spin(node) # keep node alive 
+    rclpy.spin(node) # keep node alive 
 
     # End Node
     
