@@ -25,8 +25,8 @@ class hexMotorControl(Node):
     def __init__(self):
         super().__init__("hex_legs_controller")
         # TODO: Add the addresses of the 2 i2c controllers
-        self.kitL = ServoKit(channels=16)
-        self.kitR = ServoKit(channels=16)
+        self.kitL = ServoKit(channels=16, address=65) # 41 in hex
+        self.kitR = ServoKit(channels=16, address=66) # 42 in hex
         
     def setLegServoAngles(self, legRef, hipAngle=float, shoulderAngle=float, kneeAngle=float):
         if legRef.side == False:
@@ -49,10 +49,12 @@ def main(args = None):
     node = hexMotorControl()  # create a node 
     
     node.setLegServoAngles(LB, 90, 90, 90)
+    node.setLegServoAngles(RB, 90, 90, 90)
     sleep(2.0)
 
-    #node.setLegServoAngles(LB, 90 + 45, 90 + 45, 90 + 45)
-    #sleep(2.0)
+    node.setLegServoAngles(LB, 90 + 45, 90 + 45, 90 + 45)
+    node.setLegServoAngles(RB, 90 + 45, 90 + 45, 90 + 45)
+    sleep(2.0)
 
     #node.setLegServoAngles(LB, 90 - 45, 90 - 45, 90 - 45)
     #sleep(2.0)
