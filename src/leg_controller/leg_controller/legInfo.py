@@ -36,9 +36,9 @@ class legReferencing:
     description: str
 
 # Leg initializations
-LB = legReferencing(False, BASE_WIDTH * round(np.cosd(7.0*np.pi/6.0),2), BASE_WIDTH * round(np.sind(7*np.pi/6.0),2),0, 1, 2, "Leg: <Left Back>")
-LM = legReferencing(False, BASE_WIDTH * round(np.cosd(3.0*np.pi/2.0),2), BASE_WIDTH * round(np.sind(3.0*np.pi/2.0),2), 3, 4, 5, "Leg: <Left Middle>")
-LF = legReferencing(False, BASE_WIDTH * round(np.cosd(11.0*np.pi/6.0),2), BASE_WIDTH * round(np.sind(11.0*np.pi/6.0),2), 6, 7, 8, "Leg: <Left Front>")
-RB = legReferencing(True, BASE_WIDTH * round(np.cosd(5.0*np.pi/6.0),2), BASE_WIDTH * round(np.sind(5.0*np.pi/6.0),2), 0, 1, 2, "Leg: <Right Back>")
-RM = legReferencing(True, BASE_WIDTH * round(np.cosd(np.pi/2.0),2), BASE_WIDTH * round(np.sind(np.pi/2.0),2), 3, 4, 5, "Leg: <Right Middle>")
-RF = legReferencing(True, BASE_WIDTH * round(np.cosd(np.pi/6.0),2), BASE_WIDTH * round(np.sind(np.pi/6.0),2), 6, 7, 8, "Leg: <Right Front>")
+LB = legReferencing(False, BASE_WIDTH * round(np.cos(7.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(7*np.pi/6.0),2),0, 1, 2, "Leg: <Left Back>")
+LM = legReferencing(False, BASE_WIDTH * round(np.cos(3.0*np.pi/2.0),2), BASE_WIDTH * round(np.sin(3.0*np.pi/2.0),2), 3, 4, 5, "Leg: <Left Middle>")
+LF = legReferencing(False, BASE_WIDTH * round(np.cos(11.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(11.0*np.pi/6.0),2), 6, 7, 8, "Leg: <Left Front>")
+RB = legReferencing(True, BASE_WIDTH * round(np.cos(5.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(5.0*np.pi/6.0),2), 0, 1, 2, "Leg: <Right Back>")
+RM = legReferencing(True, BASE_WIDTH * round(np.cos(np.pi/2.0),2), BASE_WIDTH * round(np.sin(np.pi/2.0),2), 3, 4, 5, "Leg: <Right Middle>")
+RF = legReferencing(True, BASE_WIDTH * round(np.cos(np.pi/6.0),2), BASE_WIDTH * round(np.sin(np.pi/6.0),2), 6, 7, 8, "Leg: <Right Front>")
