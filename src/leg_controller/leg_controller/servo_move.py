@@ -19,7 +19,7 @@ class hexMotorControl(Node):
             self.kitR.servo[i].set_pulse_width_range(500, 2500)
             
 
-    def setLegServoAngles(self, legRef, hipAngle=float, shoulderAngle=float, kneeAngle=float):
+    def setLegServoAngles(self, legRef=legReferencing, hipAngle=float, shoulderAngle=float, kneeAngle=float):
         if legRef.side == False:
             self.kitL.servo[legRef.hip].angle = hipAngle
             self.kitL.servo[legRef.shoulder].angle = shoulderAngle
