@@ -10,7 +10,7 @@ def getLegAngles(point = Point, leg = legReferencing):
     FOOT_HEIGHT = 0
     TIBIA_LEN = 150 + FOOT_HEIGHT
     GAIT_ALTITUDE = 90
-    BASE_ALTITUDE = 40
+    BASE_ALTITUDE = GAIT_ALTITUDE - point.z
     BASE_WIDTH = 65.0 # mm
 
     # Distance from the leg origin to the point in a planar view
@@ -18,7 +18,7 @@ def getLegAngles(point = Point, leg = legReferencing):
     # Distance without the coxa
     L = D - COXA_LEN
     # Distance the origin to the tip of the leg
-    Lprime = np.sqrt(GAIT_ALTITUDE * GAIT_ALTITUDE + L * L)
+    Lprime = np.sqrt(BASE_ALTITUDE * BASE_ALTITUDE + L * L)
     print(Lprime, D)
 
     # (x, y) plane. z is projected on this plane
@@ -30,8 +30,6 @@ def getLegAngles(point = Point, leg = legReferencing):
     delta = round(np.arctan(BASE_ALTITUDE / L), 2)
     beta = round(np.arccos((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime)), 2)
     sigma = round(np.arccos((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN)), 2)
-
-    ### NOTE: TODO: NU TE GANDESTI LA CAND E IN AER (z coord la point)
 
     tetha1 = np.rad2deg(beta - delta)
     tetha2 = 180.0 - np.rad2deg(sigma) - 45.0 # Note that the 45 represents the assembly offset between the tibia and femur!
