@@ -3,12 +3,14 @@ import rclpy
 from rclpy.node import Node
 from time import *
 from adafruit_servokit import ServoKit
-from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, legReferencing
+from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, legReferencing, Angles
 
 class hexMotorControl(Node):    
     def __init__(self):
         super().__init__("hex_legs_controller")
         
+        self.angleSubscriber = self.create_subscription(Angles, "/legs/Angles", self.anglesCallback, 10)
+
         self.kitL = ServoKit(channels=16, address=65) # 41 in hex
         self.kitL.servo[0].set_pulse_width_range(500, 2500)
         
@@ -18,6 +20,9 @@ class hexMotorControl(Node):
             self.kitL.servo[i].set_pulse_width_range(500, 2500)
             self.kitR.servo[i].set_pulse_width_range(500, 2500)
             
+    def anglesCallback(self, angels=Angles):
+        ## TODO: Fa ceva metoda de impartire in 6 a unei matrice care tine informatiile la toate motoarele
+        print("temp")
 
     def setLegServoAngles(self, legRef=legReferencing, hipAngle=float, shoulderAngle=float, kneeAngle=float):
         if legRef.side == False:

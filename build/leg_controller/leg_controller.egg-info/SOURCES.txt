@@ -5,7 +5,7 @@ leg_controller/__init__.py
 leg_controller/legInfo.py
 leg_controller/motorControlDemo.py
 leg_controller/pointToAngle.py
-leg_controller/servo_move.py
+leg_controller/servoController.py
 leg_controller.egg-info/PKG-INFO
 leg_controller.egg-info/SOURCES.txt
 leg_controller.egg-info/dependency_links.txt
