@@ -1,3 +1,4 @@
 [console_scripts]
-legs_node = leg_controller.servo_move:main
+kin_node = leg_controller.inverseKinematics:main
+servo_node = leg_controller.servo_move:main
 

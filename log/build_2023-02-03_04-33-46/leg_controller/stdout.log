@@ -1,0 +1,23 @@
+running develop
+running egg_info
+creating leg_controller.egg-info
+writing leg_controller.egg-info/PKG-INFO
+writing dependency_links to leg_controller.egg-info/dependency_links.txt
+writing entry points to leg_controller.egg-info/entry_points.txt
+writing requirements to leg_controller.egg-info/requires.txt
+writing top-level names to leg_controller.egg-info/top_level.txt
+writing manifest file 'leg_controller.egg-info/SOURCES.txt'
+reading manifest file 'leg_controller.egg-info/SOURCES.txt'
+writing manifest file 'leg_controller.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg-controller.egg-link (link to .)
+Installing kin_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
+Installing servo_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
+
+Installed /home/pi/hexapod/build/leg_controller
+running install_data
+creating /home/pi/hexapod/install/leg_controller/share/ament_index
+creating /home/pi/hexapod/install/leg_controller/share/ament_index/resource_index
+creating /home/pi/hexapod/install/leg_controller/share/ament_index/resource_index/packages
+copying resource/leg_controller -> /home/pi/hexapod/install/leg_controller/share/ament_index/resource_index/packages
+copying package.xml -> /home/pi/hexapod/install/leg_controller/share/leg_controller
