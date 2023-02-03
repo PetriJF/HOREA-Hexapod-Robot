@@ -1,10 +1,12 @@
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servo_move.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/legInfo.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/motorControlDemo.py
+/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/pointToAngle.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__init__.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/servo_move.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/legInfo.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/motorControlDemo.cpython-310.pyc
+/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/pointToAngle.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/__init__.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/share/ament_index/resource_index/packages/leg_controller
 /home/pi/hexapod/install/leg_controller/share/leg_controller/package.xml

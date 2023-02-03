@@ -11,6 +11,7 @@ setup.py
 leg_controller/__init__.py
 leg_controller/legInfo.py
 leg_controller/motorControlDemo.py
+leg_controller/pointToAngle.py
 leg_controller/servo_move.py
 resource/leg_controller
 test/test_copyright.py
