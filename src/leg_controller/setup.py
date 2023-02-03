@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "legs_node = leg_controller.servo_move:main"
+            "servo_node = leg_controller.servo_move:main",
+            "kin_node = leg_controller.inverseKinematics:main"
         ],
     },
 )

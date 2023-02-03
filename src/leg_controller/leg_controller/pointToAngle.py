@@ -1,11 +1,14 @@
 import rclpy
 from rclpy.node import Node
 import numpy as np
-from leg_controller.legInfo import Point, Angles, legReferencing
+from time import *
+from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, Point, Angles, legReferencing
 
 class inverseKinematics(Node):    
     def __init__(self):
         super().__init__("inverse_kinematics_node")
+        self.angles = self.create_publisher(Angles, "/legs/Angles", 10)
+
         
     def getLegAngles(self, point = Point, leg = legReferencing):
         # Constants
@@ -39,11 +42,24 @@ class inverseKinematics(Node):
         tetha2 = 180.0 - np.rad2deg(sigma) - 45.0 # Note that the 45 represents the assembly offset between the tibia and femur!
 
         self.get_logger().info(alpha + " | " + tetha1 + " | " + tetha2)
-        return Angles(alpha, tetha1, tetha2)
+        self.angles.publish(Angles(alpha, tetha1, tetha2))
 
 
 
+def main(args = None):
+    rclpy.init(args = args)
+    invKinNode = inverseKinematics()
 
+    invKinNode.getLegAngles(Point(135, 135, 0), RF)
+    sleep(2.0)
+    invKinNode.getLegAngles(Point(135, 135, 30), RF)
+    sleep(2.0)
+    invKinNode.getLegAngles(Point(135, 135, 60), RF)
+    sleep(2.0)
+
+    rclpy.spin(invKinNode)
+
+    rclpy.shutdown()
 
 
 
