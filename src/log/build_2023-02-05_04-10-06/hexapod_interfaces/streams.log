@@ -1,0 +1,30 @@
+[0.068s] Invoking command in '/home/pi/hexapod/src/build/hexapod_interfaces': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/src/install/hexapod_interfaces
+[0.777s] -- The C compiler identification is GNU 11.3.0
+[1.295s] -- The CXX compiler identification is GNU 11.3.0
+[1.344s] -- Detecting C compiler ABI info
+[1.719s] -- Detecting C compiler ABI info - done
+[1.749s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.751s] -- Detecting C compile features
+[1.754s] -- Detecting C compile features - done
+[1.772s] -- Detecting CXX compiler ABI info
+[2.188s] -- Detecting CXX compiler ABI info - done
+[2.219s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.220s] -- Detecting CXX compile features
+[2.222s] -- Detecting CXX compile features - done
+[2.319s] -- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.257s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter 
+[3.867s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[3.895s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.962s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[4.301s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[4.554s] [31mCMake Error at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:93 (message):
+[4.555s]   rosidl_generate_interfaces() the passed file 'msg/TargetAngles' doesn't
+[4.556s]   exist relative to the CMAKE_CURRENT_SOURCE_DIR
+[4.556s]   '/home/pi/hexapod/src/hexapod_interfaces'
+[4.556s] Call Stack (most recent call first):
+[4.557s]   CMakeLists.txt:27 (rosidl_generate_interfaces)
+[4.557s] 
+[4.558s] [0m
+[4.558s] -- Configuring incomplete, errors occurred!
+[4.559s] See also "/home/pi/hexapod/src/build/hexapod_interfaces/CMakeFiles/CMakeOutput.log".
+[4.572s] Invoked command in '/home/pi/hexapod/src/build/hexapod_interfaces' returned '1': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/src/install/hexapod_interfaces

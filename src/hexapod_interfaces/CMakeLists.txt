@@ -25,7 +25,7 @@ find_package(rosidl_default_generators REQUIRED)
 #endif()
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  ""
+  "msg/TargetAngles.msg"
 )
 
 ament_export_dependencies(rosidl_default_runtime)

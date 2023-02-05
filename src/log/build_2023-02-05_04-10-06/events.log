@@ -1,0 +1,83 @@
+[0.000000] (-) TimerEvent: {}
+[0.001630] (-) JobUnselected: {'identifier': 'leg_controller'}
+[0.003354] (hexapod_interfaces) JobQueued: {'identifier': 'hexapod_interfaces', 'dependencies': OrderedDict()}
+[0.003600] (hexapod_interfaces) JobStarted: {'identifier': 'hexapod_interfaces'}
+[0.064320] (hexapod_interfaces) JobProgress: {'identifier': 'hexapod_interfaces', 'progress': 'cmake'}
+[0.065911] (hexapod_interfaces) Command: {'cmd': ['/usr/bin/cmake', '/home/pi/hexapod/src/hexapod_interfaces', '-DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/src/install/hexapod_interfaces'], 'cwd': '/home/pi/hexapod/src/build/hexapod_interfaces', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '192.168.137.1 62179 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/hexapod/src/hexapod_interfaces'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/hexapod/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/hexapod/install/leg_controller:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/hexapod/src/build/hexapod_interfaces'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.137.1 62179 192.168.137.2 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/hexapod/build/leg_controller:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/hexapod/install/leg_controller:/opt/ros/humble')]), 'shell': False}
+[0.098963] (-) TimerEvent: {}
+[0.199703] (-) TimerEvent: {}
+[0.300937] (-) TimerEvent: {}
+[0.402007] (-) TimerEvent: {}
+[0.503022] (-) TimerEvent: {}
+[0.603884] (-) TimerEvent: {}
+[0.705024] (-) TimerEvent: {}
+[0.780310] (hexapod_interfaces) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.3.0\n'}
+[0.805194] (-) TimerEvent: {}
+[0.906242] (-) TimerEvent: {}
+[1.007107] (-) TimerEvent: {}
+[1.107912] (-) TimerEvent: {}
+[1.208925] (-) TimerEvent: {}
+[1.298262] (hexapod_interfaces) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.3.0\n'}
+[1.309112] (-) TimerEvent: {}
+[1.347258] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.409319] (-) TimerEvent: {}
+[1.510138] (-) TimerEvent: {}
+[1.610914] (-) TimerEvent: {}
+[1.711733] (-) TimerEvent: {}
+[1.722613] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.752336] (hexapod_interfaces) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.754553] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.757412] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.775129] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.811951] (-) TimerEvent: {}
+[1.913155] (-) TimerEvent: {}
+[2.013919] (-) TimerEvent: {}
+[2.114767] (-) TimerEvent: {}
+[2.191364] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.214945] (-) TimerEvent: {}
+[2.221970] (hexapod_interfaces) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.223128] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.225019] (hexapod_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.315127] (-) TimerEvent: {}
+[2.322105] (hexapod_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[2.415461] (-) TimerEvent: {}
+[2.516632] (-) TimerEvent: {}
+[2.617309] (-) TimerEvent: {}
+[2.718121] (-) TimerEvent: {}
+[2.818955] (-) TimerEvent: {}
+[2.919799] (-) TimerEvent: {}
+[3.020492] (-) TimerEvent: {}
+[3.121400] (-) TimerEvent: {}
+[3.222324] (-) TimerEvent: {}
+[3.260209] (hexapod_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter \n'}
+[3.322537] (-) TimerEvent: {}
+[3.423254] (-) TimerEvent: {}
+[3.524042] (-) TimerEvent: {}
+[3.624750] (-) TimerEvent: {}
+[3.725472] (-) TimerEvent: {}
+[3.826334] (-) TimerEvent: {}
+[3.870151] (hexapod_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[3.898718] (hexapod_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.926527] (-) TimerEvent: {}
+[3.965043] (hexapod_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.026722] (-) TimerEvent: {}
+[4.127421] (-) TimerEvent: {}
+[4.228124] (-) TimerEvent: {}
+[4.304117] (hexapod_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.328281] (-) TimerEvent: {}
+[4.428970] (-) TimerEvent: {}
+[4.529655] (-) TimerEvent: {}
+[4.557603] (hexapod_interfaces) StderrLine: {'line': b'\x1b[31mCMake Error at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:93 (message):\n'}
+[4.558279] (hexapod_interfaces) StderrLine: {'line': b"  rosidl_generate_interfaces() the passed file 'msg/TargetAngles' doesn't\n"}
+[4.558927] (hexapod_interfaces) StderrLine: {'line': b'  exist relative to the CMAKE_CURRENT_SOURCE_DIR\n'}
+[4.559449] (hexapod_interfaces) StderrLine: {'line': b"  '/home/pi/hexapod/src/hexapod_interfaces'\n"}
+[4.559848] (hexapod_interfaces) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[4.560364] (hexapod_interfaces) StderrLine: {'line': b'  CMakeLists.txt:27 (rosidl_generate_interfaces)\n'}
+[4.560875] (hexapod_interfaces) StderrLine: {'line': b'\n'}
+[4.561336] (hexapod_interfaces) StderrLine: {'line': b'\x1b[0m\n'}
+[4.561724] (hexapod_interfaces) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[4.562225] (hexapod_interfaces) StdoutLine: {'line': b'See also "/home/pi/hexapod/src/build/hexapod_interfaces/CMakeFiles/CMakeOutput.log".\n'}
+[4.574834] (hexapod_interfaces) CommandEnded: {'returncode': 1}
+[4.629825] (-) TimerEvent: {}
+[4.689147] (hexapod_interfaces) JobEnded: {'identifier': 'hexapod_interfaces', 'rc': 1}
+[4.701032] (-) EventReactorShutdown: {}

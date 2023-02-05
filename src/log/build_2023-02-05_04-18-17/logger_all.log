@@ -1,0 +1,148 @@
+[0.718s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'hexapod_interfaces']
+[0.718s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['hexapod_interfaces'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffff964b9060>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff964b8af0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff964b8af0>>)
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.851s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.851s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/pi/hexapod/src'
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.852s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.852s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.908s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.908s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extension 'ignore'
+[0.908s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extension 'ignore_ament_install'
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extensions ['colcon_pkg']
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extension 'colcon_pkg'
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extensions ['colcon_meta']
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extension 'colcon_meta'
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extensions ['ros']
+[0.909s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_interfaces) by extension 'ros'
+[0.923s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod_interfaces' with type 'ros.ament_cmake' and name 'hexapod_interfaces'
+[0.924s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.924s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extension 'ignore'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extension 'ignore_ament_install'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extensions ['colcon_pkg']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extension 'colcon_pkg'
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extensions ['colcon_meta']
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extension 'colcon_meta'
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extensions ['ros']
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(leg_controller) by extension 'ros'
+[0.930s] DEBUG:colcon.colcon_core.package_identification:Package 'leg_controller' with type 'ros.ament_python' and name 'leg_controller'
+[0.930s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.931s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.932s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.932s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.932s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.932s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.033s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'leg_controller' in 'leg_controller'
+[1.036s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.036s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.049s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/pi/hexapod/install
+[1.058s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 180 installed packages in /opt/ros/humble
+[1.064s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.256s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_args' from command line to 'None'
+[1.256s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_target' from command line to 'None'
+[1.256s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[1.257s] Level 5:colcon.colcon_core.verb:set package 'hexapod_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.257s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/hexapod/src/build/hexapod_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/hexapod/src/install/hexapod_interfaces', 'merge_install': False, 'path': '/home/pi/hexapod/src/hexapod_interfaces', 'symlink_install': False, 'test_result_base': None}
+[1.260s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.274s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.276s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/hexapod/src/hexapod_interfaces' with build type 'ament_cmake'
+[1.276s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/hexapod/src/hexapod_interfaces'
+[1.300s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.301s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.301s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.347s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/hexapod/src/build/hexapod_interfaces': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --build /home/pi/hexapod/src/build/hexapod_interfaces -- -j4 -l4
+[3.324s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/hexapod/src/build/hexapod_interfaces' returned '0': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --build /home/pi/hexapod/src/build/hexapod_interfaces -- -j4 -l4
+[3.757s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/hexapod/src/build/hexapod_interfaces': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --install /home/pi/hexapod/src/build/hexapod_interfaces
+[4.061s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_interfaces)
+[4.063s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/hexapod/src/build/hexapod_interfaces' returned '0': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --install /home/pi/hexapod/src/build/hexapod_interfaces
+[4.084s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces' for CMake module files
+[4.090s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces' for CMake config files
+[4.093s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_interfaces', 'cmake_prefix_path')
+[4.099s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.ps1'
+[4.102s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.dsv'
+[4.104s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.sh'
+[4.109s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib'
+[4.110s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_interfaces', 'ld_library_path_lib')
+[4.116s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.ps1'
+[4.118s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.dsv'
+[4.120s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.sh'
+[4.122s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/bin'
+[4.122s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib/pkgconfig/hexapod_interfaces.pc'
+[4.124s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib/python3.10/site-packages'
+[4.125s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/bin'
+[4.131s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.ps1'
+[4.135s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.dsv'
+[4.138s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.sh'
+[4.142s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.bash'
+[4.146s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.zsh'
+[4.149s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/hexapod/src/install/hexapod_interfaces/share/colcon-core/packages/hexapod_interfaces)
+[4.538s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_interfaces)
+[4.547s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces' for CMake module files
+[4.552s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces' for CMake config files
+[4.556s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_interfaces', 'cmake_prefix_path')
+[4.561s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.ps1'
+[4.563s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.dsv'
+[4.565s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/cmake_prefix_path.sh'
+[4.568s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib'
+[4.569s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_interfaces', 'ld_library_path_lib')
+[4.575s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.ps1'
+[4.577s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.dsv'
+[4.579s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/hook/ld_library_path_lib.sh'
+[4.581s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/bin'
+[4.582s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib/pkgconfig/hexapod_interfaces.pc'
+[4.583s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/lib/python3.10/site-packages'
+[4.584s] Level 1:colcon.colcon_core.environment:checking '/home/pi/hexapod/src/install/hexapod_interfaces/bin'
+[4.590s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.ps1'
+[4.593s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.dsv'
+[4.596s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.sh'
+[4.599s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.bash'
+[4.601s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/hexapod/src/install/hexapod_interfaces/share/hexapod_interfaces/package.zsh'
+[4.603s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/hexapod/src/install/hexapod_interfaces/share/colcon-core/packages/hexapod_interfaces)
+[4.605s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[4.606s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[4.606s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[4.607s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[4.635s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[4.635s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[4.636s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[4.636s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[4.639s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[4.640s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[4.646s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/hexapod/src/install/local_setup.ps1'
+[4.651s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/hexapod/src/install/_local_setup_util_ps1.py'
+[4.659s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/hexapod/src/install/setup.ps1'
+[4.665s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/hexapod/src/install/local_setup.sh'
+[4.668s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/hexapod/src/install/_local_setup_util_sh.py'
+[4.671s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/hexapod/src/install/setup.sh'
+[4.677s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/hexapod/src/install/local_setup.bash'
+[4.680s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/hexapod/src/install/setup.bash'
+[4.686s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/hexapod/src/install/local_setup.zsh'
+[4.689s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/hexapod/src/install/setup.zsh'

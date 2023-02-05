@@ -1,0 +1,2 @@
+Invoking command in '/home/pi/hexapod/src/build/hexapod_interfaces': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/src/install/hexapod_interfaces
+Invoked command in '/home/pi/hexapod/src/build/hexapod_interfaces' returned '1': CMAKE_PREFIX_PATH=/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/src/install/hexapod_interfaces
