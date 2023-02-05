@@ -1,0 +1,222 @@
+[0.106s] Invoking command in '/home/pi/hexapod/build/hexapod_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/install/hexapod_interfaces
+[0.470s] -- The C compiler identification is GNU 11.3.0
+[0.830s] -- The CXX compiler identification is GNU 11.3.0
+[0.873s] -- Detecting C compiler ABI info
+[1.550s] -- Detecting C compiler ABI info - done
+[1.583s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.584s] -- Detecting C compile features
+[1.586s] -- Detecting C compile features - done
+[1.603s] -- Detecting CXX compiler ABI info
+[2.135s] -- Detecting CXX compiler ABI info - done
+[2.176s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.177s] -- Detecting CXX compile features
+[2.179s] -- Detecting CXX compile features - done
+[2.202s] -- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.658s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter 
+[4.359s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[4.390s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.457s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[5.011s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[7.128s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[8.446s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[10.088s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[10.299s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.6", minimum required is "3.6") 
+[10.315s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[10.468s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.6", minimum required is "3.5") 
+[10.468s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[10.469s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[10.469s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[10.599s] -- Found PythonExtra: .so  
+[10.842s] -- Configuring done
+[11.108s] -- Generating done
+[11.130s] -- Build files have been written to: /home/pi/hexapod/build/hexapod_interfaces
+[11.154s] Invoked command in '/home/pi/hexapod/build/hexapod_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake /home/pi/hexapod/src/hexapod_interfaces -DCMAKE_INSTALL_PREFIX=/home/pi/hexapod/install/hexapod_interfaces
+[11.166s] Invoking command in '/home/pi/hexapod/build/hexapod_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --build /home/pi/hexapod/build/hexapod_interfaces -- -j4 -l4
+[11.486s] [  3%] [34m[1mGenerating C code for ROS interfaces[0m
+[11.643s] [  6%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[11.801s] [  6%] Built target ament_cmake_python_copy_hexapod_interfaces
+[13.939s] [  6%] Built target hexapod_interfaces__cpp
+[14.019s] [  9%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[14.064s] [ 12%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o[0m
+[14.068s] [ 16%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[14.100s] running egg_info
+[14.103s] creating hexapod_interfaces.egg-info
+[14.105s] writing hexapod_interfaces.egg-info/PKG-INFO
+[14.107s] writing dependency_links to hexapod_interfaces.egg-info/dependency_links.txt
+[14.108s] writing top-level names to hexapod_interfaces.egg-info/top_level.txt
+[14.110s] writing manifest file 'hexapod_interfaces.egg-info/SOURCES.txt'
+[14.123s] reading manifest file 'hexapod_interfaces.egg-info/SOURCES.txt'
+[14.136s] writing manifest file 'hexapod_interfaces.egg-info/SOURCES.txt'
+[14.337s] [ 16%] Built target ament_cmake_python_build_hexapod_interfaces_egg
+[14.391s] [ 19%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[14.877s] [ 22%] [32m[1mLinking C shared library libhexapod_interfaces__rosidl_generator_c.so[0m
+[15.388s] [ 22%] Built target hexapod_interfaces__rosidl_generator_c
+[15.524s] [ 25%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[16.573s] [ 29%] [32mBuilding CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hexapod_interfaces/msg/target_angles__type_support.cpp.o[0m
+[16.794s] [ 32%] [32mBuilding CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/hexapod_interfaces/msg/detail/dds_fastrtps/target_angles__type_support.cpp.o[0m
+[16.805s] [ 35%] [32mBuilding CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/hexapod_interfaces/msg/detail/target_angles__type_support.cpp.o[0m
+[17.855s] [ 38%] [32mBuilding CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/hexapod_interfaces/msg/detail/target_angles__type_support_c.cpp.o[0m
+[19.064s] [ 41%] [32m[1mLinking CXX shared library libhexapod_interfaces__rosidl_typesupport_cpp.so[0m
+[19.500s] [ 41%] Built target hexapod_interfaces__rosidl_typesupport_cpp
+[19.627s] [ 45%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[20.139s] [ 48%] [32m[1mLinking CXX shared library libhexapod_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[20.219s] [ 51%] [32m[1mLinking CXX shared library libhexapod_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[20.653s] [ 51%] Built target hexapod_interfaces__rosidl_typesupport_introspection_cpp
+[20.749s] [ 54%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[20.884s] [ 54%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_cpp
+[20.992s] [ 58%] [32m[1mLinking CXX shared library libhexapod_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[21.427s] [ 58%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_c
+[21.727s] [ 61%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/hexapod_interfaces/msg/detail/target_angles__type_support.c.o[0m
+[21.941s] [ 64%] [32m[1mLinking C shared library libhexapod_interfaces__rosidl_typesupport_introspection_c.so[0m
+[22.102s] [ 64%] Built target hexapod_interfaces__rosidl_typesupport_introspection_c
+[22.170s] [ 67%] [32mBuilding CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o[0m
+[22.333s] [ 70%] [32m[1mLinking CXX shared library libhexapod_interfaces__rosidl_typesupport_c.so[0m
+[22.509s] [ 70%] Built target hexapod_interfaces__rosidl_typesupport_c
+[22.598s] [ 70%] Built target hexapod_interfaces
+[22.686s] [ 74%] [34m[1mGenerating Python code for ROS interfaces[0m
+[24.305s] [ 74%] Built target hexapod_interfaces__py
+[24.400s] [ 77%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_generator_py.dir/rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c.o[0m
+[24.965s] [ 80%] [32m[1mLinking C shared library rosidl_generator_py/hexapod_interfaces/libhexapod_interfaces__rosidl_generator_py.so[0m
+[25.154s] [ 80%] Built target hexapod_interfaces__rosidl_generator_py
+[25.253s] [ 83%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[25.257s] [ 87%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[25.261s] [ 90%] [32mBuilding C object CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[25.768s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[25.790s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[25.839s] [100%] [32m[1mLinking C shared library rosidl_generator_py/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[25.951s] [100%] Built target hexapod_interfaces__rosidl_typesupport_c__pyext
+[25.988s] [100%] Built target hexapod_interfaces__rosidl_typesupport_introspection_c__pyext
+[26.038s] [100%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[26.086s] Invoked command in '/home/pi/hexapod/build/hexapod_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --build /home/pi/hexapod/build/hexapod_interfaces -- -j4 -l4
+[26.536s] Invoking command in '/home/pi/hexapod/build/hexapod_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --install /home/pi/hexapod/build/hexapod_interfaces
+[26.567s] -- Install configuration: ""
+[26.568s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/rosidl_interfaces/hexapod_interfaces
+[26.570s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.571s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.572s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/target_angles.h
+[26.573s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_generator_c__visibility_control.h
+[26.575s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.575s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.h
+[26.577s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__functions.h
+[26.578s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__functions.c
+[26.580s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__struct.h
+[26.582s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/library_path.sh
+[26.583s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/library_path.dsv
+[26.586s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_c.so
+[26.589s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_c.so" to ""
+[26.589s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.590s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.590s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[26.591s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.592s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_fastrtps_c.h
+[26.594s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_c.so
+[26.597s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[26.597s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.598s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.598s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.599s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.c
+[26.600s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_introspection_c.h
+[26.601s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[26.603s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_c.so
+[26.606s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_c.so" to ""
+[26.607s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_c.so
+[26.610s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_c.so" to ""
+[26.610s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.611s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.611s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.611s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__traits.hpp
+[26.613s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__struct.hpp
+[26.614s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__builder.hpp
+[26.615s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/target_angles.hpp
+[26.616s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.617s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.618s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[26.620s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.620s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_fastrtps_cpp.hpp
+[26.621s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/dds_fastrtps
+[26.623s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[26.626s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[26.627s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces
+[26.627s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg
+[26.627s] -- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail
+[26.628s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_introspection_cpp.hpp
+[26.629s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.cpp
+[26.631s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_cpp.so
+[26.634s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[26.635s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_cpp.so
+[26.638s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_cpp.so" to ""
+[26.638s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/pythonpath.sh
+[26.640s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/pythonpath.dsv
+[26.642s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info
+[26.643s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[26.644s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[26.646s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[26.647s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[26.648s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces
+[26.649s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[26.651s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/libhexapod_interfaces__rosidl_generator_py.so
+[26.652s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg
+[26.653s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/_target_angles_s.c
+[26.655s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/_target_angles.py
+[26.656s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/__init__.py
+[26.657s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[26.659s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_c.c
+[26.661s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[26.662s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[26.664s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/__init__.py
+[26.665s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[26.845s] Listing '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces'...
+[26.846s] Compiling '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/__init__.py'...
+[26.847s] Listing '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg'...
+[26.848s] Compiling '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/__init__.py'...
+[26.850s] Compiling '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/_target_angles.py'...
+[26.871s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[26.875s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[26.876s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[26.880s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[26.881s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[26.884s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[26.885s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_py.so
+[26.888s] -- Set runtime path of "/home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_py.so" to ""
+[26.889s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/msg/TargetAngles.idl
+[26.890s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/msg/TargetAngles.msg
+[26.892s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/package_run_dependencies/hexapod_interfaces
+[26.894s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/parent_prefix_path/hexapod_interfaces
+[26.896s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/ament_prefix_path.sh
+[26.898s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/ament_prefix_path.dsv
+[26.899s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/path.sh
+[26.901s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/path.dsv
+[26.903s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.bash
+[26.904s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.sh
+[26.907s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.zsh
+[26.908s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.dsv
+[26.910s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/package.dsv
+[26.912s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/packages/hexapod_interfaces
+[26.914s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cExport.cmake
+[26.916s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cExport-noconfig.cmake
+[26.918s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[26.920s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[26.921s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[26.923s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[26.925s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cExport.cmake
+[26.927s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[26.928s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cppExport.cmake
+[26.930s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[26.932s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[26.934s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[26.936s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[26.939s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cppExport.cmake
+[26.941s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[26.942s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_pyExport.cmake
+[26.944s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[26.946s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake-extras.cmake
+[26.948s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[26.950s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[26.952s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[26.954s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[26.957s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[26.959s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[26.961s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfacesConfig.cmake
+[26.963s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfacesConfig-version.cmake
+[26.964s] -- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/package.xml
+[26.983s] Invoked command in '/home/pi/hexapod/build/hexapod_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/hexapod/install/leg_controller:/opt/ros/humble /usr/bin/cmake --install /home/pi/hexapod/build/hexapod_interfaces
