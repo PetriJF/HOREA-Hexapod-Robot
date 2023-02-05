@@ -4,7 +4,7 @@ from rclpy.node import Node
 from time import *
 from adafruit_servokit import ServoKit
 from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, legReferencing
-from hexapod_interfaces import TargetAngles
+from hexapod_interfaces.msg import TargetAngles
 
 class hexMotorControl(Node):    
     def __init__(self):

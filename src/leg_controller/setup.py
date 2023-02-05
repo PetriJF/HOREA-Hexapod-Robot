@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             "servo_node = leg_controller.servoController:main",
-            "kin_node = leg_controller.inverseKinematics:main"
+            "kin_node = leg_controller.pointToAngle:main"
         ],
     },
 )

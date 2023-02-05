@@ -3,7 +3,7 @@ from rclpy.node import Node
 import numpy as np
 from time import *
 from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, Point, legReferencing
-from hexapod_interfaces import TargetAngles
+from hexapod_interfaces.msg import TargetAngles
 
 class inverseKinematics(Node):    
     def __init__(self):
@@ -27,7 +27,7 @@ class inverseKinematics(Node):
         L = D - COXA_LEN
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(BASE_ALTITUDE * BASE_ALTITUDE + L * L)
-        self.get_logger().info(D + " | " + L + " | " + Lprime)
+        self.get_logger().info(str(D) + " | " + str(L) + " | " + str(Lprime))
 
         # (x, y) plane. z is projected on this plane
         T = round(np.sqrt(point.x * point.x + point.y * point.y), 2)
@@ -41,6 +41,8 @@ class inverseKinematics(Node):
 
         tetha1 = np.rad2deg(beta - delta)
         tetha2 = 180.0 - np.rad2deg(sigma) - 45.0 # Note that the 45 represents the assembly offset between the tibia and femur!
+
+        self.get_logger().info(str(alpha) + " | " + str(tetha1) + " | " + str(tetha2))
 
         self.targetAngles.shoulder_angle[leg.index] = alpha
         self.targetAngles.hip_angle[leg.index] = tetha1
@@ -63,7 +65,8 @@ def main(args = None):
 
     rclpy.shutdown()
 
-
+if __name__ == '__main__':
+    main()
 
 
     #alpha = np.arctan(np.absolute(point.y - HIP_ORIGIN.y) / (L))

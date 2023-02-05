@@ -1,0 +1,254 @@
+[0.000000] (-) TimerEvent: {}
+[0.001756] (hexapod_interfaces) JobQueued: {'identifier': 'hexapod_interfaces', 'dependencies': OrderedDict()}
+[0.002468] (leg_controller) JobQueued: {'identifier': 'leg_controller', 'dependencies': OrderedDict([('hexapod_interfaces', '/home/pi/hexapod/install/hexapod_interfaces')])}
+[0.003796] (hexapod_interfaces) JobStarted: {'identifier': 'hexapod_interfaces'}
+[0.064092] (hexapod_interfaces) JobProgress: {'identifier': 'hexapod_interfaces', 'progress': 'cmake'}
+[0.067704] (hexapod_interfaces) JobProgress: {'identifier': 'hexapod_interfaces', 'progress': 'build'}
+[0.071090] (hexapod_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pi/hexapod/build/hexapod_interfaces', '--', '-j4', '-l4'], 'cwd': '/home/pi/hexapod/build/hexapod_interfaces', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '192.168.137.1 52382 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pi/hexapod/install/hexapod_interfaces/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/hexapod/src'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/hexapod/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/hexapod/install/hexapod_interfaces:/home/pi/hexapod/install/leg_controller:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/hexapod/build/hexapod_interfaces'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.137.1 52382 192.168.137.2 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages:/home/pi/hexapod/build/leg_controller:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/hexapod/install/hexapod_interfaces:/home/pi/hexapod/install/leg_controller:/opt/ros/humble')]), 'shell': False}
+[0.098920] (-) TimerEvent: {}
+[0.199772] (-) TimerEvent: {}
+[0.300811] (-) TimerEvent: {}
+[0.312497] (hexapod_interfaces) StdoutLine: {'line': b'[  3%] Built target hexapod_interfaces__cpp\n'}
+[0.319832] (hexapod_interfaces) StdoutLine: {'line': b'[ 12%] Built target hexapod_interfaces__rosidl_generator_c\n'}
+[0.396103] (hexapod_interfaces) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_hexapod_interfaces\n'}
+[0.400978] (-) TimerEvent: {}
+[0.430027] (hexapod_interfaces) StdoutLine: {'line': b'[ 32%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_cpp\n'}
+[0.431204] (hexapod_interfaces) StdoutLine: {'line': b'[ 32%] Built target hexapod_interfaces__rosidl_typesupport_introspection_cpp\n'}
+[0.433902] (hexapod_interfaces) StdoutLine: {'line': b'[ 41%] Built target hexapod_interfaces__rosidl_typesupport_cpp\n'}
+[0.501253] (-) TimerEvent: {}
+[0.556564] (hexapod_interfaces) StdoutLine: {'line': b'[ 51%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_c\n'}
+[0.593886] (hexapod_interfaces) StdoutLine: {'line': b'[ 61%] Built target hexapod_interfaces__rosidl_typesupport_introspection_c\n'}
+[0.601487] (-) TimerEvent: {}
+[0.611975] (hexapod_interfaces) StdoutLine: {'line': b'[ 70%] Built target hexapod_interfaces__rosidl_typesupport_c\n'}
+[0.701724] (-) TimerEvent: {}
+[0.707544] (hexapod_interfaces) StdoutLine: {'line': b'[ 70%] Built target hexapod_interfaces\n'}
+[0.801924] (-) TimerEvent: {}
+[0.803768] (hexapod_interfaces) StdoutLine: {'line': b'[ 74%] Built target hexapod_interfaces__py\n'}
+[0.902145] (-) TimerEvent: {}
+[0.905391] (hexapod_interfaces) StdoutLine: {'line': b'[ 80%] Built target hexapod_interfaces__rosidl_generator_py\n'}
+[1.002375] (-) TimerEvent: {}
+[1.028241] (hexapod_interfaces) StdoutLine: {'line': b'[ 87%] Built target hexapod_interfaces__rosidl_typesupport_c__pyext\n'}
+[1.036942] (hexapod_interfaces) StdoutLine: {'line': b'[ 93%] Built target hexapod_interfaces__rosidl_typesupport_introspection_c__pyext\n'}
+[1.062577] (hexapod_interfaces) StdoutLine: {'line': b'[100%] Built target hexapod_interfaces__rosidl_typesupport_fastrtps_c__pyext\n'}
+[1.102530] (-) TimerEvent: {}
+[1.203242] (-) TimerEvent: {}
+[1.303943] (-) TimerEvent: {}
+[1.404656] (-) TimerEvent: {}
+[1.505364] (-) TimerEvent: {}
+[1.606115] (-) TimerEvent: {}
+[1.706894] (-) TimerEvent: {}
+[1.803296] (hexapod_interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[1.805796] (hexapod_interfaces) StdoutLine: {'line': b'writing hexapod_interfaces.egg-info/PKG-INFO\n'}
+[1.806868] (hexapod_interfaces) StdoutLine: {'line': b'writing dependency_links to hexapod_interfaces.egg-info/dependency_links.txt\n'}
+[1.807451] (-) TimerEvent: {}
+[1.808262] (hexapod_interfaces) StdoutLine: {'line': b'writing top-level names to hexapod_interfaces.egg-info/top_level.txt\n'}
+[1.818872] (hexapod_interfaces) StdoutLine: {'line': b"reading manifest file 'hexapod_interfaces.egg-info/SOURCES.txt'\n"}
+[1.821773] (hexapod_interfaces) StdoutLine: {'line': b"writing manifest file 'hexapod_interfaces.egg-info/SOURCES.txt'\n"}
+[1.907764] (-) TimerEvent: {}
+[1.950335] (hexapod_interfaces) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_hexapod_interfaces_egg\n'}
+[1.997253] (hexapod_interfaces) CommandEnded: {'returncode': 0}
+[2.008014] (-) TimerEvent: {}
+[2.109005] (-) TimerEvent: {}
+[2.209864] (-) TimerEvent: {}
+[2.310747] (-) TimerEvent: {}
+[2.399088] (hexapod_interfaces) JobProgress: {'identifier': 'hexapod_interfaces', 'progress': 'install'}
+[2.410931] (-) TimerEvent: {}
+[2.433446] (hexapod_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/pi/hexapod/build/hexapod_interfaces'], 'cwd': '/home/pi/hexapod/build/hexapod_interfaces', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '192.168.137.1 52382 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pi/hexapod/install/hexapod_interfaces/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/hexapod/src'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/hexapod/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/hexapod/install/hexapod_interfaces:/home/pi/hexapod/install/leg_controller:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/hexapod/build/hexapod_interfaces'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.137.1 52382 192.168.137.2 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages:/home/pi/hexapod/build/leg_controller:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/hexapod/install/hexapod_interfaces:/home/pi/hexapod/install/leg_controller:/opt/ros/humble')]), 'shell': False}
+[2.471329] (hexapod_interfaces) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.472109] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/rosidl_interfaces/hexapod_interfaces\n'}
+[2.472809] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.473284] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.473831] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/target_angles.h\n'}
+[2.474294] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_generator_c__visibility_control.h\n'}
+[2.474769] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.475335] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.h\n'}
+[2.475833] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__functions.h\n'}
+[2.476388] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__functions.c\n'}
+[2.476822] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__struct.h\n'}
+[2.477175] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/library_path.sh\n'}
+[2.477546] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/library_path.dsv\n'}
+[2.478063] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_c.so\n'}
+[2.479018] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.479659] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.480175] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[2.480725] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.481243] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_fastrtps_c.h\n'}
+[2.482406] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_c.so\n'}
+[2.483777] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.484369] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.484888] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.485434] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.c\n'}
+[2.485875] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_introspection_c.h\n'}
+[2.486388] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[2.487355] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_c.so\n'}
+[2.489604] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_c.so\n'}
+[2.490854] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.491443] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.491952] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.493120] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__traits.hpp\n'}
+[2.493725] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__struct.hpp\n'}
+[2.494209] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__builder.hpp\n'}
+[2.494592] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/target_angles.hpp\n'}
+[2.495152] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.495596] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.496051] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[2.496527] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.496882] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.497244] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/dds_fastrtps\n'}
+[2.497765] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_fastrtps_cpp.so\n'}
+[2.498869] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces\n'}
+[2.499409] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg\n'}
+[2.499896] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail\n'}
+[2.500420] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.500975] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/include/hexapod_interfaces/hexapod_interfaces/msg/detail/target_angles__type_support.cpp\n'}
+[2.502095] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_introspection_cpp.so\n'}
+[2.504379] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_typesupport_cpp.so\n'}
+[2.505844] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/pythonpath.sh\n'}
+[2.506408] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/pythonpath.dsv\n'}
+[2.506976] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info\n'}
+[2.507462] (hexapod_interfaces) StdoutLine: {'line': b'-- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[2.508850] (hexapod_interfaces) StdoutLine: {'line': b'-- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[2.510318] (hexapod_interfaces) StdoutLine: {'line': b'-- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[2.511029] (-) TimerEvent: {}
+[2.511758] (hexapod_interfaces) StdoutLine: {'line': b'-- Installing: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[2.513437] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces\n'}
+[2.514041] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[2.514529] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/libhexapod_interfaces__rosidl_generator_py.so\n'}
+[2.515011] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg\n'}
+[2.515558] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/_target_angles_s.c\n'}
+[2.516042] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/_target_angles.py\n'}
+[2.516525] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg/__init__.py\n'}
+[2.517100] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.517557] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_c.c\n'}
+[2.518025] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.518581] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.519010] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/__init__.py\n'}
+[2.519459] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[2.611234] (-) TimerEvent: {}
+[2.682339] (hexapod_interfaces) StdoutLine: {'line': b"Listing '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces'...\n"}
+[2.684187] (hexapod_interfaces) StdoutLine: {'line': b"Listing '/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/msg'...\n"}
+[2.707155] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.709740] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.711351] (-) TimerEvent: {}
+[2.712433] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages/hexapod_interfaces/hexapod_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.714899] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/lib/libhexapod_interfaces__rosidl_generator_py.so\n'}
+[2.716434] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/msg/TargetAngles.idl\n'}
+[2.717126] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/msg/TargetAngles.msg\n'}
+[2.717682] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/package_run_dependencies/hexapod_interfaces\n'}
+[2.718207] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/parent_prefix_path/hexapod_interfaces\n'}
+[2.718814] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/ament_prefix_path.sh\n'}
+[2.719335] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/ament_prefix_path.dsv\n'}
+[2.719837] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/path.sh\n'}
+[2.720370] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/environment/path.dsv\n'}
+[2.721045] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.bash\n'}
+[2.721554] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.sh\n'}
+[2.722037] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.zsh\n'}
+[2.722439] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/local_setup.dsv\n'}
+[2.722811] (hexapod_interfaces) StdoutLine: {'line': b'-- Installing: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/package.dsv\n'}
+[2.723317] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/ament_index/resource_index/packages/hexapod_interfaces\n'}
+[2.724319] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cExport.cmake\n'}
+[2.724954] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cExport-noconfig.cmake\n'}
+[2.725752] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[2.726411] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[2.727269] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cExport.cmake\n'}
+[2.727848] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[2.728791] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cExport.cmake\n'}
+[2.729394] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[2.730250] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_cppExport.cmake\n'}
+[2.731177] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[2.731734] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[2.732746] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[2.733359] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[2.734264] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cppExport.cmake\n'}
+[2.734848] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfaces__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[2.735725] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_pyExport.cmake\n'}
+[2.736362] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/export_hexapod_interfaces__rosidl_generator_pyExport-noconfig.cmake\n'}
+[2.736927] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake-extras.cmake\n'}
+[2.737417] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[2.737911] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[2.738396] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[2.738876] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[2.739352] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[2.739961] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[2.740593] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfacesConfig.cmake\n'}
+[2.741120] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/cmake/hexapod_interfacesConfig-version.cmake\n'}
+[2.741529] (hexapod_interfaces) StdoutLine: {'line': b'-- Up-to-date: /home/pi/hexapod/install/hexapod_interfaces/share/hexapod_interfaces/package.xml\n'}
+[2.748367] (hexapod_interfaces) CommandEnded: {'returncode': 0}
+[2.812477] (-) TimerEvent: {}
+[2.920104] (-) TimerEvent: {}
+[3.020998] (-) TimerEvent: {}
+[3.121819] (-) TimerEvent: {}
+[3.222638] (-) TimerEvent: {}
+[3.307297] (hexapod_interfaces) JobEnded: {'identifier': 'hexapod_interfaces', 'rc': 0}
+[3.316076] (leg_controller) JobStarted: {'identifier': 'leg_controller'}
+[3.327246] (-) TimerEvent: {}
+[3.430567] (-) TimerEvent: {}
+[3.531615] (-) TimerEvent: {}
+[3.632346] (-) TimerEvent: {}
+[3.733104] (-) TimerEvent: {}
+[3.833819] (-) TimerEvent: {}
+[3.934542] (-) TimerEvent: {}
+[4.035259] (-) TimerEvent: {}
+[4.135955] (-) TimerEvent: {}
+[4.236692] (-) TimerEvent: {}
+[4.337441] (-) TimerEvent: {}
+[4.438612] (-) TimerEvent: {}
+[4.539357] (-) TimerEvent: {}
+[4.640338] (-) TimerEvent: {}
+[4.741513] (-) TimerEvent: {}
+[4.842306] (-) TimerEvent: {}
+[4.943106] (-) TimerEvent: {}
+[5.043868] (-) TimerEvent: {}
+[5.144711] (-) TimerEvent: {}
+[5.245398] (-) TimerEvent: {}
+[5.346152] (-) TimerEvent: {}
+[5.446880] (-) TimerEvent: {}
+[5.547588] (-) TimerEvent: {}
+[5.648375] (-) TimerEvent: {}
+[5.749101] (-) TimerEvent: {}
+[5.849790] (-) TimerEvent: {}
+[5.950690] (-) TimerEvent: {}
+[6.051889] (-) TimerEvent: {}
+[6.152631] (-) TimerEvent: {}
+[6.253706] (-) TimerEvent: {}
+[6.354679] (-) TimerEvent: {}
+[6.448654] (leg_controller) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/leg_controller', 'build', '--build-base', '/home/pi/hexapod/build/leg_controller/build', 'install', '--record', '/home/pi/hexapod/build/leg_controller/install.log', '--single-version-externally-managed'], 'cwd': '/home/pi/hexapod/src/leg_controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pi', 'SSH_CLIENT': '192.168.137.1 52382 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/pi/hexapod/install/hexapod_interfaces/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pi', 'OLDPWD': '/home/pi/hexapod/src', 'SSH_TTY': '/dev/pts/0', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/pi/hexapod/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/pi/hexapod/install/hexapod_interfaces:/home/pi/hexapod/install/leg_controller:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/pi/hexapod/build/leg_controller', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.137.1 52382 192.168.137.2 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pi/hexapod/build/leg_controller/prefix_override:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/home/pi/hexapod/install/hexapod_interfaces/local/lib/python3.10/dist-packages:/home/pi/hexapod/build/leg_controller:/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/pi/hexapod/install/hexapod_interfaces'}, 'shell': False}
+[6.459378] (-) TimerEvent: {}
+[6.560224] (-) TimerEvent: {}
+[6.661017] (-) TimerEvent: {}
+[6.761870] (-) TimerEvent: {}
+[6.862615] (-) TimerEvent: {}
+[6.963320] (-) TimerEvent: {}
+[7.064049] (-) TimerEvent: {}
+[7.164840] (-) TimerEvent: {}
+[7.265512] (-) TimerEvent: {}
+[7.366247] (-) TimerEvent: {}
+[7.467041] (-) TimerEvent: {}
+[7.567791] (-) TimerEvent: {}
+[7.666977] (leg_controller) StdoutLine: {'line': b'running egg_info\n'}
+[7.667809] (-) TimerEvent: {}
+[7.669735] (leg_controller) StdoutLine: {'line': b'writing ../../build/leg_controller/leg_controller.egg-info/PKG-INFO\n'}
+[7.670806] (leg_controller) StdoutLine: {'line': b'writing dependency_links to ../../build/leg_controller/leg_controller.egg-info/dependency_links.txt\n'}
+[7.671800] (leg_controller) StdoutLine: {'line': b'writing entry points to ../../build/leg_controller/leg_controller.egg-info/entry_points.txt\n'}
+[7.672859] (leg_controller) StdoutLine: {'line': b'writing requirements to ../../build/leg_controller/leg_controller.egg-info/requires.txt\n'}
+[7.673638] (leg_controller) StdoutLine: {'line': b'writing top-level names to ../../build/leg_controller/leg_controller.egg-info/top_level.txt\n'}
+[7.682805] (leg_controller) StdoutLine: {'line': b"reading manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'\n"}
+[7.687145] (leg_controller) StdoutLine: {'line': b"writing manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'\n"}
+[7.687884] (leg_controller) StdoutLine: {'line': b'running build\n'}
+[7.688526] (leg_controller) StdoutLine: {'line': b'running build_py\n'}
+[7.690742] (leg_controller) StdoutLine: {'line': b'running install\n'}
+[7.692146] (leg_controller) StdoutLine: {'line': b'running install_lib\n'}
+[7.699374] (leg_controller) StdoutLine: {'line': b'running install_data\n'}
+[7.701880] (leg_controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.709603] (leg_controller) StdoutLine: {'line': b"removing '/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[7.711446] (leg_controller) StdoutLine: {'line': b'Copying ../../build/leg_controller/leg_controller.egg-info to /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info\n'}
+[7.717354] (leg_controller) StdoutLine: {'line': b'running install_scripts\n'}
+[7.768066] (-) TimerEvent: {}
+[7.800834] (leg_controller) StdoutLine: {'line': b'Installing kin_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller\n'}
+[7.801862] (leg_controller) StdoutLine: {'line': b'Installing servo_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller\n'}
+[7.804108] (leg_controller) StdoutLine: {'line': b"writing list of installed files to '/home/pi/hexapod/build/leg_controller/install.log'\n"}
+[7.868397] (-) TimerEvent: {}
+[7.938153] (leg_controller) CommandEnded: {'returncode': 0}
+[7.973654] (-) TimerEvent: {}
+[7.988102] (leg_controller) JobEnded: {'identifier': 'leg_controller', 'rc': 0}
+[7.991346] (-) EventReactorShutdown: {}

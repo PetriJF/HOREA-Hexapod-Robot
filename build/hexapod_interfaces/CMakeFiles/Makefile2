@@ -175,14 +175,14 @@ CMakeFiles/hexapod_interfaces_uninstall.dir/clean:
 # Target rules for target CMakeFiles/hexapod_interfaces.dir
 
 # All Build rule for target.
+CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__cpp.dir/all
+CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_cpp.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_introspection_cpp.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_c.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_introspection_c.dir/all
 CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/all
-CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__cpp.dir/all
-CMakeFiles/hexapod_interfaces.dir/all: CMakeFiles/hexapod_interfaces__rosidl_typesupport_fastrtps_cpp.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hexapod_interfaces.dir/build.make CMakeFiles/hexapod_interfaces.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hexapod_interfaces.dir/build.make CMakeFiles/hexapod_interfaces.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num= "Built target hexapod_interfaces"

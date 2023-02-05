@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//The directory containing a CMake configuration file for <dependency>.
+<dependency>_DIR:PATH=<dependency>_DIR-NOTFOUND
+
 //Generate environment files in the CMAKE_INSTALL_PREFIX
 AMENT_CMAKE_ENVIRONMENT_GENERATION:BOOL=OFF
 

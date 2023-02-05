@@ -1,4 +1,4 @@
 [console_scripts]
-kin_node = leg_controller.inverseKinematics:main
+kin_node = leg_controller.pointToAngle:main
 servo_node = leg_controller.servoController:main
 

@@ -1,0 +1,26 @@
+running egg_info
+writing ../../build/leg_controller/leg_controller.egg-info/PKG-INFO
+writing dependency_links to ../../build/leg_controller/leg_controller.egg-info/dependency_links.txt
+writing entry points to ../../build/leg_controller/leg_controller.egg-info/entry_points.txt
+writing requirements to ../../build/leg_controller/leg_controller.egg-info/requires.txt
+writing top-level names to ../../build/leg_controller/leg_controller.egg-info/top_level.txt
+reading manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'
+writing manifest file '../../build/leg_controller/leg_controller.egg-info/SOURCES.txt'
+running build
+running build_py
+copying leg_controller/servoController.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
+copying leg_controller/pointToAngle.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
+running install
+running install_lib
+copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/servoController.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
+copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/pointToAngle.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
+byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servoController.py to servoController.cpython-310.pyc
+byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/pointToAngle.py to pointToAngle.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/leg_controller/leg_controller.egg-info to /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info
+running install_scripts
+Installing kin_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
+Installing servo_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
+writing list of installed files to '/home/pi/hexapod/build/leg_controller/install.log'
