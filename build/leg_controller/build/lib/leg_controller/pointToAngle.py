@@ -21,28 +21,29 @@ class inverseKinematics(Node):
         BASE_ALTITUDE = GAIT_ALTITUDE - point.z
         BASE_WIDTH = 65.0 # mm
 
+        self.get_logger().info("Leg origin: " + str(leg.originX) + " | " + str(leg.originY))
         # Distance from the leg origin to the point in a planar view
         D = np.sqrt((point.x - leg.originX) * (point.x - leg.originX) + (point.y - leg.originY) * (point.y - leg.originY))
         # Distance without the coxa
         L = D - COXA_LEN
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(BASE_ALTITUDE * BASE_ALTITUDE + L * L)
-        self.get_logger().info(str(D) + " | " + str(L) + " | " + str(Lprime))
+        self.get_logger().info("Kin Distances: " + str(D) + " | " + str(L) + " | " + str(Lprime))
 
         # (x, y) plane. z is projected on this plane
-        T = round(np.sqrt(point.x * point.x + point.y * point.y), 2)
+        T = np.sqrt(point.x * point.x + point.y * point.y)
         alphaPrime = np.arccos((D * D + BASE_WIDTH * BASE_WIDTH - T * T) / (2 * D * BASE_WIDTH))
-        alpha = 180.0 - round(np.rad2deg(alphaPrime), 2)
+        alpha = (np.rad2deg(alphaPrime) - 90.0)
 
         # (z, D) plane. x and y are projected on the D-plane
-        delta = round(np.arctan(BASE_ALTITUDE / L), 2)
-        beta = round(np.arccos((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime)), 2)
-        sigma = round(np.arccos((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN)), 2)
+        delta = np.arcsin(L / Lprime)
+        beta = np.arccos((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime))
+        sigma = np.arccos((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN))
 
-        tetha1 = np.rad2deg(beta - delta)
-        tetha2 = 180.0 - np.rad2deg(sigma) - 45.0 # Note that the 45 represents the assembly offset between the tibia and femur!
+        tetha1 = 180.0 -  np.rad2deg(beta + delta)
+        tetha2 = 90.0 + (180.0 - (np.rad2deg(sigma) + 45.0)) # Note that the 45 represents the assembly offset between the tibia and femur!
 
-        self.get_logger().info(str(alpha) + " | " + str(tetha1) + " | " + str(tetha2))
+        self.get_logger().info("Angles: " + str(alpha) + " | " + str(tetha1) + " | " + str(tetha2) + "\n")
 
         self.targetAngles.shoulder_angle[leg.index] = alpha
         self.targetAngles.hip_angle[leg.index] = tetha1
@@ -53,15 +54,34 @@ class inverseKinematics(Node):
 def main(args = None):
     rclpy.init(args = args)
     invKinNode = inverseKinematics()
+    
+    # test height movement
+    #for heigth in range(0,250):
+    #    invKinNode.getLegAngles(Point(200, 200, heigth), RF)
+    #    sleep(0.05)
 
-    invKinNode.getLegAngles(Point(135, 135, 0), RF)
-    sleep(2.0)
-    invKinNode.getLegAngles(Point(135, 135, 30), RF)
-    sleep(2.0)
-    invKinNode.getLegAngles(Point(135, 135, 60), RF)
-    sleep(2.0)
+    for length in range(150,250):
+        invKinNode.getLegAngles(Point(length, 200, 0), RF)
+        sleep(0.05)
 
-    rclpy.spin(invKinNode)
+    for width in range(150,250):
+        invKinNode.getLegAngles(Point(200, width, 0), RF)
+        sleep(0.05)
+
+    #invKinNode.getLegAngles(Point(180, 150, 0), RF)
+    #sleep(2.0)
+    #invKinNode.getLegAngles(Point(180, 180, 0), RF)
+    #sleep(2.0)
+    #invKinNode.getLegAngles(Point(180, 210, 0), RF)
+    #sleep(2.0)
+    #invKinNode.getLegAngles(Point(180, 240, 0), RF)
+    #sleep(2.0)
+    #invKinNode.getLegAngles(Point(135, 135, 30), RF)
+    #sleep(2.0)
+    #invKinNode.getLegAngles(Point(135, 135, 60), RF)
+    #sleep(2.0)
+
+    #rclpy.spin(invKinNode)
 
     rclpy.shutdown()
 
