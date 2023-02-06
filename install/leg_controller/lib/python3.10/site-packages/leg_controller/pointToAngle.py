@@ -18,7 +18,6 @@ class inverseKinematics(Node):
         FOOT_HEIGHT = 0
         TIBIA_LEN = 150 + FOOT_HEIGHT
         GAIT_ALTITUDE = 90
-        BASE_ALTITUDE = GAIT_ALTITUDE - point.z
         BASE_WIDTH = 65.0 # mm
 
         self.get_logger().info("Leg origin: " + str(leg.originX) + " | " + str(leg.originY))
@@ -26,8 +25,11 @@ class inverseKinematics(Node):
         D = np.sqrt((point.x - leg.originX) * (point.x - leg.originX) + (point.y - leg.originY) * (point.y - leg.originY))
         # Distance without the coxa
         L = D - COXA_LEN
+        # Triangle height from the input point and the desired gait altitude
+        A = point.z - GAIT_ALTITUDE
+    
         # Distance the origin to the tip of the leg
-        Lprime = np.sqrt(BASE_ALTITUDE * BASE_ALTITUDE + L * L)
+        Lprime = np.sqrt(A * A + L * L)
         self.get_logger().info("Kin Distances: " + str(D) + " | " + str(L) + " | " + str(Lprime))
 
         # (x, y) plane. z is projected on this plane
@@ -40,7 +42,9 @@ class inverseKinematics(Node):
         beta = np.arccos((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime))
         sigma = np.arccos((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN))
 
-        tetha1 = 180.0 -  np.rad2deg(beta + delta)
+        
+        tetha1 = 180.0 - np.rad2deg(beta + delta) if point.z < GAIT_ALTITUDE else np.rad2deg(delta - beta)
+        
         tetha2 = 90.0 + (180.0 - (np.rad2deg(sigma) + 45.0)) # Note that the 45 represents the assembly offset between the tibia and femur!
 
         self.get_logger().info("Angles: " + str(alpha) + " | " + str(tetha1) + " | " + str(tetha2) + "\n")
@@ -56,17 +60,17 @@ def main(args = None):
     invKinNode = inverseKinematics()
     
     # test height movement
-    #for heigth in range(0,250):
-    #    invKinNode.getLegAngles(Point(200, 200, heigth), RF)
+    for heigth in range(0,250):
+        invKinNode.getLegAngles(Point(200, 200, heigth), RF)
+        sleep(0.05)
+
+    #for length in range(150,250):
+    #    invKinNode.getLegAngles(Point(length, 200, 0), RF)
     #    sleep(0.05)
 
-    for length in range(150,250):
-        invKinNode.getLegAngles(Point(length, 200, 0), RF)
-        sleep(0.05)
-
-    for width in range(150,250):
-        invKinNode.getLegAngles(Point(200, width, 0), RF)
-        sleep(0.05)
+    #for width in range(150,250):
+    #    invKinNode.getLegAngles(Point(200, width, 0), RF)
+    #    sleep(0.05)
 
     #invKinNode.getLegAngles(Point(180, 150, 0), RF)
     #sleep(2.0)
