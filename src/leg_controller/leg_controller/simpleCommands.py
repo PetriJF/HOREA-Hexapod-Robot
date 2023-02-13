@@ -79,8 +79,8 @@ class ControlNode(Node):
         # Publish the initial position
         self.hexPositions.publish(self.targetPositions)
 
-    def hexStandPosition(self, raiseTime = 5.0, raiseResolution = 1.0):
-        GAIT_WIDTH = 200.0
+    def hexStandPosition(self, raiseTime = 5.0, raiseResolution = 1.0, lower = False):
+        GAIT_WIDTH = 300.0
         GAIT_HEIGHT = 90.0
 
         # Setting the coordingates of all the points
@@ -102,9 +102,14 @@ class ControlNode(Node):
         ]
 
         for height in np.arange(0.0, GAIT_HEIGHT + 1, raiseResolution):
-            H = GAIT_HEIGHT - height
+            # if lower is true, we are ascending the legs, if not, descending
+            H = height if (lower == True) else GAIT_HEIGHT - height
+
+            # set the z positions of the legs and publish them
             self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
             self.hexPositions.publish(self.targetPositions)
+
+            # control the speed of the standing transition
             sleep(raiseTime / ((1.0 / raiseResolution) * (GAIT_HEIGHT + 1)))
 
 
@@ -112,12 +117,28 @@ def main(args = None):
     rclpy.init(args = args)
     ctrl = ControlNode()
     
-    ctrl.hexInitPosition()
-    sleep(5.0)
-    ctrl.hexZeroPosition()
-    sleep(2.0)
-    ctrl.hexStandPosition()
+    print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
+    
+    userInput = input("\nEnter command: ")
 
+    while userInput != 'c':
+        if (userInput == '1'):
+            ctrl.hexInitPosition()
+            print("Legs Up Pose")
+        elif (userInput == '2'):
+            ctrl.hexZeroPosition()
+            print("Legs userInput Stand Prep Pose")
+        elif (userInput == '3'):
+            ctrl.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0)
+            print("Robot Raising!!")
+        elif (userInput == '4'):
+            ctrl.hexStandPosition(raiseTime = 2.5, lower = True)
+            print("Robot Lowering!!")
+        else:
+            print("Wrong command")
+        
+        userInput = input("\nEnter command: ")
+     
     rclpy.shutdown()
 
 if __name__ == '__main__':
