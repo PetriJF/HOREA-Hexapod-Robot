@@ -13,6 +13,7 @@ running build_py
 creating /home/pi/hexapod/build/leg_controller/build
 creating /home/pi/hexapod/build/leg_controller/build/lib
 creating /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
+copying leg_controller/simpleCommands.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
 copying leg_controller/legInfo.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
 copying leg_controller/servoController.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
 copying leg_controller/motorControlDemo.py -> /home/pi/hexapod/build/leg_controller/build/lib/leg_controller
@@ -21,11 +22,13 @@ copying leg_controller/__init__.py -> /home/pi/hexapod/build/leg_controller/buil
 running install
 running install_lib
 creating /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
+copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/simpleCommands.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
 copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/legInfo.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
 copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/servoController.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
 copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/motorControlDemo.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
 copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/pointToAngle.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
 copying /home/pi/hexapod/build/leg_controller/build/lib/leg_controller/__init__.py -> /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller
+byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/simpleCommands.py to simpleCommands.cpython-310.pyc
 byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/legInfo.py to legInfo.cpython-310.pyc
 byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servoController.py to servoController.cpython-310.pyc
 byte-compiling /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/motorControlDemo.py to motorControlDemo.cpython-310.pyc
@@ -40,6 +43,7 @@ copying package.xml -> /home/pi/hexapod/install/leg_controller/share/leg_control
 running install_egg_info
 Copying ../../build/leg_controller/leg_controller.egg-info to /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info
 running install_scripts
+Installing ctrl_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
 Installing kin_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
 Installing servo_node script to /home/pi/hexapod/install/leg_controller/lib/leg_controller
 writing list of installed files to '/home/pi/hexapod/build/leg_controller/install.log'

@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             "servo_node = leg_controller.servoController:main",
-            "kin_node = leg_controller.pointToAngle:main"
+            "kin_node = leg_controller.pointToAngle:main",
+            "ctrl_node = leg_controller.simpleCommands:main"
         ],
     },
 )

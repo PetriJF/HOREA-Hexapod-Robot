@@ -10,12 +10,11 @@ class hexMotorControl(Node):
     def __init__(self):
         super().__init__("hex_legs_controller")
         
-        self.kitL = ServoKit(channels=16, address=65) # 41 in hex
-        self.kitL.servo[0].set_pulse_width_range(500, 2500)
+        self.kitL = ServoKit(channels=16, address=66) # 42 in hex
         
-        self.kitR = ServoKit(channels=16, address=66) # 42 in hex
-        self.kitR.servo[0].set_pulse_width_range(500, 2500)
-        for i in range(0, 9):
+        self.kitR = ServoKit(channels=16, address=65) # 41 in hex
+        
+        for i in range(0, 16):
             self.kitL.servo[i].set_pulse_width_range(500, 2500)
             self.kitR.servo[i].set_pulse_width_range(500, 2500)
         
@@ -53,7 +52,7 @@ def main(args = None):
     #node.setLegServoAngles(LB, 30, 90, 90)
     #node.setLegServoAngles(RB, 90, 90+30, 90+60)
     #sleep(2.0)
-
+    
     #node.setLegServoAngles(LB, 90 + 45, 90 + 45, 90 + 45)
     #node.setLegServoAngles(RB, 90 + 45, 90 + 45, 90 + 45)
     #sleep(2.0)
@@ -61,6 +60,19 @@ def main(args = None):
     #node.setLegServoAngles(LB, 90 - 45, 90 - 45, 90 - 45)
     #sleep(2.0)
     
+    #node.setLegServoAngles(LB, 90, 0, 45)
+    #input("Press Enter to continue...")
+    #node.setLegServoAngles(LM, 90, 0, 45)
+    #input("Press Enter to continue...")
+    #node.setLegServoAngles(LF, 90, 0, 45)
+    #input("Press Enter to continue...")
+    #node.setLegServoAngles(RB, 90, 0, 45)
+    #input("Press Enter to continue...")
+    #node.setLegServoAngles(RM, 90, 0, 45)
+    #input("Press Enter to continue...")
+    #node.setLegServoAngles(RF, 90, 0, 45)
+    #input("Press Enter to continue...")
+
     rclpy.spin(node) # keep node alive 
 
     # End Node

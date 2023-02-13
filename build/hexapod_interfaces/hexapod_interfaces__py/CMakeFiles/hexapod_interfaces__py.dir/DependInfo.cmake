@@ -17,6 +17,8 @@ set(CMAKE_MULTIPLE_OUTPUT_PAIRS
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/msg/__init__.py" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   )
 
 

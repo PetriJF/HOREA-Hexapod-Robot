@@ -67,6 +67,7 @@ include CMakeFiles/hexapod_interfaces.dir/compiler_depend.make
 include CMakeFiles/hexapod_interfaces.dir/progress.make
 
 CMakeFiles/hexapod_interfaces: /home/pi/hexapod/src/hexapod_interfaces/msg/TargetAngles.msg
+CMakeFiles/hexapod_interfaces: /home/pi/hexapod/src/hexapod_interfaces/msg/TargetPositions.msg
 
 hexapod_interfaces: CMakeFiles/hexapod_interfaces
 hexapod_interfaces: CMakeFiles/hexapod_interfaces.dir/build.make

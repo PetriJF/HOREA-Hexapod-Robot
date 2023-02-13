@@ -13,6 +13,7 @@ leg_controller/legInfo.py
 leg_controller/motorControlDemo.py
 leg_controller/pointToAngle.py
 leg_controller/servoController.py
+leg_controller/simpleCommands.py
 resource/leg_controller
 test/test_copyright.py
 test/test_flake8.py

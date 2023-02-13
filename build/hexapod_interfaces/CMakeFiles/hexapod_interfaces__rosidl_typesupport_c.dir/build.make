@@ -76,8 +76,12 @@ rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp: /op
 rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp: /opt/ros/humble/share/rosidl_typesupport_c/resource/msg__type_support.cpp.em
 rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp: /opt/ros/humble/share/rosidl_typesupport_c/resource/srv__type_support.cpp.em
 rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp: rosidl_adapter/hexapod_interfaces/msg/TargetAngles.idl
+rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp: rosidl_adapter/hexapod_interfaces/msg/TargetPositions.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C type support dispatch for ROS interfaces"
 	/usr/bin/python3.10 /opt/ros/humble/lib/rosidl_typesupport_c/rosidl_typesupport_c --generator-arguments-file /home/pi/hexapod/build/hexapod_interfaces/rosidl_typesupport_c__arguments.json --typesupports rosidl_typesupport_fastrtps_c rosidl_typesupport_introspection_c
+
+rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp: rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp
 
 CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/flags.make
 CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o: rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp
@@ -93,21 +97,37 @@ CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hex
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/hexapod/build/hexapod_interfaces/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp -o CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.s
 
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o: rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o -MF CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o.d -o CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o -c /home/pi/hexapod/build/hexapod_interfaces/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp
+
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/hexapod/build/hexapod_interfaces/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp > CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.i
+
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/hexapod/build/hexapod_interfaces/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp -o CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.s
+
 # Object files for target hexapod_interfaces__rosidl_typesupport_c
 hexapod_interfaces__rosidl_typesupport_c_OBJECTS = \
-"CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o"
+"CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o" \
+"CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o"
 
 # External object files for target hexapod_interfaces__rosidl_typesupport_c
 hexapod_interfaces__rosidl_typesupport_c_EXTERNAL_OBJECTS =
 
 libhexapod_interfaces__rosidl_typesupport_c.so: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp.o
+libhexapod_interfaces__rosidl_typesupport_c.so: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp.o
 libhexapod_interfaces__rosidl_typesupport_c.so: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/build.make
 libhexapod_interfaces__rosidl_typesupport_c.so: libhexapod_interfaces__rosidl_generator_c.so
 libhexapod_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/librosidl_typesupport_c.so
 libhexapod_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libhexapod_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/librcutils.so
 libhexapod_interfaces__rosidl_typesupport_c.so: CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libhexapod_interfaces__rosidl_typesupport_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libhexapod_interfaces__rosidl_typesupport_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -119,6 +139,7 @@ CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/clean:
 .PHONY : CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/clean
 
 CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/hexapod_interfaces/msg/target_angles__type_support.cpp
+CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/hexapod_interfaces/msg/target_positions__type_support.cpp
 	cd /home/pi/hexapod/build/hexapod_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pi/hexapod/src/hexapod_interfaces /home/pi/hexapod/src/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces/CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/hexapod_interfaces__rosidl_typesupport_c.dir/depend
 

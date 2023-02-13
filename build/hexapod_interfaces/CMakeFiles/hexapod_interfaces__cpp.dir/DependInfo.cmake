@@ -15,6 +15,10 @@ set(CMAKE_MULTIPLE_OUTPUT_PAIRS
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__builder.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__struct.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
   "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__traits.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__builder.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__struct.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__traits.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
+  "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_positions.hpp" "/home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp"
   )
 
 

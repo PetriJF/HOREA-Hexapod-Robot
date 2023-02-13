@@ -70,8 +70,10 @@ hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/he
 hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_introspection_c.c
 hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_c.c
 hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py
+hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py
 hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/__init__.py
 hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c
+hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c
 
 rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/lib/rosidl_generator_py/rosidl_generator_py
 rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_generator_py/__init__.py
@@ -87,6 +89,7 @@ rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesuppo
 rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/rosidl_generator_py/resource/_srv_pkg_typesupport_entry_point.c.em
 rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/rosidl_generator_py/resource/_srv.py.em
 rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/hexapod_interfaces/msg/TargetAngles.idl
+rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/hexapod_interfaces/msg/TargetPositions.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code for ROS interfaces"
 	cd /home/pi/hexapod/build/hexapod_interfaces/hexapod_interfaces__py && /usr/bin/python3 /opt/ros/humble/share/rosidl_generator_py/cmake/../../../lib/rosidl_generator_py/rosidl_generator_py --generator-arguments-file /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_py__arguments.json --typesupport-impls "rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c;rosidl_typesupport_c"
 
@@ -99,11 +102,17 @@ rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesuppo
 rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py
 
+rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py
+
 rosidl_generator_py/hexapod_interfaces/msg/__init__.py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/hexapod_interfaces/msg/__init__.py
 
 rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c
+
+rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c
 
 hexapod_interfaces__py: hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py
 hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfaces_s.ep.rosidl_typesupport_c.c
@@ -112,6 +121,8 @@ hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/_hexapod_interfac
 hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/__init__.py
 hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py
 hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c
+hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py
+hexapod_interfaces__py: rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c
 hexapod_interfaces__py: hexapod_interfaces__py/CMakeFiles/hexapod_interfaces__py.dir/build.make
 .PHONY : hexapod_interfaces__py
 

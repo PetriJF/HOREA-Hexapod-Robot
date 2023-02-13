@@ -83,6 +83,7 @@ rosidl_generator_c/hexapod_interfaces/msg/target_angles.h: /opt/ros/humble/share
 rosidl_generator_c/hexapod_interfaces/msg/target_angles.h: /opt/ros/humble/share/rosidl_generator_c/resource/msg__type_support.h.em
 rosidl_generator_c/hexapod_interfaces/msg/target_angles.h: /opt/ros/humble/share/rosidl_generator_c/resource/srv__type_support.h.em
 rosidl_generator_c/hexapod_interfaces/msg/target_angles.h: rosidl_adapter/hexapod_interfaces/msg/TargetAngles.idl
+rosidl_generator_c/hexapod_interfaces/msg/target_angles.h: rosidl_adapter/hexapod_interfaces/msg/TargetPositions.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C code for ROS interfaces"
 	/usr/bin/python3.10 /opt/ros/humble/share/rosidl_generator_c/cmake/../../../lib/rosidl_generator_c/rosidl_generator_c --generator-arguments-file /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_c__arguments.json
 
@@ -95,8 +96,23 @@ rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__struct.h: rosidl
 rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__type_support.h: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__type_support.h
 
+rosidl_generator_c/hexapod_interfaces/msg/target_positions.h: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/target_positions.h
+
+rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.h: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.h
+
+rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__struct.h: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__struct.h
+
+rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__type_support.h: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__type_support.h
+
 rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c
+
+rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c
 
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/flags.make
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o: rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c
@@ -112,19 +128,35 @@ CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c -o CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.s
 
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/flags.make
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o: rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o -MF CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o.d -o CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o -c /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c
+
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c > CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.i
+
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c -o CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.s
+
 # Object files for target hexapod_interfaces__rosidl_generator_c
 hexapod_interfaces__rosidl_generator_c_OBJECTS = \
-"CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o"
+"CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o" \
+"CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o"
 
 # External object files for target hexapod_interfaces__rosidl_generator_c
 hexapod_interfaces__rosidl_generator_c_EXTERNAL_OBJECTS =
 
 libhexapod_interfaces__rosidl_generator_c.so: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.c.o
+libhexapod_interfaces__rosidl_generator_c.so: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c.o
 libhexapod_interfaces__rosidl_generator_c.so: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/build.make
 libhexapod_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libhexapod_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/librcutils.so
 libhexapod_interfaces__rosidl_generator_c.so: CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C shared library libhexapod_interfaces__rosidl_generator_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C shared library libhexapod_interfaces__rosidl_generator_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -139,7 +171,12 @@ CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__functions.h
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__struct.h
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_angles__type_support.h
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.c
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__functions.h
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__struct.h
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/detail/target_positions__type_support.h
 CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/target_angles.h
+CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/hexapod_interfaces/msg/target_positions.h
 	cd /home/pi/hexapod/build/hexapod_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pi/hexapod/src/hexapod_interfaces /home/pi/hexapod/src/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces /home/pi/hexapod/build/hexapod_interfaces/CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/hexapod_interfaces__rosidl_generator_c.dir/depend
 

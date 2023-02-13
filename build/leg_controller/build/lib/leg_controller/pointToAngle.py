@@ -3,15 +3,29 @@ from rclpy.node import Node
 import numpy as np
 from time import *
 from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, Point, legReferencing
-from hexapod_interfaces.msg import TargetAngles
+from hexapod_interfaces.msg import TargetAngles, TargetPositions
 
 class inverseKinematics(Node):    
+    ## Node Constructor
     def __init__(self):
         super().__init__("inverse_kinematics_node")
         self.targetAngles = TargetAngles()
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
+        self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
 
-    def getLegAngles(self, point = Point, leg = legReferencing):
+    ## This function takes the position subscription and publishes the computed angles
+    def posCallback(self, hexPos = TargetPositions):
+        self.getLegAngles(Point(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), RF)
+        self.getLegAngles(Point(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), RM)
+        self.getLegAngles(Point(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), RB)
+        self.getLegAngles(Point(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), LB)
+        self.getLegAngles(Point(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), LM)
+        self.getLegAngles(Point(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), LF)
+
+        self.angles.publish(self.targetAngles)
+
+    ## Function solving the inverse kinematic model for a given specific leg and point 
+    def getLegAngles(self, point = Point, leg = legReferencing, publish = False):
         # Constants
         COXA_LEN = 71.5
         FEMUR_LEN = 100.02
@@ -34,73 +48,58 @@ class inverseKinematics(Node):
 
         # (x, y) plane. z is projected on this plane
         T = np.sqrt(point.x * point.x + point.y * point.y)
-        alphaPrime = np.arccos((D * D + BASE_WIDTH * BASE_WIDTH - T * T) / (2 * D * BASE_WIDTH))
-        alpha = (np.rad2deg(alphaPrime) - 90.0)
+        alphaPrime = np.arccos(self.limiter((D * D + BASE_WIDTH * BASE_WIDTH - T * T) / (2 * D * BASE_WIDTH), -1.0, 1.0))
+        alpha = self.limiter(np.rad2deg(alphaPrime) - 90.0)
 
         # (z, D) plane. x and y are projected on the D-plane
         delta = np.arcsin(L / Lprime)
-        beta = np.arccos((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime))
-        sigma = np.arccos((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN))
+        beta = np.arccos(self.limiter((TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN - Lprime * Lprime) / (-2.0 * FEMUR_LEN * Lprime), -1.0, 1.0))
+        sigma = np.arccos(self.limiter((Lprime * Lprime - FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (-2.0 * FEMUR_LEN * TIBIA_LEN), -1.0, 1.0))
 
-        
-        tetha1 = 180.0 - np.rad2deg(beta + delta) if point.z < GAIT_ALTITUDE else np.rad2deg(delta - beta)
-        
-        tetha2 = 90.0 + (180.0 - (np.rad2deg(sigma) + 45.0)) # Note that the 45 represents the assembly offset between the tibia and femur!
+        # There are two cases as the triangle switches side when the leg goes over the robot's base level
+        tetha1 = self.limiter(180.0 - np.rad2deg(beta + delta) if point.z < GAIT_ALTITUDE else np.rad2deg(delta - beta))
+        tetha2 = self.limiter(90.0 + (180.0 - (np.rad2deg(sigma) + 45.0))) # Note that the 45 represents the assembly offset between the tibia and femur!
 
         self.get_logger().info("Angles: " + str(alpha) + " | " + str(tetha1) + " | " + str(tetha2) + "\n")
 
+        # Setting the target angles for the leg the inverse kinematics were computed for
         self.targetAngles.shoulder_angle[leg.index] = alpha
         self.targetAngles.hip_angle[leg.index] = tetha1
         self.targetAngles.knee_angle[leg.index] = tetha2
 
-        self.angles.publish(self.targetAngles)
+        # If we want to publish from here, publish must be set to true
+        if (publish == True):
+            self.angles.publish(self.targetAngles)
+
+    ## Simple function to set the limits of the angles for the servos in order to not get out of bounds or to limit the servo movement. Also used to keep trig values within ranges
+    def limiter(self, value, minLimit = 0.0, maxLimit = 180.0):
+        if value > maxLimit:
+            value = maxLimit
+        if value < minLimit:
+            value = minLimit
+
+        return value
 
 def main(args = None):
     rclpy.init(args = args)
     invKinNode = inverseKinematics()
     
     # test height movement
-    for heigth in range(0,250):
-        invKinNode.getLegAngles(Point(200, 200, heigth), RF)
-        sleep(0.05)
+    #for heigth in range(0,250):
+    #    invKinNode.getLegAngles(Point(200, 200, heigth), RF)
+    #    sleep(0.01)
 
     #for length in range(150,250):
     #    invKinNode.getLegAngles(Point(length, 200, 0), RF)
-    #    sleep(0.05)
+    #    sleep(0.01)
 
     #for width in range(150,250):
     #    invKinNode.getLegAngles(Point(200, width, 0), RF)
-    #    sleep(0.05)
+    #    sleep(0.01)
 
-    #invKinNode.getLegAngles(Point(180, 150, 0), RF)
-    #sleep(2.0)
-    #invKinNode.getLegAngles(Point(180, 180, 0), RF)
-    #sleep(2.0)
-    #invKinNode.getLegAngles(Point(180, 210, 0), RF)
-    #sleep(2.0)
-    #invKinNode.getLegAngles(Point(180, 240, 0), RF)
-    #sleep(2.0)
-    #invKinNode.getLegAngles(Point(135, 135, 30), RF)
-    #sleep(2.0)
-    #invKinNode.getLegAngles(Point(135, 135, 60), RF)
-    #sleep(2.0)
-
-    #rclpy.spin(invKinNode)
+    rclpy.spin(invKinNode)
 
     rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
-
-
-    #alpha = np.arctan(np.absolute(point.y - HIP_ORIGIN.y) / (L))
-    #beta = np.arccos((D * D + FEMUR_LEN * FEMUR_LEN - TIBIA_LEN * TIBIA_LEN) / (2 * FEMUR_LEN * D))
-    #gamma = np.arccos((FEMUR_LEN *FEMUR_LEN + TIBIA_LEN * TIBIA_LEN - D * D) / (2 * FEMUR_LEN * TIBIA_LEN))
-    #print(alpha, beta, gamma, np.degrees(alpha), np.degrees(beta), np.degrees(beta-alpha))
-
-    #tetha = np.degrees(np.arctan((point.z - HIP_ORIGIN.z) / (point.x - HIP_ORIGIN.x)))
-    #tetha1 = 180 - np.degrees(beta + alpha)
-    #tetha2 = 180 - np.degrees(gamma)
-    #tetha = np.degrees(np.arctan((point.z - HIP_ORIGIN.z) / (point.x - HIP_ORIGIN.x)))
-    #tetha1 = np.degrees(np.pi / 2 - (np.arccos((TIBIA_LEN*TIBIA_LEN - FEMUR_LEN*FEMUR_LEN - L2*L2) / (-2 * FEMUR_LEN * L2)) - alpha))
-    #tetha2 =  np.degrees(np.pi -np.arccos((L2*L2 - FEMUR_LEN*FEMUR_LEN - TIBIA_LEN*TIBIA_LEN) / (-2 * FEMUR_LEN * TIBIA_LEN)))

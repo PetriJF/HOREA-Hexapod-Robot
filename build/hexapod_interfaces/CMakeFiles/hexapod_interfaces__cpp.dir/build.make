@@ -70,6 +70,10 @@ CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/
 CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__builder.hpp
 CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__struct.hpp
 CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__traits.hpp
+CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_positions.hpp
+CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__builder.hpp
+CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__struct.hpp
+CMakeFiles/hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__traits.hpp
 
 rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: /opt/ros/humble/lib/rosidl_generator_cpp/rosidl_generator_cpp
 rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: /opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_generator_cpp/__init__.py
@@ -87,6 +91,7 @@ rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: /opt/ros/humble/s
 rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: /opt/ros/humble/share/rosidl_generator_cpp/resource/srv__struct.hpp.em
 rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: /opt/ros/humble/share/rosidl_generator_cpp/resource/srv__traits.hpp.em
 rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: rosidl_adapter/hexapod_interfaces/msg/TargetAngles.idl
+rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp: rosidl_adapter/hexapod_interfaces/msg/TargetPositions.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pi/hexapod/build/hexapod_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
 	/usr/bin/python3.10 /opt/ros/humble/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/pi/hexapod/build/hexapod_interfaces/rosidl_generator_cpp__arguments.json
 
@@ -99,11 +104,27 @@ rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__struct.hpp: ro
 rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__traits.hpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__traits.hpp
 
+rosidl_generator_cpp/hexapod_interfaces/msg/target_positions.hpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/hexapod_interfaces/msg/target_positions.hpp
+
+rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__builder.hpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__builder.hpp
+
+rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__struct.hpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__struct.hpp
+
+rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__traits.hpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__traits.hpp
+
 hexapod_interfaces__cpp: CMakeFiles/hexapod_interfaces__cpp
 hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__builder.hpp
 hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__struct.hpp
 hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_angles__traits.hpp
+hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__builder.hpp
+hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__struct.hpp
+hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/detail/target_positions__traits.hpp
 hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_angles.hpp
+hexapod_interfaces__cpp: rosidl_generator_cpp/hexapod_interfaces/msg/target_positions.hpp
 hexapod_interfaces__cpp: CMakeFiles/hexapod_interfaces__cpp.dir/build.make
 .PHONY : hexapod_interfaces__cpp
 

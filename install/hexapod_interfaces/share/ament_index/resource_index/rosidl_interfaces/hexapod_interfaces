@@ -1,2 +1,4 @@
 msg/TargetAngles.idl
 msg/TargetAngles.msg
+msg/TargetPositions.idl
+msg/TargetPositions.msg

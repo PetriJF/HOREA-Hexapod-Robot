@@ -1,6 +1,7 @@
 {
   "package_name": "hexapod_interfaces",
   "non_idl_tuples": [
-    "/home/pi/hexapod/src/hexapod_interfaces:msg/TargetAngles.msg"
+    "/home/pi/hexapod/src/hexapod_interfaces:msg/TargetAngles.msg",
+    "/home/pi/hexapod/src/hexapod_interfaces:msg/TargetPositions.msg"
   ]
 }

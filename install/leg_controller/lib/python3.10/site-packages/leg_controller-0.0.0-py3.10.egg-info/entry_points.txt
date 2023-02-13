@@ -1,4 +1,5 @@
 [console_scripts]
+ctrl_node = leg_controller.simpleCommands:main
 kin_node = leg_controller.pointToAngle:main
 servo_node = leg_controller.servoController:main
 

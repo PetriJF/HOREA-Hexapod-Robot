@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/hexapod_interfaces/msg/__init__.py"
   "../rosidl_generator_py/hexapod_interfaces/msg/_target_angles.py"
   "../rosidl_generator_py/hexapod_interfaces/msg/_target_angles_s.c"
+  "../rosidl_generator_py/hexapod_interfaces/msg/_target_positions.py"
+  "../rosidl_generator_py/hexapod_interfaces/msg/_target_positions_s.c"
   "CMakeFiles/hexapod_interfaces__py"
 )
 

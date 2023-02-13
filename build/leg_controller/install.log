@@ -1,8 +1,10 @@
+/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/simpleCommands.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/legInfo.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/servoController.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/motorControlDemo.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/pointToAngle.py
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__init__.py
+/home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/simpleCommands.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/legInfo.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/servoController.cpython-310.pyc
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller/__pycache__/motorControlDemo.cpython-310.pyc
@@ -17,5 +19,6 @@
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info/requires.txt
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info/SOURCES.txt
 /home/pi/hexapod/install/leg_controller/lib/python3.10/site-packages/leg_controller-0.0.0-py3.10.egg-info/zip-safe
+/home/pi/hexapod/install/leg_controller/lib/leg_controller/ctrl_node
 /home/pi/hexapod/install/leg_controller/lib/leg_controller/kin_node
 /home/pi/hexapod/install/leg_controller/lib/leg_controller/servo_node

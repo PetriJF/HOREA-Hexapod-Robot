@@ -1,9 +1,12 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hexapod_interfaces/msg/target_angles__type_support.cpp.o"
   "CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hexapod_interfaces/msg/target_angles__type_support.cpp.o.d"
+  "CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hexapod_interfaces/msg/target_positions__type_support.cpp.o"
+  "CMakeFiles/hexapod_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hexapod_interfaces/msg/target_positions__type_support.cpp.o.d"
   "libhexapod_interfaces__rosidl_typesupport_cpp.pdb"
   "libhexapod_interfaces__rosidl_typesupport_cpp.so"
   "rosidl_typesupport_cpp/hexapod_interfaces/msg/target_angles__type_support.cpp"
+  "rosidl_typesupport_cpp/hexapod_interfaces/msg/target_positions__type_support.cpp"
 )
 
 # Per-language clean rules from dependency scanning.
