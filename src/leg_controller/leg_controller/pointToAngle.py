@@ -44,9 +44,9 @@ class inverseKinematics(Node):
         gait_altitude_ = self.get_parameter("gait_altitude").value
         base_width_ = self.get_parameter("base_width").value
 
-        self.get_logger().info("Leg origin: " + str(leg.originX) + " | " + str(leg.originY))
+        self.get_logger().info("Leg origin: " + str(leg.origin_x) + " | " + str(leg.origin_y))
         # Distance from the leg origin to the point in a planar view
-        D = np.sqrt((point.x - leg.originX) * (point.x - leg.originX) + (point.y - leg.originY) * (point.y - leg.originY))
+        D = np.sqrt((point.x - leg.origin_x) * (point.x - leg.origin_x) + (point.y - leg.origin_y) * (point.y - leg.origin_y))
         # Distance without the coxa
         L = D - coxa_len_
         # Triangle height from the input point and the desired gait altitude

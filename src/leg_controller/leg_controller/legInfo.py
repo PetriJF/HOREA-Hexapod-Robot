@@ -18,13 +18,13 @@ class legReferencing:
     side: bool
     
     # Origin representation
-    originX: float
-    originY: float
+    origin_x: float
+    origin_y: float
 
     # Represents the port on the board for each motor of a leg
-    hip: int
-    shoulder: int
-    knee: int
+    hip_port: int
+    shoulder_port: int
+    knee_port: int
 
     # Simple description of the leg
     index: int

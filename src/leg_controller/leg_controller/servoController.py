@@ -11,7 +11,6 @@ class hexMotorControl(Node):
         super().__init__("hex_legs_controller")
         
         self.kitL = ServoKit(channels=16, address=66) # 42 in hex
-        
         self.kitR = ServoKit(channels=16, address=65) # 41 in hex
         
         for i in range(0, 16):
@@ -31,14 +30,14 @@ class hexMotorControl(Node):
 
     def setLegServoAngles(self, legRef=legReferencing, hipAngle=float, shoulderAngle=float, kneeAngle=float):
         if legRef.side == False:
-            self.kitL.servo[legRef.hip].angle = hipAngle
-            self.kitL.servo[legRef.shoulder].angle = shoulderAngle
-            self.kitL.servo[legRef.knee].angle = kneeAngle 
+            self.kitL.servo[legRef.hip_port].angle = hipAngle
+            self.kitL.servo[legRef.shoulder_port].angle = shoulderAngle
+            self.kitL.servo[legRef.knee_port].angle = kneeAngle 
 
         elif legRef.side == True:
-            self.kitR.servo[legRef.hip].angle = hipAngle
-            self.kitR.servo[legRef.shoulder].angle = shoulderAngle
-            self.kitR.servo[legRef.knee].angle = kneeAngle 
+            self.kitR.servo[legRef.hip_port].angle = hipAngle
+            self.kitR.servo[legRef.shoulder_port].angle = shoulderAngle
+            self.kitR.servo[legRef.knee_port].angle = kneeAngle 
 
         self.get_logger().info(legRef.description + " moved to hip: " + str(hipAngle) + ", shoulder: " + str(shoulderAngle) + ", knee: " + str(kneeAngle))    
 
