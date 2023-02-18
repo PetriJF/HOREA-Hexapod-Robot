@@ -10,23 +10,30 @@ class ControlNode(Node):
     ## Node Constructor
     def __init__(self):
         super().__init__("ControlNode")
+
+        self.declare_parameter("coxa_len", 71.5)
+        self.declare_parameter("femur_len", 100.02)
+        self.declare_parameter("tibia_len", 150.0)
+        self.declare_parameter("gait_altitude", 90.0)
+        self.declare_parameter("base_width", 65.0)
+        self.declare_parameter("gait_width", 300.0)
+
+        self.coxa_len_ = self.get_parameter("coxa_len").value
+        self.femur_len_ = self.get_parameter("femur_len").value
+        self.tibia_len_ = self.get_parameter("tibia_len").value
+        self.gait_altitude_ = self.get_parameter("gait_altitude").value
+        self.base_width_ = self.get_parameter("base_width").value
+        self.gait_width_ = self.get_parameter("gait_width").value
+
         self.targetPositions = TargetPositions()
         self.hexPositions = self.create_publisher(TargetPositions, 'HexLegPos', 10)
 
     ## Sets the legs to the initial position of having all the legs straight up.
     def hexInitPosition(self):
-        COXA_LEN = 71.5
-        BASE_WIDTH = 65.0
-        FEMUR_LEN = 100.02
-        FOOT_HEIGHT = 0
-        TIBIA_LEN = 150 + FOOT_HEIGHT
-        GAIT_HEIGHT = 90.0
-
-
         # Getting the radius at which we want the legs to be at
-        INIT_RADIUS = COXA_LEN + BASE_WIDTH
+        INIT_RADIUS = self.coxa_len_ + self.base_width_
         # Getting the height of the init position
-        H = FEMUR_LEN + TIBIA_LEN + GAIT_HEIGHT
+        H = self.femur_len_ + self.tibia_len_ + self.gait_altitude_
 
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
@@ -52,26 +59,26 @@ class ControlNode(Node):
         self.hexPositions.publish(self.targetPositions)
 
     def hexZeroPosition(self):
-        GAIT_WIDTH = 300.0
-        GAIT_HEIGHT = 90.0
-        H = GAIT_HEIGHT
+        self.gait_width_ = 300.0
+        self.gait_altitude_ = 90.0
+        H = self.gait_altitude_
 
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
-                                     GAIT_WIDTH * np.sin(np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(np.pi/2.0),
-                                     GAIT_WIDTH * np.sin(5.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(7.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(3.0*np.pi/2.0),
-                                     GAIT_WIDTH * np.sin(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
         self.targetPositions.y_pos = [0.0, 
-                                     GAIT_WIDTH * np.cos(np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(np.pi/2.0),
-                                     GAIT_WIDTH * np.cos(5.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(7.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(3.0*np.pi/2.0),
-                                     GAIT_WIDTH * np.cos(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.cos(np.pi/6.0),
+                                     self.gait_width_ * np.cos(np.pi/2.0),
+                                     self.gait_width_ * np.cos(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.cos(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
         #self.get_logger().info(str(self.targetPositions))
@@ -80,37 +87,37 @@ class ControlNode(Node):
         self.hexPositions.publish(self.targetPositions)
 
     def hexStandPosition(self, raiseTime = 5.0, raiseResolution = 1.0, lower = False):
-        GAIT_WIDTH = 300.0
-        GAIT_HEIGHT = 90.0
+        self.gait_width_ = 300.0
+        self.gait_altitude_ = 90.0
 
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
-                                     GAIT_WIDTH * np.sin(np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(np.pi/2.0),
-                                     GAIT_WIDTH * np.sin(5.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(7.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.sin(3.0*np.pi/2.0),
-                                     GAIT_WIDTH * np.sin(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
         self.targetPositions.y_pos = [0.0, 
-                                     GAIT_WIDTH * np.cos(np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(np.pi/2.0),
-                                     GAIT_WIDTH * np.cos(5.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(7.0*np.pi/6.0),
-                                     GAIT_WIDTH * np.cos(3.0*np.pi/2.0),
-                                     GAIT_WIDTH * np.cos(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.cos(np.pi/6.0),
+                                     self.gait_width_ * np.cos(np.pi/2.0),
+                                     self.gait_width_ * np.cos(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.cos(11.0*np.pi/6.0)
         ]
 
-        for height in np.arange(0.0, GAIT_HEIGHT + 1, raiseResolution):
+        for height in np.arange(0.0, self.gait_altitude_ + 1, raiseResolution):
             # if lower is true, we are ascending the legs, if not, descending
-            H = height if (lower == True) else GAIT_HEIGHT - height
+            H = height if (lower == True) else self.gait_altitude_ - height
 
             # set the z positions of the legs and publish them
             self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
             self.hexPositions.publish(self.targetPositions)
 
             # control the speed of the standing transition
-            sleep(raiseTime / ((1.0 / raiseResolution) * (GAIT_HEIGHT + 1)))
+            sleep(raiseTime / ((1.0 / raiseResolution) * (self.gait_altitude_ + 1)))
 
 
 def main(args = None):
@@ -127,7 +134,7 @@ def main(args = None):
             print("Legs Up Pose")
         elif (userInput == '2'):
             ctrl.hexZeroPosition()
-            print("Legs userInput Stand Prep Pose")
+            print("Legs Stand Prep Pose")
         elif (userInput == '3'):
             ctrl.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0)
             print("Robot Raising!!")
