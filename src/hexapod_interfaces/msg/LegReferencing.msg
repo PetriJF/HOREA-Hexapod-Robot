@@ -6,3 +6,4 @@ int32 hip_port
 int32 shoulder_port
 int32 knee_port
 int32 index
+string description
