@@ -2,8 +2,9 @@ import rclpy
 from rclpy.node import Node
 import numpy as np
 from time import *
-from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, Point, legReferencing
+from leg_controller.legInfo import LB, LM, LF, RB, RM, RF, legReferencing
 from hexapod_interfaces.msg import TargetAngles, TargetPositions
+from geometry_msgs.msg import Point
 
 class inverseKinematics(Node):    
     ## Node Constructor
@@ -24,14 +25,22 @@ class inverseKinematics(Node):
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
 
+    def setPoint(self, xT = float, yT = float, zT = float):
+        tempPoint = Point()
+        tempPoint.x = float(xT)
+        tempPoint.y = float(yT)
+        tempPoint.z = float(zT)
+
+        return tempPoint
+
     ## This function takes the position subscription and publishes the computed angles
     def posCallback(self, hexPos = TargetPositions):
-        self.getLegAngles(Point(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), RF)
-        self.getLegAngles(Point(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), RM)
-        self.getLegAngles(Point(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), RB)
-        self.getLegAngles(Point(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), LB)
-        self.getLegAngles(Point(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), LM)
-        self.getLegAngles(Point(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), LF)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), RF)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), RM)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), RB)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), LB)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), LM)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), LF)
 
         self.angles.publish(self.targetAngles)
 
@@ -72,7 +81,7 @@ class inverseKinematics(Node):
 
         self.get_logger().info("Angles: " + str(alpha) + " | " + str(tetha1) + " | " + str(tetha2) + "\n")
 
-        # Setting the target angles for the leg the inverse kinematics were computed for
+        # Setting the target angles for the leg the et_parinverse kinematics were computed for
         self.targetAngles.shoulder_angle[leg.index] = alpha
         self.targetAngles.hip_angle[leg.index] = tetha1
         self.targetAngles.knee_angle[leg.index] = tetha2

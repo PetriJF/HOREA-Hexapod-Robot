@@ -5,12 +5,6 @@ import numpy as np
 BASE_WIDTH = 65.0 # mm
 
 @dataclass
-class Point:
-    x: float
-    y: float    
-    z: float
-
-@dataclass
 class legReferencing:
     """A class used to organize the 6 legs and their respective 18 servo motors in terms of side and motor connection on the I2C board. 
        NOTE: side = false represents left, side = true represents right"""
