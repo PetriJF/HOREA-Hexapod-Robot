@@ -58,12 +58,6 @@ def generate_launch_description():
         ],
         output = 'screen'
     )
-    
-#self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
-#        self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
-#        self.declare_parameter(name = "gait_altitude", descriptor = pd, value = 90.0)
-#        self.declare_parameter(name = "step_length", descriptor = pd, value = 75.0)
-#        self.declare_parameter(name = "gait_speed", descriptor = pd, value = 1.0)
 
     gait_waypoint_node = Node(
         package = "gait_controller",
