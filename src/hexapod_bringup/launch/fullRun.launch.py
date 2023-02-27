@@ -83,14 +83,14 @@ def generate_launch_description():
         
     )
 
-    ctrl_node = Node(
+    leg_ctrl_node = Node(
         package = "leg_controller",
-        executable = "ctrl_node",
+        executable = "direct_leg_ctrl_node",
         parameters = [
             {"coxa_len": COXA_LEN},
             {"femur_len": FEMUR_LEN},
             {"tibia_len": TIBIA_LEN},
-            {"gait_altitude": BASE_ALTITUDE},
+            {"base_altitude": BASE_ALTITUDE},
             {"base_width": BASE_WIDTH},
             {"gait_width": GAIT_WIDTH}
         ],
@@ -101,6 +101,7 @@ def generate_launch_description():
     ld.add_action(kin_node)
     ld.add_action(bezier_node)
     ld.add_action(gait_waypoint_node)
+    ld.add_action(leg_ctrl_node)
     
     #ld.add_action(ctrl_node)
     
