@@ -4,6 +4,7 @@ from rclpy.node import Node
 from time import *
 import numpy as np
 from hexapod_interfaces.msg import TargetPositions
+from std_msgs.msg import String
 
 ## Node use for the control strategy of the robot
 class ControlNode(Node):
@@ -26,7 +27,26 @@ class ControlNode(Node):
         self.gait_width_ = self.get_parameter("gait_width").value
 
         self.targetPositions = TargetPositions()
+        self.posSub = self.create_subscription(String, 'legsCommand', self.legsCommand, 10)
         self.hexPositions = self.create_publisher(TargetPositions, 'HexLegPos', 10)
+
+    ## TODO ADD COMMENTS
+    def legsCommand(self, cmd = String):
+        if cmd == "1":
+            self.hexInitPosition()
+            print("Legs Up Pose")
+        elif cmd == "2":
+            self.hexZeroPosition()
+            print("Legs Stand Prep Pose")
+        elif cmd == "3":
+            self.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0, lower = False)
+            print("Robot Raising!!")
+        elif cmd == "4":
+            self.hexStandPosition(raiseTime = 2.5, raiseResolution = 1.0, lower = True)
+            print("Robot Lowering!!")
+        else:
+            self.get_logger().warning("Incorrect command sent to the step controller!!")
+
 
     ## Sets the legs to the initial position of having all the legs straight up.
     def hexInitPosition(self):
@@ -53,7 +73,6 @@ class ControlNode(Node):
                                      INIT_RADIUS * np.cos(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
-        #self.get_logger().info(str(self.targetPositions))
 
         # Publish the initial position
         self.hexPositions.publish(self.targetPositions)
@@ -81,7 +100,6 @@ class ControlNode(Node):
                                      self.gait_width_ * np.cos(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
-        #self.get_logger().info(str(self.targetPositions))
 
         # Publish the initial position
         self.hexPositions.publish(self.targetPositions)
@@ -127,6 +145,7 @@ def main(args = None):
     print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
     
     userInput = input("\nEnter command: ")
+    rclpy.spin(ctrl)
 
     while userInput != 'c':
         if (userInput == '1'):
