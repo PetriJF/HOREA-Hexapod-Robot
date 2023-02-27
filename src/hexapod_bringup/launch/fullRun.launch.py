@@ -10,8 +10,10 @@ def generate_launch_description():
     FEMUR_LEN = 100.02
     FOOT_HEIGHT = 0.0
     TIBIA_LEN = 150 + FOOT_HEIGHT
-    GAIT_ALTITUDE = 90.0
+    BASE_ALTITUDE = 90.0
     BASE_WIDTH = 65.0
+    GAIT_ALTITUDE = 80.0
+    STEP_LENGTH = 75.0
     GAIT_WIDTH = 300.0
     
     # Setting the leg referencing system. Used to make the launch file a lot more readable!
@@ -45,7 +47,7 @@ def generate_launch_description():
             {"coxa_len": COXA_LEN},
             {"femur_len": FEMUR_LEN},
             {"tibia_len": TIBIA_LEN},
-            {"gait_altitude": GAIT_ALTITUDE},
+            {"base_altitude": BASE_ALTITUDE},
             {"base_width": BASE_WIDTH},
             {"origin_RF": [RF.origin_x, RF.origin_y]},
             {"origin_RM": [RM.origin_x, RM.origin_y]},
@@ -56,7 +58,7 @@ def generate_launch_description():
         ],
         output = 'screen'
     )
-    
+
     gait_waypoint_node = Node(
         package = "gait_controller",
         executable = "waypointer_node",
@@ -67,7 +69,11 @@ def generate_launch_description():
             {"origin_LB": [LB.origin_x, LB.origin_y]},
             {"origin_LM": [LM.origin_x, LM.origin_y]},
             {"origin_LF": [LF.origin_x, LF.origin_y]},
-            {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]}
+            {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]},
+            {"base_width": BASE_WIDTH},
+            {"gait_width": GAIT_WIDTH},
+            {"gait_altitude": GAIT_ALTITUDE},
+            {"step_length": STEP_LENGTH}
         ]
     )
 
@@ -84,7 +90,7 @@ def generate_launch_description():
             {"coxa_len": COXA_LEN},
             {"femur_len": FEMUR_LEN},
             {"tibia_len": TIBIA_LEN},
-            {"gait_altitude": GAIT_ALTITUDE},
+            {"gait_altitude": BASE_ALTITUDE},
             {"base_width": BASE_WIDTH},
             {"gait_width": GAIT_WIDTH}
         ],
