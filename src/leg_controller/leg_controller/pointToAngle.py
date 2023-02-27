@@ -19,7 +19,7 @@ class inverseKinematics(Node):
         self.declare_parameter(name = "coxa_len", descriptor = pd)
         self.declare_parameter(name = "femur_len", descriptor = pd)
         self.declare_parameter(name = "tibia_len", descriptor = pd)
-        self.declare_parameter(name = "gait_altitude", descriptor = pd)
+        self.declare_parameter(name = "base_altitude", descriptor = pd)
         self.declare_parameter(name = "base_width", descriptor = pd)
         
         # Declaring the parameters representing each leg origin. Note 8 = PARAMETER_DOUBLE_ARRAY
@@ -35,7 +35,7 @@ class inverseKinematics(Node):
         self.coxa_len_ = self.get_parameter("coxa_len").value
         self.femur_len_ = self.get_parameter("femur_len").value
         self.tibia_len_ = self.get_parameter("tibia_len").value
-        self.gait_altitude_ = self.get_parameter("gait_altitude").value
+        self.base_altitude_ = self.get_parameter("base_altitude").value
         self.base_width_ = self.get_parameter("base_width").value
 
 
@@ -82,7 +82,7 @@ class inverseKinematics(Node):
         # Distance without the coxa
         L = D - self.coxa_len_
         # Triangle height from the input point and the desired gait altitude
-        A = point.z - self.gait_altitude_
+        A = point.z - self.base_altitude_
     
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(A * A + L * L)
@@ -98,7 +98,7 @@ class inverseKinematics(Node):
         sigma = np.arccos(self.limiter((Lprime * Lprime - self.femur_len_ * self.femur_len_ - self.tibia_len_ * self.tibia_len_) / (-2.0 * self.femur_len_ * self.tibia_len_), -1.0, 1.0))
 
         # There are two cases as the triangle switches side when the leg goes over the robot's base level
-        tetha1 = self.limiter(180.0 - np.rad2deg(beta + delta) if point.z < self.gait_altitude_ else np.rad2deg(delta - beta))
+        tetha1 = self.limiter(180.0 - np.rad2deg(beta + delta) if point.z < self.base_altitude_ else np.rad2deg(delta - beta))
         tetha2 = self.limiter(90.0 + (180.0 - (np.rad2deg(sigma) + 45.0))) # Note that the 45 represents the assembly offset between the tibia and femur!
 
         # Setting the target angles for the leg the et_parinverse kinematics were computed for
