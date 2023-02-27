@@ -11,6 +11,7 @@
 
   <exec_depend>leg_controller</exec_depend>
   <exec_depend>hexapod_interfaces</exec_depend>
+  <exec_depend>gait_controller</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
