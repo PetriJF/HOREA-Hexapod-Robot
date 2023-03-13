@@ -48,10 +48,23 @@ class inverseKinematics(Node):
         self.origin_LF_ = self.setPoint(self.get_parameter("origin_LF").value[0], self.get_parameter("origin_LF").value[1], 0.0)
 
         self.get_logger().info("Parameters declared and initialized successfully!")
-
+        
         # Subscribing to the target potisions and publishing the target angles
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
+        
+        sleep(20.0)
+        
+        self.get_logger().info("cmd sent")
+        self.getLegAngles(self.setPoint(251.14, 145.0, 0.0), self.origin_RF_, 1)
+        self.getLegAngles(self.setPoint(0.0, 300.0, 0.0), self.origin_RM_, 2)
+        self.getLegAngles(self.setPoint(-251.14, 145.0, 0.0), self.origin_RB_, 3)
+        self.getLegAngles(self.setPoint(-251.14, -145.0, 0.0), self.origin_LB_, 4)
+        self.getLegAngles(self.setPoint(0.0, -300.0, 0.0), self.origin_LM_, 5)
+        self.getLegAngles(self.setPoint(251.14, -145.0, 0.0), self.origin_LF_, 6, publish = True)
+
+
+        
 
     ## Gets three values and makes them into a Point
     def setPoint(self, xT = float, yT = float, zT = float):
@@ -90,7 +103,9 @@ class inverseKinematics(Node):
         # (x, y) plane. z is projected on this plane
         T = np.sqrt(point.x * point.x + point.y * point.y)
         alphaPrime = np.arccos(self.limiter((D * D + self.base_width_ * self.base_width_ - T * T) / (2 * D * self.base_width_), -1.0, 1.0))
-        alpha = self.limiter(np.rad2deg(alphaPrime) - 90.0)
+        alpha = self.limiter(np.rad2deg(alphaPrime))
+
+        self.get_logger().info(str(leg_index) + "->" + str(alpha))
 
         # (z, D) plane. x and y are projected on the D-plane
         delta = np.arcsin(L / Lprime)
@@ -136,6 +151,7 @@ def main(args = None):
     #    invKinNode.getLegAngles(Point(200, width, 0), RF)
     #    sleep(0.01)
 
+    
     rclpy.spin(invKinNode)
 
     rclpy.shutdown()

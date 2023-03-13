@@ -4,13 +4,15 @@ from rclpy.node import Node
 from time import *
 import numpy as np
 from hexapod_interfaces.msg import TargetPositions
-from std_msgs.msg import String
+from std_msgs.msg import Int64
 
 ## Node use for the control strategy of the robot
 class ControlNode(Node):
     ## Node Constructor
     def __init__(self):
         super().__init__("ControlNode")
+
+        self.get_logger().info("Init")
 
         self.declare_parameter("coxa_len", 71.5)
         self.declare_parameter("femur_len", 100.02)
@@ -27,21 +29,21 @@ class ControlNode(Node):
         self.gait_width_ = self.get_parameter("gait_width").value
 
         self.targetPositions = TargetPositions()
-        self.posSub = self.create_subscription(String, 'legsCommand', self.legsCommand, 10)
+        self.posSub = self.create_subscription(Int64, 'animationType', self.legsCommand, 10)
         self.hexPositions = self.create_publisher(TargetPositions, 'HexLegPos', 10)
 
     ## TODO ADD COMMENTS
-    def legsCommand(self, cmd = String):
-        if cmd == "1":
+    def legsCommand(self, cmd = Int64):
+        if cmd.data == 1:
             self.hexInitPosition()
             print("Legs Up Pose")
-        elif cmd == "2":
+        elif cmd.data == 2:
             self.hexZeroPosition()
             print("Legs Stand Prep Pose")
-        elif cmd == "3":
+        elif cmd.data == 3:
             self.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0, lower = False)
             print("Robot Raising!!")
-        elif cmd == "4":
+        elif cmd.data == 4:
             self.hexStandPosition(raiseTime = 2.5, raiseResolution = 1.0, lower = True)
             print("Robot Lowering!!")
         else:
@@ -50,27 +52,25 @@ class ControlNode(Node):
 
     ## Sets the legs to the initial position of having all the legs straight up.
     def hexInitPosition(self):
-        # Getting the radius at which we want the legs to be at
-        INIT_RADIUS = self.coxa_len_ + self.base_width_
         # Getting the height of the init position
         H = self.femur_len_ + self.tibia_len_ + self.base_altitude_
 
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
-                                     INIT_RADIUS * np.sin(np.pi/6.0),
-                                     INIT_RADIUS * np.sin(np.pi/2.0),
-                                     INIT_RADIUS * np.sin(5.0*np.pi/6.0),
-                                     INIT_RADIUS * np.sin(7.0*np.pi/6.0),
-                                     INIT_RADIUS * np.sin(3.0*np.pi/2.0),
-                                     INIT_RADIUS * np.sin(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
         self.targetPositions.y_pos = [0.0, 
-                                     INIT_RADIUS * np.cos(np.pi/6.0),
-                                     INIT_RADIUS * np.cos(np.pi/2.0),
-                                     INIT_RADIUS * np.cos(5.0*np.pi/6.0),
-                                     INIT_RADIUS * np.cos(7.0*np.pi/6.0),
-                                     INIT_RADIUS * np.cos(3.0*np.pi/2.0),
-                                     INIT_RADIUS * np.cos(11.0*np.pi/6.0)
+                                     self.gait_width_ * np.cos(np.pi/6.0),
+                                     self.gait_width_ * np.cos(np.pi/2.0),
+                                     self.gait_width_ * np.cos(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.cos(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.cos(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
 
@@ -79,6 +79,8 @@ class ControlNode(Node):
 
     def hexZeroPosition(self):
         # Setting the coordingates of all the points
+        H = self.base_altitude_
+        
         self.targetPositions.x_pos = [0.0, 
                                      self.gait_width_ * np.sin(np.pi/6.0),
                                      self.gait_width_ * np.sin(np.pi/2.0),
@@ -135,28 +137,7 @@ def main(args = None):
     rclpy.init(args = args)
     ctrl = ControlNode()
     
-    print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
-    
-    userInput = input("\nEnter command: ")
     rclpy.spin(ctrl)
-
-    while userInput != 'c':
-        if (userInput == '1'):
-            ctrl.hexInitPosition()
-            print("Legs Up Pose")
-        elif (userInput == '2'):
-            ctrl.hexZeroPosition()
-            print("Legs Stand Prep Pose")
-        elif (userInput == '3'):
-            ctrl.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0)
-            print("Robot Raising!!")
-        elif (userInput == '4'):
-            ctrl.hexStandPosition(raiseTime = 2.5, lower = True)
-            print("Robot Lowering!!")
-        else:
-            print("Wrong command")
-        
-        userInput = input("\nEnter command: ")
      
     rclpy.shutdown()
 

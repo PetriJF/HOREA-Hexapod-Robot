@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
             "servo_node = leg_controller.servoController:main",
             "kin_node = leg_controller.pointToAngle:main",
-            "direct_leg_ctrl_node = leg_controller.simpleCommands:main"
+            "animation_node = leg_controller.simpleCommands:main"
         ],
     },
 )
