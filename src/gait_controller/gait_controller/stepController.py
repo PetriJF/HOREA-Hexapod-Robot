@@ -1,62 +1,71 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int64, String
+from std_msgs.msg import String, Float64MultiArray
+from rcl_interfaces.msg import ParameterDescriptor
+import numpy as np
 
 ## Bézier <3
 class Stepper(Node):
     def __init__(self):
         super().__init__("step_ctrl_node")
         self.get_logger().info("Init")
-        self.posSub = self.create_subscription(String, 'stepCommand', self.stepCommand, 10)
+        
+        pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
+        self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
+        self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
+        self.declare_parameter(name = "gait_altitude", descriptor = pd, value = 90.0)
+        self.declare_parameter(name = "step_length", descriptor = pd, value = 50.0)
+
+        self.base_width_ = self.get_parameter("base_width").value
+        self.gait_width_ = self.get_parameter("gait_width").value
+        self.gait_altitude_ = self.get_parameter("gait_altitude").value
+        self.step_length_ = self.get_parameter("step_length").value
+
+        self.posSub = self.create_subscription(String, 'stepType', self.stepCommand, 10)
         # Change to a float array
-        self.command_ = self.create_publisher(Int64, 'StepCommands', 10)
+        self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
 
     def stepCommand(self, cmd = String):
-        # We need: step angle, step length, gait_altitude, gait_width!
-        if cmd == "w":
-            pass
-        elif cmd == "a":
-            pass
-        elif cmd == "s":
-            pass
-        elif cmd == "d":
-            pass
-        elif cmd == "q":
-            pass
-        elif cmd == "e":
-            pass
+        step_description = Float64MultiArray()
+
+        if cmd.data == "w":
+            step_description.data = [ np.deg2rad(0.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            
+            self.step_command_.publish(step_description)
+        elif cmd.data == "a":
+            step_description.data = [ np.deg2rad(90.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+
+            self.step_command_.publish(step_description)
+        elif cmd.data == "s":
+            step_description.data = [ np.deg2rad(180.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+
+            self.step_command_.publish(step_description)
+        elif cmd.data == "d":
+            step_description.data = [ np.deg2rad(270.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            
+            self.step_command_.publish(step_description)
+        elif cmd.data == "q":
+            angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
+            step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+
+            self.get_logger().warning("Q   " + str(angle))
+            self.step_command_.publish(step_description)
+        elif cmd.data == "e":
+            angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
+            step_description.data = [ -angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+
+            self.get_logger().warning("E   " + str(-angle))
+            self.step_command_.publish(step_description)
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
         
-        self.command_.publish(cmd)
-
-        
-
 def main(args = None):
     rclpy.init(args = args)
 
     step = Stepper()
-    print("List of commands:\n\t1. Step Right Dominant\n\t2. Step Left Dominant\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
-    
+    rclpy.spin(step)
 
-    userInput = input("\nEnter command: ")
-    cmd = Int64()
-
-    while userInput != 'c':
-        if (userInput == '1'):
-            cmd.data = 1
-            step.stepCommand(cmd)
-            print("Step Right Dominant")
-        elif (userInput == '2'):
-            cmd.data = 2
-            step.stepCommand(cmd)
-            print("Step Left Dominant")
-        else:
-            print("Wrong command")
-        
-        userInput = input("\nEnter command: ")
-    
     rclpy.shutdown()
 
 if __name__ == '__main__':
