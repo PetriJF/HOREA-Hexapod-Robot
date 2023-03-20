@@ -32,8 +32,8 @@ class hexMotorControl(Node):
         self.get_logger().info("Parameters declared and initialized successfully!")
 
         # Defining the servo controllers
-        self.kitL = ServoKit(channels=16, address=66) # 42 in hex
-        self.kitR = ServoKit(channels=16, address=65) # 41 in hex
+        self.kitL = ServoKit(channels=16, address=65) # 41 in hex
+        self.kitR = ServoKit(channels=16, address=66) # 42 in hex
         
         # Setting the PWM ranges for all the servos
         for i in range(0, 16):

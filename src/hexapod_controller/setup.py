@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'leg_controller'
+package_name = 'hexapod_controller'
 
 setup(
     name=package_name,
@@ -20,9 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "servo_node = leg_controller.servoController:main",
-            "kin_node = leg_controller.pointToAngle:main",
-            "animation_node = leg_controller.simpleCommands:main"
+            "teleop_node = hexapod_controller.hexapod_teleop_controller:main"
         ],
     },
 )
