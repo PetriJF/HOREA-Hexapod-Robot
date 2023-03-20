@@ -88,7 +88,7 @@ def generate_launch_description():
         package = "gait_controller",
         executable = "bezier_traj_node",
         parameters = [
-            {"resolution": 0.05},
+            {"resolution": 0.02},
             {"iter_delay": 0.01}
         ]
     )
