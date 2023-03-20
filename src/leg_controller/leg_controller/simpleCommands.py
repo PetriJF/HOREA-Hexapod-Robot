@@ -54,23 +54,23 @@ class ControlNode(Node):
     def hexInitPosition(self):
         # Getting the height of the init position
         H = self.femur_len_ + self.tibia_len_ + self.base_altitude_
-
+        
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
-                                     self.gait_width_ * np.sin(np.pi/6.0),
-                                     self.gait_width_ * np.sin(np.pi/2.0),
-                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
-                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
-        ]
-        self.targetPositions.y_pos = [0.0, 
                                      self.gait_width_ * np.cos(np.pi/6.0),
                                      self.gait_width_ * np.cos(np.pi/2.0),
                                      self.gait_width_ * np.cos(5.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(7.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(3.0*np.pi/2.0),
                                      self.gait_width_ * np.cos(11.0*np.pi/6.0)
+        ]
+        self.targetPositions.y_pos = [0.0, 
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
 
@@ -82,20 +82,20 @@ class ControlNode(Node):
         H = self.base_altitude_
         
         self.targetPositions.x_pos = [0.0, 
-                                     self.gait_width_ * np.sin(np.pi/6.0),
-                                     self.gait_width_ * np.sin(np.pi/2.0),
-                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
-                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
-        ]
-        self.targetPositions.y_pos = [0.0, 
                                      self.gait_width_ * np.cos(np.pi/6.0),
                                      self.gait_width_ * np.cos(np.pi/2.0),
                                      self.gait_width_ * np.cos(5.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(7.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(3.0*np.pi/2.0),
                                      self.gait_width_ * np.cos(11.0*np.pi/6.0)
+        ]
+        self.targetPositions.y_pos = [0.0, 
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
         self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
 
@@ -105,20 +105,20 @@ class ControlNode(Node):
     def hexStandPosition(self, raiseTime = 5.0, raiseResolution = 1.0, lower = False):
         # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
-                                     self.gait_width_ * np.sin(np.pi/6.0),
-                                     self.gait_width_ * np.sin(np.pi/2.0),
-                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
-                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
-                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
-        ]
-        self.targetPositions.y_pos = [0.0, 
                                      self.gait_width_ * np.cos(np.pi/6.0),
                                      self.gait_width_ * np.cos(np.pi/2.0),
                                      self.gait_width_ * np.cos(5.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(7.0*np.pi/6.0),
                                      self.gait_width_ * np.cos(3.0*np.pi/2.0),
                                      self.gait_width_ * np.cos(11.0*np.pi/6.0)
+        ]
+        self.targetPositions.y_pos = [0.0, 
+                                     self.gait_width_ * np.sin(np.pi/6.0),
+                                     self.gait_width_ * np.sin(np.pi/2.0),
+                                     self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                     self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                     self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
 
         for height in np.arange(0.0, self.base_altitude_ + 1, raiseResolution):

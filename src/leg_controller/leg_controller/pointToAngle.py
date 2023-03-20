@@ -103,9 +103,9 @@ class inverseKinematics(Node):
         # (x, y) plane. z is projected on this plane
         T = np.sqrt(point.x * point.x + point.y * point.y)
         alphaPrime = np.arccos(self.limiter((D * D + self.base_width_ * self.base_width_ - T * T) / (2 * D * self.base_width_), -1.0, 1.0))
-        alpha = self.limiter(np.rad2deg(alphaPrime))
+        alpha = self.limiter(np.rad2deg(alphaPrime) - 90.0)
 
-        self.get_logger().info(str(leg_index) + "->" + str(alpha))
+        self.get_logger().info(str(leg_index) + "->" + str(alpha) + " for " + str(point.x) + ", " + str(point.y) + " and " + str(origin.x) + " " + str(origin.y))
 
         # (z, D) plane. x and y are projected on the D-plane
         delta = np.arcsin(L / Lprime)

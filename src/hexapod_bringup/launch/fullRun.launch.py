@@ -18,12 +18,12 @@ def generate_launch_description():
     GAIT_WIDTH = 290.0
     
     # Setting the leg referencing system. Used to make the launch file a lot more readable!
-    RF = setLegReferencing(True, 30.0, BASE_WIDTH * round(np.sin(np.pi/6.0),2), BASE_WIDTH * round(np.cos(np.pi/6.0),2), 8, 9, 10, 1, "Leg: <Right Front>")
-    RM = setLegReferencing(True, 90.0, BASE_WIDTH * round(np.sin(np.pi/2.0),2), BASE_WIDTH * round(np.cos(np.pi/2.0),2), 4, 5, 6, 2, "Leg: <Right Middle>")
-    RB = setLegReferencing(True, 150.0, BASE_WIDTH * round(np.sin(5.0*np.pi/6.0),2), BASE_WIDTH * round(np.cos(5.0*np.pi/6.0),2), 0, 1, 2, 3, "Leg: <Right Back>")
-    LB = setLegReferencing(False, 210.0, BASE_WIDTH * round(np.sin(7.0*np.pi/6.0),2), BASE_WIDTH * round(np.cos(7*np.pi/6.0),2), 8, 9, 10, 4, "Leg: <Left Back>")
-    LM = setLegReferencing(False, 270.0, BASE_WIDTH * round(np.sin(3.0*np.pi/2.0),2), BASE_WIDTH * round(np.cos(3.0*np.pi/2.0),2), 4, 5, 6, 5, "Leg: <Left Middle>")
-    LF = setLegReferencing(False, 330.0, BASE_WIDTH * round(np.sin(11.0*np.pi/6.0),2), BASE_WIDTH * round(np.cos(11.0*np.pi/6.0),2), 0, 1, 2, 6, "Leg: <Left Front>")
+    RF = setLegReferencing(True, 30.0, BASE_WIDTH * round(np.cos(np.pi/6.0),2), BASE_WIDTH * round(np.sin(np.pi/6.0),2), 8, 9, 10, 1, "Leg: <Right Front>")
+    RM = setLegReferencing(True, 90.0, BASE_WIDTH * round(np.cos(np.pi/2.0),2), BASE_WIDTH * round(np.sin(np.pi/2.0),2), 4, 5, 6, 2, "Leg: <Right Middle>")
+    RB = setLegReferencing(True, 150.0, BASE_WIDTH * round(np.cos(5.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(5.0*np.pi/6.0),2), 0, 1, 2, 3, "Leg: <Right Back>")
+    LB = setLegReferencing(False, 210.0, BASE_WIDTH * round(np.cos(7.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(7*np.pi/6.0),2), 8, 9, 10, 4, "Leg: <Left Back>")
+    LM = setLegReferencing(False, 270.0, BASE_WIDTH * round(np.cos(3.0*np.pi/2.0),2), BASE_WIDTH * round(np.sin(3.0*np.pi/2.0),2), 4, 5, 6, 5, "Leg: <Left Middle>")
+    LF = setLegReferencing(False, 330.0, BASE_WIDTH * round(np.cos(11.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(11.0*np.pi/6.0),2), 0, 1, 2, 6, "Leg: <Left Front>")
     
     ld = LaunchDescription()
 
@@ -88,7 +88,7 @@ def generate_launch_description():
         package = "gait_controller",
         executable = "bezier_traj_node",
         parameters = [
-            {"resolution": 0.01},
+            {"resolution": 0.05},
             {"iter_delay": 0.01}
         ]
     )

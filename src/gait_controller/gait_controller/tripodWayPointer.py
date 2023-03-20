@@ -86,21 +86,21 @@ class TripodGait(Node):
         C_width_ratio = 6/5
         C_height_ratio = 1.0
 
-        A.x = gaitWidth * np.sin(self.gamma_[legIndex])
-        A.y = gaitWidth * np.cos(self.gamma_[legIndex])
+        A.x = gaitWidth * np.cos(self.gamma_[legIndex])
+        A.y = gaitWidth * np.sin(self.gamma_[legIndex])
         A.z = 0.0
 
         if legIndex % 2 == 0:
-            B.x = A.x + (stepLength * np.sin(relativeDirRad)) * B_width_ratio 
-            B.y = A.y + (stepLength * np.cos(relativeDirRad)) * B_width_ratio
+            B.x = A.x + (stepLength * np.cos(relativeDirRad)) * B_width_ratio 
+            B.y = A.y + (stepLength * np.sin(relativeDirRad)) * B_width_ratio
             B.z = B_height_ratio * gaitAltitude
 
-            C.x = A.x + (stepLength * np.sin(relativeDirRad)) * C_width_ratio
-            C.y = A.y + (stepLength * np.cos(relativeDirRad)) * C_width_ratio
+            C.x = A.x + (stepLength * np.cos(relativeDirRad)) * C_width_ratio
+            C.y = A.y + (stepLength * np.sin(relativeDirRad)) * C_width_ratio
             C.z = C_height_ratio * gaitAltitude
 
-            D.x = A.x + stepLength * np.sin(relativeDirRad) 
-            D.y = A.y + stepLength * np.cos(relativeDirRad) 
+            D.x = A.x + stepLength * np.cos(relativeDirRad) 
+            D.y = A.y + stepLength * np.sin(relativeDirRad) 
             D.z = 0.0
 
             self.get_logger().info("Leg index: " + str(legIndex) + " --- "
@@ -147,8 +147,8 @@ class TripodGait(Node):
         C_height_ratio = 1
 
 
-        A.x = gaitWidth * np.sin(self.gamma_[legIndex])
-        A.y = gaitWidth * np.cos(self.gamma_[legIndex])
+        A.x = gaitWidth * np.cos(self.gamma_[legIndex])
+        A.y = gaitWidth * np.sin(self.gamma_[legIndex])
         A.z = 0.0
 
         # Differentiates between the first and second triangles in the tripod gait
@@ -156,16 +156,16 @@ class TripodGait(Node):
         if rightDominant == False:
             direction = direction * -1
 
-        B.x = A.x + direction * (stepLength * np.sin(relativeDirRad)) * B_width_ratio 
-        B.y = A.y + direction * (stepLength * np.cos(relativeDirRad)) * B_width_ratio
+        B.x = A.x + direction * (stepLength * np.cos(relativeDirRad)) * B_width_ratio 
+        B.y = A.y + direction * (stepLength * np.sin(relativeDirRad)) * B_width_ratio
         B.z = B_height_ratio * (gaitAltitude)
 
-        C.x = A.x + direction * (stepLength * np.sin(relativeDirRad)) * C_width_ratio
-        C.y = A.y + direction * (stepLength * np.cos(relativeDirRad)) * C_width_ratio
+        C.x = A.x + direction * (stepLength * np.cos(relativeDirRad)) * C_width_ratio
+        C.y = A.y + direction * (stepLength * np.sin(relativeDirRad)) * C_width_ratio
         C.z = C_height_ratio * gaitAltitude
 
-        D.x = A.x + direction * stepLength * np.sin(relativeDirRad) 
-        D.y = A.y + direction * stepLength * np.cos(relativeDirRad) 
+        D.x = A.x + direction * stepLength * np.cos(relativeDirRad) 
+        D.y = A.y + direction * stepLength * np.sin(relativeDirRad) 
         D.z = 0.0
 
         self.get_logger().info("Index " + str(legIndex) 
