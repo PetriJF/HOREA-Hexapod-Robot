@@ -53,15 +53,15 @@ class inverseKinematics(Node):
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
         
-        sleep(20.0)
+        #sleep(15.0)
         
-        self.get_logger().info("cmd sent")
-        self.getLegAngles(self.setPoint(251.14, 145.0, 0.0), self.origin_RF_, 1)
-        self.getLegAngles(self.setPoint(0.0, 300.0, 0.0), self.origin_RM_, 2)
-        self.getLegAngles(self.setPoint(-251.14, 145.0, 0.0), self.origin_RB_, 3)
-        self.getLegAngles(self.setPoint(-251.14, -145.0, 0.0), self.origin_LB_, 4)
-        self.getLegAngles(self.setPoint(0.0, -300.0, 0.0), self.origin_LM_, 5)
-        self.getLegAngles(self.setPoint(251.14, -145.0, 0.0), self.origin_LF_, 6, publish = True)
+        #self.get_logger().info("cmd sent")
+        #self.getLegAngles(self.setPoint(251.14, 145.0, 0.0), self.origin_RF_, 1)
+        #self.getLegAngles(self.setPoint(0.0, 300.0, 0.0), self.origin_RM_, 2)
+        #self.getLegAngles(self.setPoint(-251.14, 145.0, 0.0), self.origin_RB_, 3)
+        #self.getLegAngles(self.setPoint(-251.14, -145.0, 0.0), self.origin_LB_, 4)
+        #self.getLegAngles(self.setPoint(0.0, -300.0, 0.0), self.origin_LM_, 5)
+        #self.getLegAngles(self.setPoint(251.14, -145.0, 0.0), self.origin_LF_, 6, publish = True)
 
 
         
@@ -104,6 +104,8 @@ class inverseKinematics(Node):
         T = np.sqrt(point.x * point.x + point.y * point.y)
         alphaPrime = np.arccos(self.limiter((D * D + self.base_width_ * self.base_width_ - T * T) / (2 * D * self.base_width_), -1.0, 1.0))
         alpha = self.limiter(np.rad2deg(alphaPrime) - 90.0)
+        if leg_index > 3:
+            alpha = 180.0 - alpha
 
         self.get_logger().info(str(leg_index) + "->" + str(alpha) + " for " + str(point.x) + ", " + str(point.y) + " and " + str(origin.x) + " " + str(origin.y))
 
