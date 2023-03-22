@@ -31,6 +31,9 @@ class inverseKinematics(Node):
         self.declare_parameter(name = "origin_LM", descriptor = pd)
         self.declare_parameter(name = "origin_LF", descriptor = pd)
 
+        # Declaring the parameter representing the default orientation of each leg. Note 8 = PARAMETER_DOUBLE_ARRAY
+        self.declare_parameter(name = "leg_angular_orientation", descriptor = pd)
+
         # Initializing the robot design variables from the parameters
         self.coxa_len_ = self.get_parameter("coxa_len").value
         self.femur_len_ = self.get_parameter("femur_len").value
@@ -52,11 +55,33 @@ class inverseKinematics(Node):
         # Subscribing to the target potisions and publishing the target angles
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
+
         
+        
+        # Note gamma_ values : 0 RF, 1 RM, 2 RB, 3 LB, 4 LM, 5 LF 
+        self.gamma_ = np.deg2rad(self.get_parameter("leg_angular_orientation").value)
+
+        # Code used to make a rectangle with the leg. Used to test the accuracy of the kinematic model directly
         #sleep(15.0)
         
+        #for leg_index in range(1, 6+1):
+        #    self.targetAngles.shoulder_angle[leg_index] = 90.0
+        #    self.targetAngles.hip_angle[leg_index] = 90.0
+        #    self.targetAngles.knee_angle[leg_index] = 90.0
+
         #self.get_logger().info("cmd sent")
         #self.getLegAngles(self.setPoint(251.14, 145.0, 0.0), self.origin_RF_, 1)
+        #self.angles.publish(self.targetAngles)
+        #sleep(5.0)
+        #self.getLegAngles(self.setPoint(301.14, 145.0, 0.0), self.origin_RF_, 1)
+        #self.angles.publish(self.targetAngles)
+        #sleep(5.0)
+        #self.getLegAngles(self.setPoint(301.14, 205.0, 0.0), self.origin_RF_, 1)
+        #self.angles.publish(self.targetAngles)
+        #sleep(5.0)
+        #self.getLegAngles(self.setPoint(251.14, 205.0, 0.0), self.origin_RF_, 1)
+        #self.angles.publish(self.targetAngles)
+        #sleep(5.0)
         #self.getLegAngles(self.setPoint(0.0, 300.0, 0.0), self.origin_RM_, 2)
         #self.getLegAngles(self.setPoint(-251.14, 145.0, 0.0), self.origin_RB_, 3)
         #self.getLegAngles(self.setPoint(-251.14, -145.0, 0.0), self.origin_LB_, 4)
@@ -88,26 +113,28 @@ class inverseKinematics(Node):
 
     ## Function solving the inverse kinematic model for a given specific leg and point 
     def getLegAngles(self, point = Point, origin = Point, leg_index = int, publish = False):
-        # Getting the defined constants from the parameters
-        
         # Distance from the leg origin to the point in a planar view
         D = np.sqrt((point.x - origin.x) * (point.x - origin.x) + (point.y - origin.y) * (point.y - origin.y))
         # Distance without the coxa
         L = D - self.coxa_len_
         # Triangle height from the input point and the desired gait altitude
         A = point.z - self.base_altitude_
-    
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(A * A + L * L)
         
-        # (x, y) plane. z is projected on this plane
-        T = np.sqrt(point.x * point.x + point.y * point.y)
-        alphaPrime = np.arccos(self.limiter((D * D + self.base_width_ * self.base_width_ - T * T) / (2 * D * self.base_width_), -1.0, 1.0))
-        alpha = self.limiter(np.rad2deg(alphaPrime) - 90.0)
-        if leg_index > 3:
-            alpha = 180.0 - alpha
+        # Get the step displacement from the home location
+        T = np.sqrt((point.x - origin.x - D * np.cos(self.gamma_[leg_index - 1])) ** 2 + (point.y - origin.y -  D * np.sin(self.gamma_[leg_index - 1])) ** 2)
+        # Get the shoulder angle relative to the middle line
+        alphaPrime = np.rad2deg(np.arccos((2 * D * D - T * T) / (2 * D * D)))
+        # Because cos is sign dependent, ro is used to determine on which side of the default line the leg goes
+        ro = np.arccos(point.x / (np.sqrt(point.x * point.x + point.y * point.y)))
+        if not point.y: # If we are working with legs from the left side of the robot, we must change the rotation direction and substract from 360
+            ro = 2.0 * np.pi - ro
+        # Based on the side of the point compared to the center rest position, add or substract from 90 alphaPrime, giving the final value of alpha
+        alpha = 90.0 + (alphaPrime if (ro < self.gamma_[leg_index - 1]) else (-alphaPrime))
 
-        self.get_logger().info(str(leg_index) + "->" + str(alpha) + " for " + str(point.x) + ", " + str(point.y) + " and " + str(origin.x) + " " + str(origin.y))
+        # Line used to debug kinematic model.
+        #self.get_logger().info(str(leg_index) + "->" + str(alpha) + " for " + str(point.x) + ", " + str(point.y) + " and " + str(origin.x) + " " + str(origin.y) + "\nD = " + str(D) + " T = " + str(T) + " aprim = " + str(alphaPrime))
 
         # (z, D) plane. x and y are projected on the D-plane
         delta = np.arcsin(L / Lprime)
@@ -137,25 +164,14 @@ class inverseKinematics(Node):
         return value
 
 def main(args = None):
+    # Initialize the node
     rclpy.init(args = args)
     invKinNode = inverseKinematics()
     
-    # test height movement
-    #for heigth in range(0,250):
-    #    invKinNode.getLegAngles(Point(200, 200, heigth), RF)
-    #    sleep(0.01)
-
-    #for length in range(150,250):
-    #    invKinNode.getLegAngles(Point(length, 200, 0), RF)
-    #    sleep(0.01)
-
-    #for width in range(150,250):
-    #    invKinNode.getLegAngles(Point(200, width, 0), RF)
-    #    sleep(0.01)
-
-    
+    # Keep the node running
     rclpy.spin(invKinNode)
 
+    # Stop the node
     rclpy.shutdown()
 
 if __name__ == '__main__':

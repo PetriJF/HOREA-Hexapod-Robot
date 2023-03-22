@@ -10,11 +10,11 @@ def generate_launch_description():
     COXA_LEN = 71.5
     FEMUR_LEN = 100.02
     FOOT_HEIGHT = 0.0
-    TIBIA_LEN = 150 + FOOT_HEIGHT
+    TIBIA_LEN = 150.0 + FOOT_HEIGHT
     BASE_ALTITUDE = 120.0
     BASE_WIDTH = 65.0
-    GAIT_ALTITUDE = 100.0
-    STEP_LENGTH = 60.0
+    GAIT_ALTITUDE = 120.0
+    STEP_LENGTH = 50.0
     GAIT_WIDTH = 290.0
     
     # Setting the leg referencing system. Used to make the launch file a lot more readable!
@@ -51,6 +51,7 @@ def generate_launch_description():
             {"tibia_len": TIBIA_LEN},
             {"base_altitude": BASE_ALTITUDE},
             {"base_width": BASE_WIDTH},
+            {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]},
             {"origin_RF": [RF.origin_x, RF.origin_y]},
             {"origin_RM": [RM.origin_x, RM.origin_y]},
             {"origin_RB": [RB.origin_x, RB.origin_y]},
@@ -88,8 +89,8 @@ def generate_launch_description():
         package = "gait_controller",
         executable = "bezier_traj_node",
         parameters = [
-            {"resolution": 0.02},
-            {"iter_delay": 0.01}
+            {"resolution": 0.01},
+            {"iter_delay": 0.005}
         ]
     )
 
@@ -111,7 +112,6 @@ def generate_launch_description():
     ld.add_action(bezier_node)
     ld.add_action(gait_waypoint_node)
     ld.add_action(step_node)
-    
     
     return ld
 
