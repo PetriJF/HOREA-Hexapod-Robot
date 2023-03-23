@@ -128,11 +128,10 @@ class inverseKinematics(Node):
         alphaPrime = np.rad2deg(np.arccos((2 * D * D - T * T) / (2 * D * D)))
         # Because cos is sign dependent, ro is used to determine on which side of the default line the leg goes
         ro = np.arccos(point.x / (np.sqrt(point.x * point.x + point.y * point.y)))
-        if not point.y: # If we are working with legs from the left side of the robot, we must change the rotation direction and substract from 360
-            ro = 2.0 * np.pi - ro
+        if point.y < 0: # If we are working with legs from the left side of the robot, we must change the rotation direction and substract from 360
+            ro = 2 * np.pi - ro
         # Based on the side of the point compared to the center rest position, add or substract from 90 alphaPrime, giving the final value of alpha
         alpha = 90.0 + (alphaPrime if (ro < self.gamma_[leg_index - 1]) else (-alphaPrime))
-
         # Line used to debug kinematic model.
         #self.get_logger().info(str(leg_index) + "->" + str(alpha) + " for " + str(point.x) + ", " + str(point.y) + " and " + str(origin.x) + " " + str(origin.y) + "\nD = " + str(D) + " T = " + str(T) + " aprim = " + str(alphaPrime))
 
