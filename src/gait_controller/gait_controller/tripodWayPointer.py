@@ -33,12 +33,11 @@ class TripodGait(Node):
 
     def commandsCallback(self, cmd = Float64MultiArray):
         # Setting the information needed by the waypointer from the topic float array
-        self.get_logger().info("Step Command Received")
         self.wayPointer(relativeDirRad = cmd.data[0],
                         stepLength = cmd.data[1], 
                         gaitAltitude = cmd.data[2],
                         gaitWidth = cmd.data[3], 
-                        rightDominant = True,#self.last_step_type_,
+                        rightDominant = self.last_step_type_,
                         spin = False if (cmd.data[4] == 0.0) else True)
         # Change the next step to start with the other leg to the previous one. Makes the walk "animation look nicer"
         self.last_step_type_ = not self.last_step_type_
@@ -53,85 +52,19 @@ class TripodGait(Node):
             self.leg_waypoints_.lb = self.bezierWaypointer4P(3, relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.lm = self.bezierWaypointer4P(4, relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.lf = self.bezierWaypointer4P(5, relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.right_dominant = True #rightDominant
+            self.leg_waypoints_.right_dominant = rightDominant
             self.wp_pub.publish(self.leg_waypoints_)
         else:
             # When the robot is spinning in spot, all legs must move in terms of their own orientation 
-            self.leg_waypoints_.rf = self.bezierSpin4P(0, self.gamma_[0] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.rm = self.bezierSpin4P(1, self.gamma_[1] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.rb = self.bezierSpin4P(2, self.gamma_[2] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.lb = self.bezierSpin4P(3, self.gamma_[3] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.lm = self.bezierSpin4P(4, self.gamma_[4] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.lf = self.bezierSpin4P(5, self.gamma_[5] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)
-            self.leg_waypoints_.right_dominant = True
-            
-            #self.get_logger().info(str(self.bezierSpin4P(0, self.gamma_[0] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, False)[3].x))
-            #self.get_logger().info(str(self.leg_waypoints_.rf[3].x) + " " + str(self.leg_waypoints_.rf[3].y))
-
+            self.leg_waypoints_.rf = self.bezierWaypointer4P(0, self.gamma_[0] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.rm = self.bezierWaypointer4P(1, self.gamma_[1] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.rb = self.bezierWaypointer4P(2, self.gamma_[2] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.lb = self.bezierWaypointer4P(3, self.gamma_[3] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.lm = self.bezierWaypointer4P(4, self.gamma_[4] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.lf = self.bezierWaypointer4P(5, self.gamma_[5] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
+            self.leg_waypoints_.right_dominant = rightDominant
             self.wp_pub.publish(self.leg_waypoints_)
         # Publish to bezierTrajectory Node
-        
-
-    # Node dealing with planning the motion for each leg in order to achieve the tripod pattern gait
-    # Returns 4 trajectory points for the legs, representing the 4 points needed for the bezier curve
-    def bezierSpin4P(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
-        A = Point()
-        B = Point()
-        C = Point()
-        D = Point()
-
-        B_width_ratio = 1/2
-        B_height_ratio = 4/5
-
-        C_width_ratio = 6/5
-        C_height_ratio = 1.0
-
-        A.x = gaitWidth * np.cos(self.gamma_[legIndex])
-        A.y = gaitWidth * np.sin(self.gamma_[legIndex])
-        A.z = 0.0
-
-        if legIndex % 2 == 0:
-            B.x = A.x + (stepLength * np.cos(relativeDirRad)) * B_width_ratio 
-            B.y = A.y + (stepLength * np.sin(relativeDirRad)) * B_width_ratio
-            B.z = B_height_ratio * gaitAltitude
-
-            C.x = A.x + (stepLength * np.cos(relativeDirRad)) * C_width_ratio
-            C.y = A.y + (stepLength * np.sin(relativeDirRad)) * C_width_ratio
-            C.z = C_height_ratio * gaitAltitude
-
-            D.x = A.x + stepLength * np.cos(relativeDirRad) 
-            D.y = A.y + stepLength * np.sin(relativeDirRad) 
-            D.z = 0.0
-
-            self.get_logger().info("Leg index: " + str(legIndex) + " --- "
-                                   + str(self.gamma_[legIndex]) + " " + str(relativeDirRad) 
-                                   + "\n\tA: " + str(A.x) + " " + str(A.y) + " " + str(A.z)
-                                   + "\n\tB: " + str(B.x) + " " + str(B.y) + " " + str(B.z)
-                                   + "\n\tC: " + str(C.x) + " " + str(C.y) + " " + str(C.z)
-                                   + "\n\tD: " + str(D.x) + " " + str(D.y) + " " + str(D.z)
-                                   )
-
-        else:
-            B.x = A.x
-            B.y = A.y
-            B.z = B_height_ratio * gaitAltitude
-
-            C.x = A.x
-            C.y = A.y
-            C.z = C_height_ratio * gaitAltitude
-
-            D.x = A.x
-            D.y = A.y
-            D.z = 0.0
-
-        #self.get_logger().info()
-
-        #G = Float64MultiArray()
-        G = [A, B, C, D]
-        self.get_logger().info("Before return: " + str(G[3].x) + " " + str(G[3].y))
-
-        return [A, B, C, D]
-
     
     def bezierWaypointer4P(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
         # Note! 0 deg represents forward
@@ -168,12 +101,12 @@ class TripodGait(Node):
         D.y = A.y + direction * stepLength * np.sin(relativeDirRad) 
         D.z = 0.0
 
-        self.get_logger().info("Index " + str(legIndex) 
-                               + "\n\tA: " + str(A.x) + " " + str(A.y) + " " + str(A.z)
-                               + "\n\tB: " + str(B.x) + " " + str(B.y) + " " + str(B.z)
-                               + "\n\tC: " + str(C.x) + " " + str(C.y) + " " + str(C.z)
-                               + "\n\tD: " + str(D.x) + " " + str(D.y) + " " + str(D.z)
-                               )
+        #self.get_logger().info("Index " + str(legIndex) 
+        #                       + "\n\tA: " + str(A.x) + " " + str(A.y) + " " + str(A.z)
+        #                       + "\n\tB: " + str(B.x) + " " + str(B.y) + " " + str(B.z)
+        #                       + "\n\tC: " + str(C.x) + " " + str(C.y) + " " + str(C.z)
+        #                       + "\n\tD: " + str(D.x) + " " + str(D.y) + " " + str(D.z)
+        #                       )
 
         return [A, B, C, D]
             

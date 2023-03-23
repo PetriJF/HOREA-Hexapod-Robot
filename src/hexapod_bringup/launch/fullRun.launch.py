@@ -90,7 +90,7 @@ def generate_launch_description():
         executable = "bezier_traj_node",
         parameters = [
             {"resolution": 0.01},
-            {"iter_delay": 0.005}
+            {"iter_delay": 0.007}
         ]
     )
 

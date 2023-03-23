@@ -34,7 +34,7 @@ class Stepper(Node):
             
             self.step_command_.publish(step_description)
         elif cmd.data == "a":
-            step_description.data = [ np.deg2rad(90.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            step_description.data = [ np.deg2rad(270.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
 
             self.step_command_.publish(step_description)
         elif cmd.data == "s":
@@ -42,20 +42,18 @@ class Stepper(Node):
 
             self.step_command_.publish(step_description)
         elif cmd.data == "d":
-            step_description.data = [ np.deg2rad(270.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            step_description.data = [ np.deg2rad(90.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
             
             self.step_command_.publish(step_description)
         elif cmd.data == "q":
             angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
             step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
-            self.get_logger().warning("Q   " + str(angle))
             self.step_command_.publish(step_description)
         elif cmd.data == "e":
             angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
-            step_description.data = [ -angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
-            self.get_logger().warning("E   " + str(-angle))
             self.step_command_.publish(step_description)
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
