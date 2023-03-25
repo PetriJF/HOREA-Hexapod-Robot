@@ -3,6 +3,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int64
 from sensor_msgs.msg import Joy
+import numpy as np
 
 class TeleOp(Node):
     def __init__(self):
@@ -16,7 +17,10 @@ class TeleOp(Node):
         self.step_type_ = self.create_publisher(String, 'stepType', 10)
 
     def gamepadCallback(self, cmd = Joy):
-        pass
+        crabMagnitude = (np.abs(cmd.axes[0]) + np.abs(cmd.axes[1])) / 2.0
+        if crabMagnitude != 0.0:
+            crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
+            self.get_logger().info(str(crabMagnitude) + " " + str(np.rad2deg(crabAngle)))
 
     #def animCommandHandler(self, cmd = Int64):
     #    if cmd.data in self.animation_command_list_:
