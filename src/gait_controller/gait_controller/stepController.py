@@ -5,7 +5,8 @@ from std_msgs.msg import String, Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 import numpy as np
 
-## Bézier <3
+## OLD NOT IN USE! KEPT FOR REFERENCE!!!
+
 class Stepper(Node):
     def __init__(self):
         super().__init__("step_ctrl_node")

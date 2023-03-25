@@ -94,16 +94,16 @@ def generate_launch_description():
         ]
     )
 
-    step_node = Node(
-        package = "gait_controller",
-        executable = "step_ctrl_node",
-        parameters = [
-            {"base_width": BASE_WIDTH},
-            {"gait_width": GAIT_WIDTH},
-            {"gait_altitude": GAIT_ALTITUDE},
-            {"step_length": STEP_LENGTH}
-        ]
-    )
+    # step_node = Node(
+    #     package = "gait_controller",
+    #     executable = "step_ctrl_node",
+    #     parameters = [
+    #         {"base_width": BASE_WIDTH},
+    #         {"gait_width": GAIT_WIDTH},
+    #         {"gait_altitude": GAIT_ALTITUDE},
+    #         {"step_length": STEP_LENGTH}
+    #     ]
+    # )
 
     ld.add_action(servo_node)
     ld.add_action(kin_node)
@@ -111,7 +111,7 @@ def generate_launch_description():
 
     ld.add_action(bezier_node)
     ld.add_action(gait_waypoint_node)
-    ld.add_action(step_node)
+    #ld.add_action(step_node)
     
     return ld
 
