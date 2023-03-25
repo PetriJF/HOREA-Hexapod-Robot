@@ -28,7 +28,7 @@ def main(args = None):
     #    imu.gyroscopeRead()
     
     try:
-       rclpy.spin(imu)
+        rclpy.spin(imu)
     except KeyboardInterrupt:
         pass
     
