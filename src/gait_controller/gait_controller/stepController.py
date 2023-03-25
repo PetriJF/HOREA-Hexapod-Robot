@@ -51,7 +51,7 @@ class Stepper(Node):
 
             self.step_command_.publish(step_description)
         elif cmd.data == "e":
-            angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
+            angle = -1.0 * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
             step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
             self.step_command_.publish(step_description)
