@@ -33,10 +33,13 @@ def main(args = None):
     # Node
 
     node = singleMotorControlDemo()  # create a node 
-    rclpy.spin(node) # keep node alive 
-
-    # End Node
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
     
+    node.get_logger().info("Shutting down..")
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

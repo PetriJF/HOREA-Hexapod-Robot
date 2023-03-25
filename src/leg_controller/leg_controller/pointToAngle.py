@@ -170,6 +170,7 @@ def main(args = None):
     # Keep the node running
     rclpy.spin(invKinNode)
 
+    invKinNode.destroy_node()
     # Stop the node
     rclpy.shutdown()
 

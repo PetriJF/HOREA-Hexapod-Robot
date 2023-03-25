@@ -41,10 +41,17 @@ def main(args = None):
     rclpy.init(args = args)
     
     imu = IMUNode()
-    while(True):
-        imu.gyroscopeRead()
+     
+    try:
+       #rclpy.spin(imu)
+       while(True):
+            imu.gyroscopeRead()
+    except KeyboardInterrupt:
+        pass
     
-    #rclpy.spin(imu)
+    imu.get_logger().info("Shutting down..")
+    imu.destroy_node()
+
     rclpy.shutdown()
 
 if __name__ == '__main__':
