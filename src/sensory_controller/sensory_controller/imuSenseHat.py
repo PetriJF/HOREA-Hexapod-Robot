@@ -27,7 +27,13 @@ def main(args = None):
     #while(True):
     #    imu.gyroscopeRead()
     
-    rclpy.spin(imu)
+    try:
+       rclpy.spin(imu)
+    except KeyboardInterrupt:
+        pass
+    
+    imu.get_logger().info("Shutting down..")
+    imu.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

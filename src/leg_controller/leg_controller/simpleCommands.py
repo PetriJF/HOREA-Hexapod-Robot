@@ -137,8 +137,14 @@ def main(args = None):
     rclpy.init(args = args)
     ctrl = ControlNode()
     
-    rclpy.spin(ctrl)
-     
+    try:
+        rclpy.spin(ctrl)
+    except KeyboardInterrupt:
+        pass
+    
+    ctrl.get_logger().info("Shutting down..")
+    ctrl.destroy_node()
+
     rclpy.shutdown()
 
 if __name__ == '__main__':

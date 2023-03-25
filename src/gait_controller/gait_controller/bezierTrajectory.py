@@ -129,7 +129,13 @@ def main(args = None):
 
     bzTraj = BezierTrajectory()
     
-    rclpy.spin(bzTraj)
+    try:
+        rclpy.spin(bzTraj)
+    except KeyboardInterrupt:
+        pass
+    
+    bzTraj.get_logger().info("Shutting down..")
+    bzTraj.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

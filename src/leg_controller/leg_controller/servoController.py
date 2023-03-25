@@ -75,7 +75,7 @@ def main(args = None):
     rclpy.spin(node) # keep node alive 
 
     # End Node
-    
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

@@ -39,16 +39,21 @@ def main(args = None):
     userInput = input("\nEnter command: ")
 
     while userInput != 'c':
-        if userInput in ['q', 'w', 'e', 'a', 's', 'd']:
-            stepCmd.data = str(userInput)
-            ctrl.stepCommandHandler(stepCmd)
-        elif userInput in ['1', '2', '3', '4']:
-            animCmd.data = int(userInput)
-            ctrl.animCommandHandler(animCmd)
-        else:
-            print("Command not in the options! Try again")    
-        userInput = input("\nEnter command: ")
+        try:
+            if userInput in ['q', 'w', 'e', 'a', 's', 'd']:
+                stepCmd.data = str(userInput)
+                ctrl.stepCommandHandler(stepCmd)
+            elif userInput in ['1', '2', '3', '4']:
+                animCmd.data = int(userInput)
+                ctrl.animCommandHandler(animCmd)
+            else:
+                print("Command not in the options! Try again")    
+            userInput = input("\nEnter command: ")
+        except KeyboardInterrupt:
+            userInput = 'c'
 
+    ctrl.get_logger().info("Shutting down..")
+    ctrl.destroy_node()
     rclpy.shutdown()
 
 

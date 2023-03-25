@@ -62,8 +62,13 @@ def main(args = None):
     rclpy.init(args = args)
 
     step = Stepper()
-    rclpy.spin(step)
-
+    try:
+        rclpy.spin(step)
+    except KeyboardInterrupt:
+        pass
+    
+    step.get_logger().info("Shutting down..")
+    step.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

@@ -125,7 +125,13 @@ def main(args = None):
     
     tpG = TripodGait()
 
-    rclpy.spin(tpG)
+    try:
+        rclpy.spin(tpG)
+    except KeyboardInterrupt:
+        pass
+    
+    tpG.get_logger().info("Shutting down..")
+    tpG.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
