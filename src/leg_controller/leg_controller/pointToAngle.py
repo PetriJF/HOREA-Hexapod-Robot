@@ -168,7 +168,10 @@ def main(args = None):
     invKinNode = inverseKinematics()
     
     # Keep the node running
-    rclpy.spin(invKinNode)
+    try:
+        rclpy.spin(invKinNode)
+    except KeyboardInterrupt:
+        pass
 
     invKinNode.destroy_node()
     # Stop the node
