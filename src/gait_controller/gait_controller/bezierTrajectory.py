@@ -27,7 +27,6 @@ class BezierTrajectory(Node):
 
         self.targetPos_ = TargetPositions()
         self.posPub_ = self.create_publisher(TargetPositions, 'HexLegPos', 10)
-        #self.wpSub_ = self.create_subscription(WaypointSetter, 'WaypointPlanner', self.trajectoryPlannerCallBack, 10)
 
     def trajectoryPlannerCallBack(self, goal_handle):
         wp = goal_handle.request.waypointer
@@ -57,19 +56,6 @@ class BezierTrajectory(Node):
                 self.setTargPosIndex(self.bezier4P(wp.rb[0], wp.rb[1], wp.rb[2], wp.rb[3], t), 3)
                 self.setTargPosIndex(self.bezier4P(wp.lm[0], wp.lm[1], wp.lm[2], wp.lm[3], t), 5)
 
-            #self.targetPos_.x_pos[6] = wp.lf[0].x
-            #self.targetPos_.y_pos[6] = wp.lf[0].y
-            #self.targetPos_.z_pos[6] = wp.lf[0].z
-            #self.targetPos_.x_pos[1] = wp.rf[0].x
-            #self.targetPos_.y_pos[1] = wp.rf[0].y
-            #self.targetPos_.z_pos[1] = wp.rf[0].z
-            #self.get_logger().info("RM state\n" + str(self.targetPos_.x_pos[2]) +
-            #                       " " + str(self.targetPos_.y_pos[2]) + " " +
-            #                       str(self.targetPos_.z_pos[2]))
-            #self.get_logger().info("Target Pos:\n\t" + ' '.join(str(e) for e in self.targetPos_.x_pos) +
-            #                        "\n\t" + ' '.join(str(e) for e in self.targetPos_.y_pos) + 
-            #                        "\n\t" + ' '.join(str(e) for e in self.targetPos_.z_pos))
-            
             self.posPub_.publish(self.targetPos_)
 
             sleep(self.iter_delay_)
@@ -98,15 +84,6 @@ class BezierTrajectory(Node):
                 self.setTargPosIndex(self.linear2P(wp.rb[3], wp.rb[0], t), 3)
                 self.setTargPosIndex(self.linear2P(wp.lm[3], wp.lm[0], t), 5)
 
-            #self.get_logger().info("Target Pos:\n\t" + ' '.join(str(e) for e in self.targetPos_.x_pos) +
-            #                        "\n\t" + ' '.join(str(e) for e in self.targetPos_.y_pos) + 
-            #                        "\n\t" + ' '.join(str(e) for e in self.targetPos_.z_pos))
-            #self.targetPos_.x_pos[6] = wp.lf[0].x
-            #self.targetPos_.y_pos[6] = wp.lf[0].y
-            #self.targetPos_.z_pos[6] = wp.lf[0].z
-            #self.targetPos_.x_pos[1] = wp.rf[0].x
-            #self.targetPos_.y_pos[1] = wp.rf[0].y
-            #self.targetPos_.z_pos[1] = wp.rf[0].z
             self.posPub_.publish(self.targetPos_)
             
             sleep(self.iter_delay_)

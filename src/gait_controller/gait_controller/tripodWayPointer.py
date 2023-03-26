@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from rclpy.action import ActionServer, ActionClient
+from rclpy.action import ActionClient
 from geometry_msgs.msg import Point
 from std_msgs.msg import Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import WaypointSetter
-from hexapod_interfaces.action import StepManagement, StepAnimator
+from hexapod_interfaces.action import StepAnimator
 
 import numpy as np
 
@@ -31,11 +31,9 @@ class TripodGait(Node):
         # Action Client and feedback for ensuring the step is done before trying to start another one
         self.action_client_ = ActionClient(self, StepAnimator, "stepStatus")  # Note this should be changes to have some sort of end location feedback
         self.feedback_ = 1.0
-        #self.action_server_ = ActionServer(self, StepManagement, "stepStatus", self.stepStatusCallback)
-        
+
         # Initialize the publisher to the tranjectory planner
         self.sub = self.create_subscription(Float64MultiArray, 'stepCommands', self.commandsCallback, 10)
-        #self.wp_pub = self.create_publisher(WaypointSetter,'WaypointPlanner', 10)
 
     def commandsCallback(self, cmd = Float64MultiArray):
         # Setting the information needed by the waypointer from the topic float array
@@ -71,7 +69,6 @@ class TripodGait(Node):
             )
 
             self.send_goal_.add_done_callback(self.goal_response_callback)
-            #self.wp_pub.publish(self.leg_waypoints_)
         else:
             # When the robot is spinning in spot, all legs must move in terms of their own orientation 
             self.leg_waypoints_.rf = self.bezierWaypointer4P(0, self.gamma_[0] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
@@ -92,8 +89,6 @@ class TripodGait(Node):
             )
 
             self.send_goal_.add_done_callback(self.goal_response_callback)
-            #self.wp_pub.publish(self.leg_waypoints_)
-        # Publish to bezierTrajectory Node
     
     # Represents the request status and rather it was accepted or not and how it the code continues forward
     def goal_response_callback(self, status):
