@@ -1,65 +1,94 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int64
+from std_msgs.msg import Int64, Float64MultiArray
 from sensor_msgs.msg import Joy
+from rclpy.action import ActionServer
+#from hexapod_interfaces.msg import GaitConstants
+from rcl_interfaces.msg import ParameterDescriptor
+from hexapod_interfaces.action import StepManagement
+
 import numpy as np
 
 class TeleOp(Node):
     def __init__(self):
         super().__init__("teleop_node")
 
-        self.animation_command_list_ = [1, 2, 3, 4]
-        self.step_command_list_ = ["w", "a", "s", "d", "q", "e"] 
+        pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
+        self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
+        self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
+        self.declare_parameter(name = "gait_altitude", descriptor = pd, value = 90.0)
+        self.declare_parameter(name = "step_length", descriptor = pd, value = 50.0)
 
+        self.base_width_ = self.get_parameter("base_width").value
+        self.gait_width_ = self.get_parameter("gait_width").value
+        self.gait_altitude_ = self.get_parameter("gait_altitude").value
+        self.step_length_ = self.get_parameter("step_length").value
+
+        #self.action_server_ = ActionServer(self, StepManagement, "stepStatus", self.stepActionCallback)
+
+        self.previous_animation_ = Int64()
+        self.previous_animation_.data = 1
+        self.animation_command_list_ = ["1", "2", "3", "4"] 
+        
+        self.previous_cmd_ = Joy()
         self.gamepad_commands_ = self.create_subscription(Joy, 'joy', self.gamepadCallback, 10)
+        
         self.animation_type_ = self.create_publisher(Int64, 'animationType', 10)
-        self.step_type_ = self.create_publisher(String, 'stepType', 10)
+        self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
+
+    #def stepActionCallback(self, goal_handle):
+    #    
+    #    pass
 
     def gamepadCallback(self, cmd = Joy):
-        crabMagnitude = (np.abs(cmd.axes[0]) + np.abs(cmd.axes[1])) / 2.0
+        command = Float64MultiArray()
+        # Left JoyStick controlling the crab walk
+        crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
         if crabMagnitude != 0.0:
             crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
-            self.get_logger().info(str(crabMagnitude) + " " + str(np.rad2deg(crabAngle)))
+            self.get_logger().info("Going at " + str(crabAngle))
+            command.data = [ np.deg2rad(crabAngle), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
+            self.step_command_.publish(command)
+        
+        # D-Pad left and right turning the robot in each direction
+        if cmd.axes[4] != 0.0:
+            turnAngle = cmd.axes[4] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
+            command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
-    #def animCommandHandler(self, cmd = Int64):
-    #    if cmd.data in self.animation_command_list_:
-    #        self.animation_type_.publish(cmd)
-    #    else:
-    #        print("Wrong Animation Input! Please try again")
-        
-    #def stepCommandHandler(self, cmd = String):
-    #    if cmd.data in self.step_command_list_:
-    #        self.step_type_.publish(cmd)
-    #    else:
-    #        print("Wrong Input! Please try again")
-        
+            self.get_logger().info("Rotating at " + str(turnAngle))
+
+            self.step_command_.publish(command)
+        #self.
+        # Dealing with the animations using the L1 and R1 bumpers
+        if cmd.buttons[4] == 1 and self.previous_animation_.data == 2:
+            self.previous_animation_.data = 1
+            self.get_logger().info("Getting in init pose")
+            self.animation_type_.publish(self.previous_animation_)
+        if cmd.buttons[5] == 1 and self.previous_animation_.data < 3:
+            self.previous_animation_.data = self.previous_animation_.data + 1
+            self.get_logger().info("Getting in pose " + str(self.previous_animation_))
+            self.animation_type_.publish(self.previous_animation_)
+        if cmd.buttons[5] == 1 and self.previous_animation_.data == 3:
+            self.previous_animation_.data = 4
+            self.animation_type_.publish(self.previous_animation_)
+            self.previous_animation_.data = 2
+            self.get_logger().info("Lowering base")
+            
+        #self.get_logger().info(str(crabMagnitude) + " " + str(np.rad2deg(crabAngle)))
+ 
 
 def main(args = None):
     rclpy.init(args = args)
 
     ctrl = TeleOp()
-
-    rclpy.spin(ctrl)
-    #stepCmd = String()
-    # animCmd = Int64()
-
-
-    # print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\tw - forward\n\ta - left\n\ts - backwards\n\td - right\n\tq - spin left\n\te - spin right\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
+    try:
+        rclpy.spin(ctrl)
+    except KeyboardInterrupt:
+        pass
     
-    # userInput = input("\nEnter command: ")
-
-    # while userInput != 'c':
-    #     if userInput in ['q', 'w', 'e', 'a', 's', 'd']:
-    #         stepCmd.data = str(userInput)
-    #         ctrl.stepCommandHandler(stepCmd)
-    #     elif userInput in ['1', '2', '3', '4']:
-    #         animCmd.data = int(userInput)
-    #         ctrl.animCommandHandler(animCmd)
-    #     else:
-    #         print("Command not in the options! Try again")    
-    #     userInput = input("\nEnter command: ")
-
+    ctrl.get_logger().info("Shutting down..")
+    ctrl.destroy_node()
     rclpy.shutdown()
 
 
