@@ -2,9 +2,11 @@
 import rclpy
 from time import *
 from rclpy.node import Node
+from rclpy.action import ActionServer
 from geometry_msgs.msg import Point
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import WaypointSetter, TargetPositions
+from hexapod_interfaces.action import StepAnimator
 
 import numpy as np
 
@@ -21,14 +23,21 @@ class BezierTrajectory(Node):
         self.resolution_ = self.get_parameter("resolution").value
         self.iter_delay_ = self.get_parameter("iter_delay").value
 
+        self.action_server_ = ActionServer(self, StepAnimator, "stepStatus", self.trajectoryPlannerCallBack)
+
         self.targetPos_ = TargetPositions()
-
         self.posPub_ = self.create_publisher(TargetPositions, 'HexLegPos', 10)
-        self.wpSub_ = self.create_subscription(WaypointSetter, 'WaypointPlanner', self.trajectoryPlannerCallBack, 10)
+        #self.wpSub_ = self.create_subscription(WaypointSetter, 'WaypointPlanner', self.trajectoryPlannerCallBack, 10)
 
-    def trajectoryPlannerCallBack(self, wp = WaypointSetter):
+    def trajectoryPlannerCallBack(self, goal_handle):
+        wp = goal_handle.request.waypointer
+        feedback_msg = StepAnimator.Feedback()
+        
         # FIRST FRAME OF THE STEP
         for t in np.arange(0, 1 + self.resolution_, self.resolution_):
+            feedback_msg.percentage = t / 2.0
+            goal_handle.publish_feedback(feedback_msg)
+            
             if wp.right_dominant:
                 # First Triangle (RM, LB, LF)
                 self.setTargPosIndex(self.bezier4P(wp.rm[0], wp.rm[1], wp.rm[2], wp.rm[3], t), 2)
@@ -67,6 +76,9 @@ class BezierTrajectory(Node):
 
         # SECOND FRAME OF THE STEP
         for t in np.arange(0, 1 + self.resolution_, self.resolution_):
+            feedback_msg.percentage = 0.5 + t / 2.0
+            goal_handle.publish_feedback(feedback_msg)
+
             if wp.right_dominant:
                 # First Triangle (RM, LB, LF)
                 self.setTargPosIndex(self.linear2P(wp.rm[3], wp.rm[0], t), 2)
@@ -98,6 +110,13 @@ class BezierTrajectory(Node):
             self.posPub_.publish(self.targetPos_)
             
             sleep(self.iter_delay_)
+
+        goal_handle.succeed()
+        
+        result = StepAnimator.Result()
+        result.completed_percentage = 1.0
+
+        return result
 
     ## Bezier Curve Trajectory function using 4 control points and a time segment t between [0, 1]
     def bezier4P(self, A = Point(), B = Point(), C = Point(), D = Point(), t = float):
