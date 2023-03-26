@@ -46,6 +46,8 @@ class ControlNode(Node):
         elif cmd.data[0] == 4:
             self.hexStandPosition(raiseTime = 2.5, raiseResolution = 1.0, lower = True)
             print("Robot Lowering!!")
+        elif cmd.data[0] == 10:
+            self.hexChangeAltitude(currentAlt = self.base_altitude_, newAlt = cmd.data[1])
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
 
@@ -132,6 +134,32 @@ class ControlNode(Node):
             # control the speed of the standing transition
             sleep(raiseTime / ((1.0 / raiseResolution) * (self.base_altitude_ + 1)))
 
+    def hexChangeAltitude(self, currentAlt = float, newAlt = int, iterDelay = 0.02):
+        self.base_altitude_ = float(newAlt)
+        self.targetPositions.x_pos = [0.0, 
+                                    self.gait_width_ * np.cos(np.pi/6.0),
+                                    self.gait_width_ * np.cos(np.pi/2.0),
+                                    self.gait_width_ * np.cos(5.0*np.pi/6.0),
+                                    self.gait_width_ * np.cos(7.0*np.pi/6.0),
+                                    self.gait_width_ * np.cos(3.0*np.pi/2.0),
+                                    self.gait_width_ * np.cos(11.0*np.pi/6.0)
+        ]
+        self.targetPositions.y_pos = [0.0, 
+                                    self.gait_width_ * np.sin(np.pi/6.0),
+                                    self.gait_width_ * np.sin(np.pi/2.0),
+                                    self.gait_width_ * np.sin(5.0*np.pi/6.0),
+                                    self.gait_width_ * np.sin(7.0*np.pi/6.0),
+                                    self.gait_width_ * np.sin(3.0*np.pi/2.0),
+                                    self.gait_width_ * np.sin(11.0*np.pi/6.0)
+        ]
+        direction = 1 if (int(currentAlt) < newAlt) else -1
+        for alt in range(int(currentAlt), newAlt + direction, direction):
+            H = float(alt)
+            self.targetPositions.z_pos = [ H, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+            self.hexPositions.publish(self.targetPositions)
+            sleep(iterDelay)
+
+            
 
 def main(args = None):
     rclpy.init(args = args)

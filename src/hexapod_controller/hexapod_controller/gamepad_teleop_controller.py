@@ -26,8 +26,9 @@ class TeleOp(Node):
 
         #self.action_server_ = ActionServer(self, StepManagement, "stepStatus", self.stepActionCallback)
 
-        self.previous_animation_ = Int64MultiArray()
-        self.previous_animation_.data = [ 1, self.base_altitude_ ]
+        self.previous_animation_ = 1
+        self.animation_ = Int64MultiArray()
+        self.animation_.data = [ 1, 0 ]
         self.animation_command_list_ = ["1", "2", "3", "4"] 
         
         self.step_speed_ = Float64()
@@ -59,31 +60,37 @@ class TeleOp(Node):
             self.step_command_.publish(command)
 
         # D-Pad up and down representing the base height of the robot
-        if cmd.axes[4] != 0.0:
-            pass
+        if (cmd.axes[5] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[5] > 0.0 and self.base_altitude_ < 160):
+            self.base_altitude_ = self.base_altitude_ + (cmd.axes[5] * 10)
+            self.animation_.data = [ 10, int(self.base_altitude_) ]
+            self.animation_type_.publish(self.animation_)
 
-
+        # decongesting variable. Ensures that a button click is registered once
         decon = True if(cmd.buttons[self.prev_Button_] == 0) else False
 
         if decon:
             self.prev_Button_ = 0 # triangle not working because of it
             # Dealing with the animations using the L1 and R1 bumpers
-            if cmd.buttons[4] == 1 and self.previous_animation_.data[0] == 2:
-                self.previous_animation_.data = [ 1, 0 ]
+            if cmd.buttons[4] == 1 and self.previous_animation_ == 2:
+                self.previous_animation_ = 1
                 self.get_logger().info("Getting in init pose")
                 self.prev_Button_ = 4
-                self.animation_type_.publish(self.previous_animation_)
-            if cmd.buttons[5] == 1 and self.previous_animation_.data[0] == 3:
-                self.previous_animation_.data = [ 4, 0 ]
-                self.animation_type_.publish(self.previous_animation_)
+                self.animation_.data = [ self.previous_animation_, 0 ]
+                self.animation_type_.publish(self.animation_)
+            if cmd.buttons[5] == 1 and self.previous_animation_ == 3:
+                self.previous_animation_ = 4
+                self.animation_.data = [ self.previous_animation_, 0 ]
+                self.animation_type_.publish(self.animation_)
                 self.prev_Button_ = 5
-                self.previous_animation_.data = [ 2, 0 ]
+                self.previous_animation_ = 2
                 self.get_logger().info("Lowering base")
-            elif cmd.buttons[5] == 1 and self.previous_animation_.data[0] < 3:
-                self.previous_animation_.data = [ self.previous_animation_.data[0] + 1, 0 ]
+            elif cmd.buttons[5] == 1 and self.previous_animation_ < 3:
+                self.previous_animation_ = self.previous_animation_ + 1
                 self.get_logger().info("Getting in pose " + str(self.previous_animation_))
                 self.prev_Button_ = 5
-                self.animation_type_.publish(self.previous_animation_)
+                self.animation_.data = [ self.previous_animation_, 0 ]
+                self.animation_type_.publish(self.animation_)
+            
             # Dealing with the stepSpeed using L2 and R2 triggers
             if cmd.buttons[6] == 1 and self.step_speed_.data < 3.0:
                 self.prev_Button_ = 6

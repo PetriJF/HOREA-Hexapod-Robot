@@ -102,6 +102,9 @@ class inverseKinematics(Node):
 
     ## This function takes the position subscription and publishes the computed angles
     def posCallback(self, hexPos = TargetPositions):
+        if hexPos.z_pos[0] != 0.0:
+            self.base_altitude_ = hexPos.z_pos[0] 
+
         self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), self.origin_RF_, 1)
         self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), self.origin_RM_, 2)
         self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), self.origin_RB_, 3)
