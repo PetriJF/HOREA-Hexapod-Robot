@@ -4,7 +4,7 @@ from rclpy.node import Node
 from time import *
 import numpy as np
 from hexapod_interfaces.msg import TargetPositions
-from std_msgs.msg import Int64
+from std_msgs.msg import Int64MultiArray
 
 ## Node use for the control strategy of the robot
 class ControlNode(Node):
@@ -29,21 +29,21 @@ class ControlNode(Node):
         self.gait_width_ = self.get_parameter("gait_width").value
 
         self.targetPositions = TargetPositions()
-        self.posSub = self.create_subscription(Int64, 'animationType', self.legsCommand, 10)
+        self.posSub = self.create_subscription(Int64MultiArray, 'animationType', self.legsCommand, 10)
         self.hexPositions = self.create_publisher(TargetPositions, 'HexLegPos', 10)
 
     ## TODO ADD COMMENTS
-    def legsCommand(self, cmd = Int64):
-        if cmd.data == 1:
+    def legsCommand(self, cmd):
+        if cmd.data[0] == 1:
             self.hexInitPosition()
             print("Legs Up Pose")
-        elif cmd.data == 2:
+        elif cmd.data[0] == 2:
             self.hexZeroPosition()
             print("Legs Stand Prep Pose")
-        elif cmd.data == 3:
+        elif cmd.data[0] == 3:
             self.hexStandPosition(raiseTime = 1.0, raiseResolution = 2.0, lower = False)
             print("Robot Raising!!")
-        elif cmd.data == 4:
+        elif cmd.data[0] == 4:
             self.hexStandPosition(raiseTime = 2.5, raiseResolution = 1.0, lower = True)
             print("Robot Lowering!!")
         else:

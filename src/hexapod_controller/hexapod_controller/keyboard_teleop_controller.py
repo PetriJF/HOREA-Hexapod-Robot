@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int64, Float64MultiArray
+from std_msgs.msg import String, Int64MultiArray, Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 import numpy as np
 
@@ -17,21 +17,25 @@ class TeleOp(Node):
         self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
         self.declare_parameter(name = "gait_altitude", descriptor = pd, value = 90.0)
         self.declare_parameter(name = "step_length", descriptor = pd, value = 50.0)
+        self.declare_parameter(name = "base_altitude", descriptor= pd, value = 120.0)
 
         self.base_width_ = self.get_parameter("base_width").value
         self.gait_width_ = self.get_parameter("gait_width").value
         self.gait_altitude_ = self.get_parameter("gait_altitude").value
         self.step_length_ = self.get_parameter("step_length").value
+        self.base_altitude_ = int(self.get_parameter("base_altitude").value)
 
         self.animation_command_list_ = ["1", "2", "3", "4"]
         self.step_command_list_ = ["w", "a", "s", "d", "q", "e"] 
-        self.animation_type_ = self.create_publisher(Int64, 'animationType', 10)
+        self.animation_type_ = self.create_publisher(Int64MultiArray, 'animationType', 10)
         self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
 
     
-    def animCommandHandler(self, cmd = Int64):
-        if str(cmd.data) in self.animation_command_list_:
-            self.animation_type_.publish(cmd)
+    def animCommandHandler(self, cmd = int):
+        if str(cmd) in self.animation_command_list_:
+            anim = Int64MultiArray()
+            anim.data = [ cmd, 0 ]
+            self.animation_type_.publish(anim)
         else:
             print("Wrong Animation Input! Please try again")
         
@@ -74,8 +78,7 @@ def main(args = None):
     ctrl = TeleOp()
 
     stepCmd = String()
-    animCmd = Int64()
-
+  
     print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\tw - forward\n\ta - left\n\ts - backwards\n\td - right\n\tq - spin left\n\te - spin right\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
     
     userInput = input("\nEnter command: ")
@@ -86,7 +89,7 @@ def main(args = None):
                 stepCmd.data = str(userInput)
                 ctrl.stepCommandHandler(stepCmd)
             elif userInput in ctrl.animation_command_list_:
-                animCmd.data = int(userInput)
+                animCmd = int(userInput)
                 ctrl.animCommandHandler(animCmd)
             else:
                 print("Command not in the options! Try again")    
