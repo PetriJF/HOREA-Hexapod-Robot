@@ -1,0 +1,8 @@
+#goal
+hexapod_interfaces/WaypointSetter waypointer
+---
+#result
+float64 completed_percentage
+---
+#feedback
+float64 percentage

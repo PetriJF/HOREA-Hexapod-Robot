@@ -11,10 +11,13 @@ find_package(geometry_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "action/StepManagement.action"
+  "action/StepAnimator.action"
   "msg/TargetAngles.msg"
   "msg/TargetPositions.msg"
   "msg/LegReferencing.msg"
   "msg/WaypointSetter.msg"
+  "msg/GaitConstants.msg"
   DEPENDENCIES geometry_msgs
 )
 

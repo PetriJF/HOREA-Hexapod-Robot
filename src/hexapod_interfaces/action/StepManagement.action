@@ -1,0 +1,8 @@
+#goal
+float64 complete
+---
+#result
+float64 completed_percentage
+---
+#feedback
+float64 percentage
