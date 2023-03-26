@@ -19,6 +19,8 @@ def generate_launch_description():
     GAIT_ALTITUDE = 120.0
     STEP_LENGTH = 50.0
     GAIT_WIDTH = 290.0
+    ANIMATION_RESOLUTION = 0.01
+    STEP_DURATION = 1.0
     
     # Setting the leg referencing system. Used to make the launch file a lot more readable!
     RF = setLegReferencing(True, 30.0, BASE_WIDTH * round(np.cos(np.pi/6.0),2), BASE_WIDTH * round(np.sin(np.pi/6.0),2), 8, 9, 10, 1, "Leg: <Right Front>")
@@ -92,8 +94,8 @@ def generate_launch_description():
         package = "gait_controller",
         executable = "bezier_traj_node",
         parameters = [
-            {"resolution": 0.01},
-            {"iter_delay": 0.007}
+            {"resolution": ANIMATION_RESOLUTION},
+            {"step_duration": STEP_DURATION}
         ]
     )
 

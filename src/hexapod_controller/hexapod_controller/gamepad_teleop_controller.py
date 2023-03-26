@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int64, Float64MultiArray
+from std_msgs.msg import Int64, Float64, Float64MultiArray
 from sensor_msgs.msg import Joy
 from rcl_interfaces.msg import ParameterDescriptor
 
@@ -28,12 +28,14 @@ class TeleOp(Node):
         self.previous_animation_.data = 1
         self.animation_command_list_ = ["1", "2", "3", "4"] 
         
-        
+        self.step_speed_ = Float64()
+        self.step_speed_.data = 1.0
         self.prev_Button_ = -1
         self.gamepad_commands_ = self.create_subscription(Joy, 'joy', self.gamepadCallback, 10)
         
         self.animation_type_ = self.create_publisher(Int64, 'animationType', 10)
         self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
+        self.stepSpeedPub_ = self.create_publisher(Float64, 'step_speed', 10)
 
     def gamepadCallback(self, cmd = Joy):
         command = Float64MultiArray()
@@ -75,9 +77,15 @@ class TeleOp(Node):
                 self.get_logger().info("Getting in pose " + str(self.previous_animation_))
                 self.prev_Button_ = 5
                 self.animation_type_.publish(self.previous_animation_)
- 
-            
-        #self.get_logger().info(str(crabMagnitude) + " " + str(np.rad2deg(crabAngle)))
+            # Dealing with the stepSpeed using L2 and R2 triggers
+            if cmd.buttons[6] == 1 and self.step_speed_.data < 3.0:
+                self.prev_Button_ = 6
+                self.step_speed_.data = self.step_speed_.data + 0.25
+                self.stepSpeedPub_.publish(self.step_speed_)
+            if cmd.buttons[7] == 1 and self.step_speed_.data > 0.25:
+                self.prev_Button_ = 7
+                self.step_speed_.data = self.step_speed_.data - 0.25
+                self.stepSpeedPub_.publish(self.step_speed_)
  
 
 def main(args = None):

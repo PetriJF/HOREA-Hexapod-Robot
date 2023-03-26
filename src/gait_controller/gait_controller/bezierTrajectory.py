@@ -3,9 +3,10 @@ import rclpy
 from time import *
 from rclpy.node import Node
 from rclpy.action import ActionServer
+from std_msgs.msg import Float64
 from geometry_msgs.msg import Point
 from rcl_interfaces.msg import ParameterDescriptor
-from hexapod_interfaces.msg import WaypointSetter, TargetPositions
+from hexapod_interfaces.msg import TargetPositions
 from hexapod_interfaces.action import StepAnimator
 
 import numpy as np
@@ -18,15 +19,16 @@ class BezierTrajectory(Node):
 
         pd = ParameterDescriptor(description = "Trajectory Parameters", type = 3) 
         self.declare_parameter(name = "resolution", descriptor = pd, value = 0.01)
-        self.declare_parameter(name = "iter_delay", descriptor = pd, value = 0.005)
+        self.declare_parameter(name = "step_duration", descriptor = pd, value = 1.0)
 
         self.resolution_ = self.get_parameter("resolution").value
-        self.iter_delay_ = self.get_parameter("iter_delay").value
+        self.step_duration_ = self.get_parameter("step_duration").value
 
         self.action_server_ = ActionServer(self, StepAnimator, "stepStatus", self.trajectoryPlannerCallBack)
 
         self.targetPos_ = TargetPositions()
         self.posPub_ = self.create_publisher(TargetPositions, 'HexLegPos', 10)
+        self.speedSub_ = self.create_subscription(Float64, 'step_speed', self.robotSpeedCallback, 10)
 
     def trajectoryPlannerCallBack(self, goal_handle):
         wp = goal_handle.request.waypointer
@@ -58,7 +60,7 @@ class BezierTrajectory(Node):
 
             self.posPub_.publish(self.targetPos_)
 
-            sleep(self.iter_delay_)
+            sleep(0.5 * self.step_duration_ * self.resolution_)
 
         # SECOND FRAME OF THE STEP
         for t in np.arange(0, 1 + self.resolution_, self.resolution_):
@@ -86,7 +88,7 @@ class BezierTrajectory(Node):
 
             self.posPub_.publish(self.targetPos_)
             
-            sleep(self.iter_delay_)
+            sleep(0.5 * self.step_duration_ * self.resolution_)
 
         goal_handle.succeed()
         
@@ -114,6 +116,9 @@ class BezierTrajectory(Node):
         
         return P
     
+    def robotSpeedCallback(self, speed = Float64):
+        self.step_duration_ = speed.data
+
     ## Stupid function used to set the TargetPositions values until I fix the interface to be a point array
     def setTargPosIndex(self, P = Point(), index = int):
         self.targetPos_.x_pos[index] = np.round(P.x, 2)
