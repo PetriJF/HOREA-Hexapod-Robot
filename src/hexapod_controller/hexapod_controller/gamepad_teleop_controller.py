@@ -3,10 +3,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int64, Float64MultiArray
 from sensor_msgs.msg import Joy
-from rclpy.action import ActionServer
-#from hexapod_interfaces.msg import GaitConstants
 from rcl_interfaces.msg import ParameterDescriptor
-from hexapod_interfaces.action import StepManagement
 
 import numpy as np
 
@@ -31,15 +28,12 @@ class TeleOp(Node):
         self.previous_animation_.data = 1
         self.animation_command_list_ = ["1", "2", "3", "4"] 
         
-        self.previous_cmd_ = Joy()
+        
+        self.prev_Button_ = -1
         self.gamepad_commands_ = self.create_subscription(Joy, 'joy', self.gamepadCallback, 10)
         
         self.animation_type_ = self.create_publisher(Int64, 'animationType', 10)
         self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
-
-    #def stepActionCallback(self, goal_handle):
-    #    
-    #    pass
 
     def gamepadCallback(self, cmd = Joy):
         command = Float64MultiArray()
@@ -48,7 +42,7 @@ class TeleOp(Node):
         if crabMagnitude != 0.0:
             crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
             self.get_logger().info("Going at " + str(crabAngle))
-            command.data = [ np.deg2rad(crabAngle), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
+            command.data = [ crabAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
             self.step_command_.publish(command)
         
         # D-Pad left and right turning the robot in each direction
@@ -59,21 +53,29 @@ class TeleOp(Node):
             self.get_logger().info("Rotating at " + str(turnAngle))
 
             self.step_command_.publish(command)
-        #self.
-        # Dealing with the animations using the L1 and R1 bumpers
-        if cmd.buttons[4] == 1 and self.previous_animation_.data == 2:
-            self.previous_animation_.data = 1
-            self.get_logger().info("Getting in init pose")
-            self.animation_type_.publish(self.previous_animation_)
-        if cmd.buttons[5] == 1 and self.previous_animation_.data < 3:
-            self.previous_animation_.data = self.previous_animation_.data + 1
-            self.get_logger().info("Getting in pose " + str(self.previous_animation_))
-            self.animation_type_.publish(self.previous_animation_)
-        if cmd.buttons[5] == 1 and self.previous_animation_.data == 3:
-            self.previous_animation_.data = 4
-            self.animation_type_.publish(self.previous_animation_)
-            self.previous_animation_.data = 2
-            self.get_logger().info("Lowering base")
+
+        decon = True if(cmd.buttons[self.prev_Button_] == 0) else False
+
+        if decon:
+            self.prev_Button_ = 0 # triangle not working because of it
+            # Dealing with the animations using the L1 and R1 bumpers
+            if cmd.buttons[4] == 1 and self.previous_animation_.data == 2:
+                self.previous_animation_.data = 1
+                self.get_logger().info("Getting in init pose")
+                self.prev_Button_ = 4
+                self.animation_type_.publish(self.previous_animation_)
+            if cmd.buttons[5] == 1 and self.previous_animation_.data == 3:
+                self.previous_animation_.data = 4
+                self.animation_type_.publish(self.previous_animation_)
+                self.prev_Button_ = 5
+                self.previous_animation_.data = 2
+                self.get_logger().info("Lowering base")
+            elif cmd.buttons[5] == 1 and self.previous_animation_.data < 3:
+                self.previous_animation_.data = self.previous_animation_.data + 1
+                self.get_logger().info("Getting in pose " + str(self.previous_animation_))
+                self.prev_Button_ = 5
+                self.animation_type_.publish(self.previous_animation_)
+ 
             
         #self.get_logger().info(str(crabMagnitude) + " " + str(np.rad2deg(crabAngle)))
  
