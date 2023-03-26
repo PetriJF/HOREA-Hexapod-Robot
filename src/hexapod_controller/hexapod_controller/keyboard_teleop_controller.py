@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Float64MultiArray
+from std_msgs.msg import String, Int64, Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 import numpy as np
 
-## OLD NOT IN USE! KEPT FOR REFERENCE!!!
 
-class Stepper(Node):
+class TeleOp(Node):
     def __init__(self):
-        super().__init__("step_ctrl_node")
+        super().__init__("teleop_node")
+
         self.get_logger().info("Init")
         
         pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
@@ -23,13 +23,21 @@ class Stepper(Node):
         self.gait_altitude_ = self.get_parameter("gait_altitude").value
         self.step_length_ = self.get_parameter("step_length").value
 
-        self.posSub = self.create_subscription(String, 'stepType', self.stepCommand, 10)
-        # Change to a float array
+        self.animation_command_list_ = ["1", "2", "3", "4"]
+        self.step_command_list_ = ["w", "a", "s", "d", "q", "e"] 
+        self.animation_type_ = self.create_publisher(Int64, 'animationType', 10)
         self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
 
-    def stepCommand(self, cmd = String):
+    
+    def animCommandHandler(self, cmd = Int64):
+        if str(cmd.data) in self.animation_command_list_:
+            self.animation_type_.publish(cmd)
+        else:
+            print("Wrong Animation Input! Please try again")
+        
+    def stepCommandHandler(self, cmd = String):
         step_description = Float64MultiArray()
-
+        
         if cmd.data == "w":
             step_description.data = [ np.deg2rad(0.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
             
@@ -59,18 +67,37 @@ class Stepper(Node):
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
         
+
 def main(args = None):
     rclpy.init(args = args)
 
-    step = Stepper()
-    try:
-        rclpy.spin(step)
-    except KeyboardInterrupt:
-        pass
+    ctrl = TeleOp()
+
+    stepCmd = String()
+    animCmd = Int64()
+
+    print("List of commands:\n\t1. Legs Up\n\t2. Legs Preped\n\t3. Raise Base\n\t4. Lower Base\n\tw - forward\n\ta - left\n\ts - backwards\n\td - right\n\tq - spin left\n\te - spin right\n\nType just the number for the action you want\n\nType 'c' to stop\n\n")
     
-    step.get_logger().info("Shutting down..")
-    step.destroy_node()
+    userInput = input("\nEnter command: ")
+
+    while userInput != 'c':
+        try:
+            if userInput in ctrl.step_command_list_:
+                stepCmd.data = str(userInput)
+                ctrl.stepCommandHandler(stepCmd)
+            elif userInput in ctrl.animation_command_list_:
+                animCmd.data = int(userInput)
+                ctrl.animCommandHandler(animCmd)
+            else:
+                print("Command not in the options! Try again")    
+            userInput = input("\nEnter command: ")
+        except KeyboardInterrupt:
+            userInput = 'c'
+
+    ctrl.get_logger().info("Shutting down..")
+    ctrl.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

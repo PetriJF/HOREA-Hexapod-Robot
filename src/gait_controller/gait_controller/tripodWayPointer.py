@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from rclpy.action import ActionClient
 from geometry_msgs.msg import Point
 from std_msgs.msg import Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import WaypointSetter
+from hexapod_interfaces.action import StepAnimator
 
 import numpy as np
 
@@ -19,28 +21,31 @@ class TripodGait(Node):
         pd = ParameterDescriptor(description = "Origin definition for each leg", type = 8) 
         self.declare_parameter(name = "leg_angular_orientation", descriptor = pd)
         
-        # Note 3 = PARAMETER_DOUBLE
-        
         # Note gamma_ values : 0 RF, 1 RM, 2 RB, 3 LB, 4 LM, 5 LF 
         self.gamma_ = np.deg2rad(self.get_parameter("leg_angular_orientation").value)
         # Represents if the right legs should step towards the desired direction first (True) or the left legs (False)
         self.last_step_type_ = True
         # Used for storing and transmitting the waypoints' information
         self.leg_waypoints_ = WaypointSetter()
+        
+        # Action Client and feedback for ensuring the step is done before trying to start another one
+        self.action_client_ = ActionClient(self, StepAnimator, "stepStatus")  # Note this should be changes to have some sort of end location feedback
+        self.feedback_ = 1.0
+
         # Initialize the publisher to the tranjectory planner
         self.sub = self.create_subscription(Float64MultiArray, 'stepCommands', self.commandsCallback, 10)
-        self.wp_pub = self.create_publisher(WaypointSetter,'WaypointPlanner', 10)
 
     def commandsCallback(self, cmd = Float64MultiArray):
         # Setting the information needed by the waypointer from the topic float array
-        self.wayPointer(relativeDirRad = cmd.data[0],
-                        stepLength = cmd.data[1], 
-                        gaitAltitude = cmd.data[2],
-                        gaitWidth = cmd.data[3], 
-                        rightDominant = self.last_step_type_,
-                        spin = False if (cmd.data[4] == 0.0) else True)
-        # Change the next step to start with the other leg to the previous one. Makes the walk "animation look nicer"
-        self.last_step_type_ = not self.last_step_type_
+        if self.feedback_ == 1.0:
+            self.wayPointer(relativeDirRad = cmd.data[0],
+                            stepLength = cmd.data[1], 
+                            gaitAltitude = cmd.data[2],
+                            gaitWidth = cmd.data[3], 
+                            rightDominant = self.last_step_type_,
+                            spin = False if (cmd.data[4] == 0.0) else True)
+            # Change the next step to start with the other leg to the previous one. Makes the walk "animation look nicer"
+            self.last_step_type_ = not self.last_step_type_
 
 
     def wayPointer(self, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool, spin = bool):
@@ -53,7 +58,17 @@ class TripodGait(Node):
             self.leg_waypoints_.lm = self.bezierWaypointer4P(4, relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.lf = self.bezierWaypointer4P(5, relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.right_dominant = rightDominant
-            self.wp_pub.publish(self.leg_waypoints_)
+            
+            goal_msg = StepAnimator.Goal()
+            goal_msg.waypointer = self.leg_waypoints_
+            self.action_client_.wait_for_server()
+
+            self.send_goal_ = self.action_client_.send_goal_async(
+                goal_msg,
+                feedback_callback = self.feedbackCallback
+            )
+
+            self.send_goal_.add_done_callback(self.goal_response_callback)
         else:
             # When the robot is spinning in spot, all legs must move in terms of their own orientation 
             self.leg_waypoints_.rf = self.bezierWaypointer4P(0, self.gamma_[0] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
@@ -63,9 +78,35 @@ class TripodGait(Node):
             self.leg_waypoints_.lm = self.bezierWaypointer4P(4, self.gamma_[4] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.lf = self.bezierWaypointer4P(5, self.gamma_[5] - relativeDirRad, stepLength, gaitAltitude, gaitWidth, rightDominant)
             self.leg_waypoints_.right_dominant = rightDominant
-            self.wp_pub.publish(self.leg_waypoints_)
-        # Publish to bezierTrajectory Node
+            
+            goal_msg = StepAnimator.Goal()
+            goal_msg.waypointer = self.leg_waypoints_
+            self.action_client_.wait_for_server()
+
+            self.send_goal_ = self.action_client_.send_goal_async(
+                goal_msg,
+                feedback_callback = self.feedbackCallback
+            )
+
+            self.send_goal_.add_done_callback(self.goal_response_callback)
     
+    # Represents the request status and rather it was accepted or not and how it the code continues forward
+    def goal_response_callback(self, status):
+        goal_handle = status.result()
+        if not goal_handle.accepted:
+            self.get_logger().warning("Command rejected")
+            return
+        self.get_result_ = goal_handle.get_result_async()
+        self.get_result_.add_done_callback(self.get_result_callback)
+
+    # Getting the 100% done value representing that the step was done
+    def get_result_callback(self, status):
+        self.feedback_ = status.result().result.completed_percentage
+
+    # Getting the current percentage feedback for the 
+    def feedbackCallback(self, feedback_msg):
+        self.feedback_ = feedback_msg.feedback.percentage
+
     def bezierWaypointer4P(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
         # Note! 0 deg represents forward
         A = Point()

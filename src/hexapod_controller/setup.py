@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "teleop_node = hexapod_controller.hexapod_teleop_controller:main"
+            "teleop_keyboard_node = hexapod_controller.keyboard_teleop_controller:main",
+            "teleop_gamepad_node = hexapod_controller.gamepad_teleop_controller:main"
         ],
     },
 )
