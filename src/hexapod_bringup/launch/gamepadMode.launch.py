@@ -99,7 +99,6 @@ def generate_launch_description():
 
     # Experimenting with config files
     gamepadParams = os.path.join(get_package_share_directory("hexapod_bringup"), "config", "gamepad.yaml")
-    ## NOTE NOT ACTUALLY READING PARAMS!!!!!
     gamepad_node = Node(
         package = "joy",
         executable = "joy_node",
