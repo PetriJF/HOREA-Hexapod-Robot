@@ -17,7 +17,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TargetPositions.msg"
   "msg/LegReferencing.msg"
   "msg/WaypointSetter.msg"
-  "msg/GaitConstants.msg"
   DEPENDENCIES geometry_msgs
 )
 
