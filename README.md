@@ -14,6 +14,7 @@ Please note that the project is open-source, so feel free to fork it. I must men
 
 The version uploaded in the CAD folder is currently printed in PLA. It should be noted that this was a fast placeholder for the robot and an updated version will come soon with leg end-effector switches that enables it to traverse the highly diffused terrain. An image of the CAD assembly ca be seen below
 
+![CAD of Robot](CAD/side_view.png?raw=true "Hexapod Assembly")
 ![CAD of Robot](CAD/front_view.png?raw=true "Hexapod Assembly")
 
 ## Codebase
