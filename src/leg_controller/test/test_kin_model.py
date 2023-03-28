@@ -81,7 +81,7 @@ def test_kin_node():
     # Check if the kin_node published the expected output message
     assert test_node.output_received == True, 'OUTPUT NOT RECEIVED'
 
-
+    # Check the angles obtained from the kin_node. Because of the star shape, everything should be 90 90 45
     for index in range(1, 7):
         assert round(test_node.out.shoulder_angle[index], 0) == 90.0
         assert round(test_node.out.hip_angle[index], 0) == 90.0
