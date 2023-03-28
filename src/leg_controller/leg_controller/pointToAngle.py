@@ -10,7 +10,7 @@ class inverseKinematics(Node):
     ## Node Constructor
     def __init__(self):
         # Initialize nodes
-        super().__init__("inverse_kinematics_node")
+        super().__init__("kin_node")
         # Used for transmiting the servo target angles to the servo node
         self.targetAngles = TargetAngles()
 
