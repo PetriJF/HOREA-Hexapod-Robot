@@ -1,4 +1,4 @@
-# Hexapod
+# ROS2 Hexapod
 
 ## Project Description
 
