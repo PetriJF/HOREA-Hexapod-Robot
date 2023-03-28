@@ -1,91 +1,93 @@
-import os
-import sys
-import time
-import unittest
-import uuid
-import numpy as np
-
-import launch
-import launch_ros
-import launch_ros.actions
-import launch_testing.actions
-from hexapod_interfaces.msg import LegReferencing
 import pytest
-
 import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+from ament_index_python.packages import get_package_share_directory
+from hexapod_interfaces.msg import TargetAngles, TargetPositions
+import numpy as np
+import os
+import subprocess
+import time
 
-# Launch features
+# Create a test node that will act as the subscriber and publisher
+class TestNode(Node):
+    def __init__(self):
+        super().__init__('test_node')
+        self.input_sent = False
+        self.output_received = False
+        self.out = TargetAngles()
+        self.subscription = self.create_subscription(TargetAngles, 'HexAngles', self.output_callback, 10)
+        self.publisher = self.create_publisher(TargetPositions, 'HexLegPos', 10)
 
-@pytest.mark.launch_test
-def generate_test_description():
-    # Robot constants
-    COXA_LEN = 71.5
-    FEMUR_LEN = 100.02
-    FOOT_HEIGHT = 0.0
-    TIBIA_LEN = 150.0 + FOOT_HEIGHT
-    BASE_ALTITUDE = 120.0
-    BASE_WIDTH = 65.0
-    GAIT_ALTITUDE = 120.0
-    STEP_LENGTH = 50.0
-    GAIT_WIDTH = 290.0
-    ANIMATION_RESOLUTION = 0.01
-    STEP_DURATION = 1.0
+    def input_callback(self, msg):
+        # Send the input message to the kin_node for processing
+        self.publisher.publish(msg)
+
+    def output_callback(self, msg):
+        # Check if the received message matches the expected output
+        self.output_received = True
+        self.out = msg
+
+# Define the test function
+def test_kin_node():
     
+    # Preparing the running parameters and the command needed to run the node
+    kinParams = os.path.join(get_package_share_directory("hexapod_bringup"), "config", "kinParams.yaml")
+    kin_node_cmd = ['ros2', 'run', 'leg_controller', 'kin_node', '--ros-args', '--params-file', kinParams]
     
-    file_path = os.path.dirname(__file__)
+    # Running the node as a subprocess
+    kin_process = subprocess.Popen(kin_node_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Wait for the node to start up
+    time.sleep(5)
+
+    # Check if the node started successfully
+    assert kin_process.poll() is None, f"Kin node failed to start. Error: {kin_process.stderr.read().decode()}"
     
-    # Kinematics node
-    kin_node = launch_ros.actions.Node(
-        executable = sys.executable,
-        arguments = [ os.path.join(file_path, "..", "leg_controller", "pointToAngle.py")],
-        additional_env = {'PYTHONUNBUFFERED': '1'},
-        parameters = [
-            {"coxa_len": COXA_LEN},
-            {"femur_len": FEMUR_LEN},
-            {"tibia_len": TIBIA_LEN},
-            {"base_altitude": BASE_ALTITUDE},
-            {"base_width": BASE_WIDTH},
-            {"leg_angular_orientation": [ 30.0, 90.0, 150.0, 210.0, 270.0, 330.0 ]},
-            {"origin_RF": [ BASE_WIDTH * round(np.cos(np.pi/6.0),2), BASE_WIDTH * round(np.sin(np.pi/6.0),2) ]},
-            {"origin_RM": [ BASE_WIDTH * round(np.cos(np.pi/2.0),2), BASE_WIDTH * round(np.sin(np.pi/2.0),2) ]},
-            {"origin_RB": [ BASE_WIDTH * round(np.cos(5.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(5.0*np.pi/6.0),2) ]},
-            {"origin_LB": [ BASE_WIDTH * round(np.cos(7.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(7*np.pi/6.0),2) ]},
-            {"origin_LM": [ BASE_WIDTH * round(np.cos(3.0*np.pi/2.0),2), BASE_WIDTH * round(np.sin(3.0*np.pi/2.0),2) ]},
-            {"origin_LF": [ BASE_WIDTH * round(np.cos(11.0*np.pi/6.0),2), BASE_WIDTH * round(np.sin(11.0*np.pi/6.0),2) ]},
+    # Initialize the ROS 2 context
+    rclpy.init()
 
-            {"topic": "HexLegPos"}
-        ]
-    )
+    # Create a test node that will act as the subscriber and publisher
+    test_node = TestNode()
 
-    # Servo angle node
-    servo_node = launch_ros.actions.Node(
-        executable = sys.executable,
-        arguments = [ os.path.join(file_path, "..", "leg_controller", "servoController.py") ],
-        additional_env = {'PYTHONUNBUFFERED': '1'},
-        parameters = [
-            {"LB": [ 8, 9, 10 ]},
-            {"LM": [ 4, 5, 6 ]},
-            {"LF": [ 0, 1, 2 ]},
-            {"RF": [ 8, 9, 10 ]},
-            {"RM": [ 4, 5, 6 ]},
-            {"RB": [ 0, 1, 2 ]}
-        ]
-    )
-
-    return (
-        launch.LaunchDescription([
-            kin_node,
-            servo_node,
-            # Start tests right away - no need to wait for anything
-            launch_testing.actions.ReadyToTest()
-        ]), 
-        {
-            'kin_node': kin_node,
-            'servo_node': servo_node
-        }
-    ) 
-
-
-# Test features
-class TestKinModelServoLink(unittest.TestCase):
+    # Send a custom input message to the kin_node
+    input_msg = TargetPositions()
+    robotReach = 10.0 + 65.0 + 71.5 + 100.02 + 150.0
+    input_msg = TargetPositions()
+    input_msg.x_pos = [0.0, 
+                robotReach * np.cos(np.pi/6.0),
+                robotReach * np.cos(np.pi/2.0),
+                robotReach * np.cos(5.0*np.pi/6.0),
+                robotReach * np.cos(7.0*np.pi/6.0),
+                robotReach * np.cos(3.0*np.pi/2.0),
+                robotReach * np.cos(11.0*np.pi/6.0)
+    ]
+    input_msg.y_pos = [0.0, 
+                robotReach * np.sin(np.pi/6.0),
+                robotReach * np.sin(np.pi/2.0),
+                robotReach * np.sin(5.0*np.pi/6.0),
+                robotReach * np.sin(7.0*np.pi/6.0),
+                robotReach * np.sin(3.0*np.pi/2.0),
+                robotReach * np.sin(11.0*np.pi/6.0)
+    ]
+    input_msg.z_pos = [ 0.0, 120.0, 120.0, 120.0, 120.0, 120.0, 120.0 ]
     
+    test_node.publisher.publish(input_msg)
+    test_node.input_sent = True
+
+    # Wait for the kin_node to process the input and publish the output
+    rclpy.spin_once(test_node, timeout_sec=1.5)
+
+    # Check if the kin_node published the expected output message
+    assert test_node.output_received == True, 'OUTPUT NOT RECEIVED'
+
+
+    for index in range(1, 7):
+        assert round(test_node.out.shoulder_angle[index], 0) == 90.0
+        assert round(test_node.out.hip_angle[index], 0) == 90.0
+        assert round(test_node.out.knee_angle[index], 0) == 45.0
+
+    # Cleanup
+    test_node.destroy_node()
+    kin_process.kill()
+    rclpy.shutdown()
