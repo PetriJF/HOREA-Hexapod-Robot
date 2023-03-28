@@ -1,0 +1,14 @@
+kin_node:
+  ros__parameters:
+    coxa_len: 71.5
+    femur_len: 100.02
+    tibia_len: 150.0
+    base_altitude: 120.0
+    base_width: 65.0
+    leg_angular_orientation: [ 30.0, 90.0, 150.0, 210.0, 270.0, 330.0 ]
+    origin_RF: [ 56.55, 32.5 ]
+    origin_RM: [ 0.0, 65.0 ]
+    origin_RB: [ -56.55, 32.5 ]
+    origin_LB: [ -56.55, -32.5 ]
+    origin_LM: [ 0.0, -32.5 ]
+    origin_LF: [ 56.55, -32.5 ]
