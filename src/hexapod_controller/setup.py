@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             "teleop_keyboard_node = hexapod_controller.keyboard_teleop_controller:main",
-            "teleop_gamepad_node = hexapod_controller.gamepad_teleop_controller:main"
+            "teleop_xbox_gamepad_node = hexapod_controller.xbox_gamepad_teleop_controller:main",
+            "teleop_std_gamepad_node = hexapod_controller.gamepad_teleop_controller:main"
         ],
     },
 )
