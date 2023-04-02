@@ -109,7 +109,7 @@ def generate_launch_description():
 
     teleop_node = Node(
         package = "hexapod_controller",
-        executable = "teleop_std_gamepad_node",
+        executable = "teleop_xbox_gamepad_node",
         parameters = [
             {"base_altitude": BASE_ALTITUDE}
         ]
