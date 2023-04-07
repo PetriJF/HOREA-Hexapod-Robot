@@ -16,10 +16,10 @@ class ControlNode(Node):
 
         self.declare_parameter("coxa_len", 71.5)
         self.declare_parameter("femur_len", 100.02)
-        self.declare_parameter("tibia_len", 150.0)
+        self.declare_parameter("tibia_len", 194.051)
         self.declare_parameter("base_altitude", 90.0)
         self.declare_parameter("base_width", 65.0)
-        self.declare_parameter("gait_width", 300.0)
+        self.declare_parameter("gait_width", 330.0)
 
         self.coxa_len_ = self.get_parameter("coxa_len").value
         self.femur_len_ = self.get_parameter("femur_len").value
