@@ -14,7 +14,7 @@ class Stepper(Node):
         
         pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
         self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
-        self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
+        self.declare_parameter(name = "gait_width", descriptor = pd, value = 330.0)
         self.declare_parameter(name = "gait_altitude", descriptor = pd, value = 90.0)
         self.declare_parameter(name = "step_length", descriptor = pd, value = 50.0)
 
