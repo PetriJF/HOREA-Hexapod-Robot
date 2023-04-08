@@ -55,9 +55,8 @@ class ControlNode(Node):
     ## Sets the legs to the initial position of having all the legs straight up.
     def hexInitPosition(self):
         # Getting the height of the init position
-        H = self.femur_len_ + self.tibia_len_ + self.base_altitude_
+        H = 55.0
         
-        # Setting the coordingates of all the points
         self.targetPositions.x_pos = [0.0, 
                                      self.gait_width_ * np.cos(np.pi/6.0),
                                      self.gait_width_ * np.cos(np.pi/2.0),
@@ -125,7 +124,7 @@ class ControlNode(Node):
 
         for height in np.arange(60, self.base_altitude_ + 1, raiseResolution):
             # if lower is true, we are ascending the legs, if not, descending
-            H = height if (lower == True) else self.base_altitude_ - height
+            H = height - 60.0 if (lower == True) else self.base_altitude_ - height
 
             # set the z positions of the legs and publish them
             self.targetPositions.z_pos = [ 0.0, H, H, H, H, H, H ]
