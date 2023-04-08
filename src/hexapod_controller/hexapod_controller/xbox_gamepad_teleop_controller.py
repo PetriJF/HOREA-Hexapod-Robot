@@ -60,7 +60,7 @@ class TeleOp(Node):
             self.step_command_.publish(command)
 
         # D-Pad up and down representing the base height of the robot
-        if (cmd.axes[7] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[7] > 0.0 and self.base_altitude_ < 160):
+        if (cmd.axes[7] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[7] > 0.0 and self.base_altitude_ < 200.0):
             self.base_altitude_ = self.base_altitude_ + (cmd.axes[7] * 10)
             self.animation_.data = [ 10, int(self.base_altitude_) ]
             self.animation_type_.publish(self.animation_)
