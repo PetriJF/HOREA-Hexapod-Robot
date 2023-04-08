@@ -19,7 +19,7 @@ class ControlNode(Node):
         self.declare_parameter("tibia_len", 194.051)
         self.declare_parameter("base_altitude", 90.0)
         self.declare_parameter("base_width", 65.0)
-        self.declare_parameter("gait_width", 330.0)
+        self.declare_parameter("gait_width", 300.0)
 
         self.coxa_len_ = self.get_parameter("coxa_len").value
         self.femur_len_ = self.get_parameter("femur_len").value
@@ -81,7 +81,7 @@ class ControlNode(Node):
 
     def hexZeroPosition(self):
         # Setting the coordingates of all the points
-        H = self.base_altitude_
+        H = 60.0
         
         self.targetPositions.x_pos = [0.0, 
                                      self.gait_width_ * np.cos(np.pi/6.0),
@@ -123,7 +123,7 @@ class ControlNode(Node):
                                      self.gait_width_ * np.sin(11.0*np.pi/6.0)
         ]
 
-        for height in np.arange(0.0, self.base_altitude_ + 1, raiseResolution):
+        for height in np.arange(60, self.base_altitude_ + 1, raiseResolution):
             # if lower is true, we are ascending the legs, if not, descending
             H = height if (lower == True) else self.base_altitude_ - height
 
