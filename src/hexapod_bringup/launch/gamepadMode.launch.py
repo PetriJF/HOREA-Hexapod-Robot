@@ -18,7 +18,7 @@ def generate_launch_description():
     BASE_WIDTH = 65.0
     GAIT_ALTITUDE = 120.0
     STEP_LENGTH = 50.0
-    GAIT_WIDTH = 330.0
+    GAIT_WIDTH = 300.0
     ANIMATION_RESOLUTION = 0.01
     STEP_DURATION = 1.0
     
