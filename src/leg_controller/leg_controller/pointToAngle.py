@@ -105,12 +105,14 @@ class inverseKinematics(Node):
         if hexPos.z_pos[0] != 0.0:
             self.base_altitude_ = hexPos.z_pos[0] 
 
-        self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), self.origin_RF_, 1)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), self.origin_RM_, 2)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), self.origin_RB_, 3)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), self.origin_LB_, 4)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), self.origin_LM_, 5)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), self.origin_LF_, 6)
+        originSet = self.getPlanarOrigins(hexPos.x_pos[0], hexPos.y_pos[0])
+
+        self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), originSet[0], 1)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), originSet[1], 2)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), originSet[2], 3)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), originSet[3], 4)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), originSet[4], 5)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), originSet[5], 6)
 
         self.angles.publish(self.targetAngles)
 
@@ -155,6 +157,17 @@ class inverseKinematics(Node):
         # If we want to publish from here, publish must be set to true
         if (publish == True):
             self.angles.publish(self.targetAngles)
+
+    ## Computes the origins of the legs based on the two inclination variables
+    def getPlanarOrigins(self, xTilt = float, yTilt = float):
+        return [ 
+            self.origin_RF_,
+            self.origin_RM_,
+            self.origin_RB_,
+            self.origin_LB_,    
+            self.origin_LM_,
+            self.origin_LF_
+        ]
 
     ## Simple function to set the limits of the angles for the servos in order to not get out of bounds or to limit the servo movement. Also used to keep trig values within ranges
     def limiter(self, value, minLimit = 0.0, maxLimit = 180.0):
