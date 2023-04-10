@@ -43,12 +43,12 @@ class inverseKinematics(Node):
 
 
         # Initializing the origins from the parameters as point to make it more readable through the code.
-        self.origin_RF_ = self.setPoint(self.get_parameter("origin_RF").value[0], self.get_parameter("origin_RF").value[1], self.base_altitude_)
-        self.origin_RM_ = self.setPoint(self.get_parameter("origin_RM").value[0], self.get_parameter("origin_RM").value[1], self.base_altitude_)
-        self.origin_RB_ = self.setPoint(self.get_parameter("origin_RB").value[0], self.get_parameter("origin_RB").value[1], self.base_altitude_)
-        self.origin_LB_ = self.setPoint(self.get_parameter("origin_LB").value[0], self.get_parameter("origin_LB").value[1], self.base_altitude_)
-        self.origin_LM_ = self.setPoint(self.get_parameter("origin_LM").value[0], self.get_parameter("origin_LM").value[1], self.base_altitude_)
-        self.origin_LF_ = self.setPoint(self.get_parameter("origin_LF").value[0], self.get_parameter("origin_LF").value[1], self.base_altitude_)
+        self.origin_RF_ = self.setPoint(self.get_parameter("origin_RF").value[0], self.get_parameter("origin_RF").value[1], 0.0)
+        self.origin_RM_ = self.setPoint(self.get_parameter("origin_RM").value[0], self.get_parameter("origin_RM").value[1], 0.0)
+        self.origin_RB_ = self.setPoint(self.get_parameter("origin_RB").value[0], self.get_parameter("origin_RB").value[1], 0.0)
+        self.origin_LB_ = self.setPoint(self.get_parameter("origin_LB").value[0], self.get_parameter("origin_LB").value[1], 0.0)
+        self.origin_LM_ = self.setPoint(self.get_parameter("origin_LM").value[0], self.get_parameter("origin_LM").value[1], 0.0)
+        self.origin_LF_ = self.setPoint(self.get_parameter("origin_LF").value[0], self.get_parameter("origin_LF").value[1], 0.0)
 
         self.get_logger().info("Parameters declared and initialized successfully!")
         
@@ -123,7 +123,8 @@ class inverseKinematics(Node):
         # Distance without the coxa
         L = D - self.coxa_len_
         # Triangle height from the input point and the desired gait altitude
-        A = point.z - self.base_altitude_
+        # Note: The last term represents the tilt modification on the specific leg
+        A = point.z - self.base_altitude_ - origin.z
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(A * A + L * L)
         
@@ -170,13 +171,15 @@ class inverseKinematics(Node):
         ]
     
     def getIndexPlanarOrigin(self, origin = Point(), xTilt = float, yTilt = float, index = int):
-        #temp = Point()
-        #temp.x = 
-        #temp.y = 
-        #temp.z = 
+        temp = Point()
+        # ground plane 0 axis
+        temp.x = origin.x * np.cos(yTilt)
+        # ground plane
+        temp.y = origin.y * np.cos(xTilt)
+        # depth axis
+        temp.z = origin.x * np.sin(yTilt) + origin.y * np.sin(xTilt)
 
-        #return temp
-        return origin
+        return temp
 
     ## Simple function to set the limits of the angles for the servos in order to not get out of bounds or to limit the servo movement. Also used to keep trig values within ranges
     def limiter(self, value, minLimit = 0.0, maxLimit = 180.0):
