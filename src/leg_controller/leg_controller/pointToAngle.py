@@ -43,12 +43,12 @@ class inverseKinematics(Node):
 
 
         # Initializing the origins from the parameters as point to make it more readable through the code.
-        self.origin_RF_ = self.setPoint(self.get_parameter("origin_RF").value[0], self.get_parameter("origin_RF").value[1], 0.0)
-        self.origin_RM_ = self.setPoint(self.get_parameter("origin_RM").value[0], self.get_parameter("origin_RM").value[1], 0.0)
-        self.origin_RB_ = self.setPoint(self.get_parameter("origin_RB").value[0], self.get_parameter("origin_RB").value[1], 0.0)
-        self.origin_LB_ = self.setPoint(self.get_parameter("origin_LB").value[0], self.get_parameter("origin_LB").value[1], 0.0)
-        self.origin_LM_ = self.setPoint(self.get_parameter("origin_LM").value[0], self.get_parameter("origin_LM").value[1], 0.0)
-        self.origin_LF_ = self.setPoint(self.get_parameter("origin_LF").value[0], self.get_parameter("origin_LF").value[1], 0.0)
+        self.origin_RF_ = self.setPoint(self.get_parameter("origin_RF").value[0], self.get_parameter("origin_RF").value[1], self.base_altitude_)
+        self.origin_RM_ = self.setPoint(self.get_parameter("origin_RM").value[0], self.get_parameter("origin_RM").value[1], self.base_altitude_)
+        self.origin_RB_ = self.setPoint(self.get_parameter("origin_RB").value[0], self.get_parameter("origin_RB").value[1], self.base_altitude_)
+        self.origin_LB_ = self.setPoint(self.get_parameter("origin_LB").value[0], self.get_parameter("origin_LB").value[1], self.base_altitude_)
+        self.origin_LM_ = self.setPoint(self.get_parameter("origin_LM").value[0], self.get_parameter("origin_LM").value[1], self.base_altitude_)
+        self.origin_LF_ = self.setPoint(self.get_parameter("origin_LF").value[0], self.get_parameter("origin_LF").value[1], self.base_altitude_)
 
         self.get_logger().info("Parameters declared and initialized successfully!")
         
@@ -160,14 +160,23 @@ class inverseKinematics(Node):
 
     ## Computes the origins of the legs based on the two inclination variables
     def getPlanarOrigins(self, xTilt = float, yTilt = float):
-        return [ 
-            self.origin_RF_,
-            self.origin_RM_,
-            self.origin_RB_,
-            self.origin_LB_,    
-            self.origin_LM_,
-            self.origin_LF_
+        return [
+            self.getIndexPlanarOrigin(self.origin_RF_, xTilt, yTilt, 0),
+            self.getIndexPlanarOrigin(self.origin_RM_, xTilt, yTilt, 1),
+            self.getIndexPlanarOrigin(self.origin_RB_, xTilt, yTilt, 2),
+            self.getIndexPlanarOrigin(self.origin_LB_, xTilt, yTilt, 3),
+            self.getIndexPlanarOrigin(self.origin_LM_, xTilt, yTilt, 4),
+            self.getIndexPlanarOrigin(self.origin_LF_, xTilt, yTilt, 5)
         ]
+    
+    def getIndexPlanarOrigin(self, origin = Point(), xTilt = float, yTilt = float, index = int):
+        #temp = Point()
+        #temp.x = 
+        #temp.y = 
+        #temp.z = 
+
+        #return temp
+        return origin
 
     ## Simple function to set the limits of the angles for the servos in order to not get out of bounds or to limit the servo movement. Also used to keep trig values within ranges
     def limiter(self, value, minLimit = 0.0, maxLimit = 180.0):
