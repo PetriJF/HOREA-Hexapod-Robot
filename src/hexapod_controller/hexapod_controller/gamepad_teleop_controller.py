@@ -59,7 +59,7 @@ class TeleOp(Node):
         MAX_INCLINATION = np.deg2rad(30.0)
         inclinMag = np.maximum(np.abs(cmd.axes[2]), np.abs(cmd.axes[3]))
         if inclinMag != 0.0:
-            xAxisInclination = MIN_INCLINATION + ((float(cmd.axes[2] - 1.0) / float(-1.0 - 1.0)) * (MAX_INCLINATION - MIN_INCLINATION))
+            xAxisInclination = -(MIN_INCLINATION + ((float(cmd.axes[2] - 1.0) / float(-1.0 - 1.0)) * (MAX_INCLINATION - MIN_INCLINATION)))
             yAxisInclination = MIN_INCLINATION + ((float(cmd.axes[3] - 1.0) / float(-1.0 - 1.0)) * (MAX_INCLINATION - MIN_INCLINATION))
             
             inclination_command.data = [ xAxisInclination, yAxisInclination ]
