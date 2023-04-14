@@ -17,6 +17,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TargetPositions.msg"
   "msg/LegReferencing.msg"
   "msg/WaypointSetter.msg"
+  "msg/StepDescriptor.msg"
   DEPENDENCIES geometry_msgs
 )
 

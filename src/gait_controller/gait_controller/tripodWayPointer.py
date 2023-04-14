@@ -5,7 +5,7 @@ from rclpy.action import ActionClient
 from geometry_msgs.msg import Point
 from std_msgs.msg import Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
-from hexapod_interfaces.msg import WaypointSetter
+from hexapod_interfaces.msg import WaypointSetter, StepDescriptor
 from hexapod_interfaces.action import StepAnimator
 
 import numpy as np
@@ -33,17 +33,18 @@ class TripodGait(Node):
         self.feedback_ = 1.0
 
         # Initialize the publisher to the tranjectory planner
-        self.sub = self.create_subscription(Float64MultiArray, 'stepCommands', self.commandsCallback, 10)
+        self.sub = self.create_subscription(StepDescriptor, 'stepCommands', self.commandsCallback, 10)
 
-    def commandsCallback(self, cmd = Float64MultiArray):
+    def commandsCallback(self, cmd = StepDescriptor):
         # Setting the information needed by the waypointer from the topic float array
         if self.feedback_ == 1.0:
-            self.wayPointer(relativeDirRad = cmd.data[0],
-                            stepLength = cmd.data[1], 
-                            gaitAltitude = cmd.data[2],
-                            gaitWidth = cmd.data[3], 
+            self.wayPointer(relativeDirRad = (cmd.direction if cmd.dir_component else cmd.angle),
+                            stepLength = cmd.step_len, 
+                            gaitAltitude = cmd.gait_alt,
+                            gaitWidth = cmd.gait_wid, 
                             rightDominant = self.last_step_type_,
-                            spin = False if (cmd.data[4] == 0.0) else True)
+                            spin = cmd.ang_component
+            )
             # Change the next step to start with the other leg to the previous one. Makes the walk "animation look nicer"
             self.last_step_type_ = not self.last_step_type_
 

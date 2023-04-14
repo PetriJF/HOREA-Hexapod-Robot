@@ -4,6 +4,7 @@ from rclpy.node import Node
 from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray
 from sensor_msgs.msg import Joy
 from rcl_interfaces.msg import ParameterDescriptor
+from hexapod_interfaces.msg import StepDescriptor
 import time
 
 import numpy as np
@@ -40,7 +41,7 @@ class TeleOp(Node):
         self.gamepad_commands_ = self.create_subscription(Joy, 'joy', self.gamepadCallback, 10)
         
         self.animation_type_ = self.create_publisher(Int64MultiArray, 'animationType', 10)
-        self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
+        self.step_command_ = self.create_publisher(StepDescriptor, 'stepCommands', 10)
         self.stepSpeedPub_ = self.create_publisher(Float64, 'step_speed', 10)
         self.baseInclinationPub_ = self.create_publisher(Float64MultiArray, 'base_inclination', 10)
 
@@ -50,17 +51,22 @@ class TeleOp(Node):
         CURVE_WALK = 1
 
         # Variables
-        step_command = Float64MultiArray()
+        step_descriptor = StepDescriptor()
         inclination_command = Float64MultiArray()
         
         # Left JoyStick controlling the crab walk
         if self.walk_mode_ == CRAB_WALK:
-            crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
-            if crabMagnitude != 0.0:
-                crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
-                #self.get_logger().info("Going at " + str(crabAngle))
-                step_command.data = [ crabAngle, (crabMagnitude if crabMagnitude > 0.5 else 0.5) * self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
-                self.step_command_.publish(step_command)
+            magnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
+            if magnitude != 0.0:
+                step_descriptor.direction = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
+                step_descriptor.angle = 0.0
+                step_descriptor.step_len = (magnitude if magnitude > 0.5 else 0.5) * self.step_length_
+                step_descriptor.gait_alt = self.gait_altitude_
+                step_descriptor.gait_wid = self.gait_width_
+                step_descriptor.dir_component = True
+                step_descriptor.ang_component = False
+
+                self.step_command_.publish(step_descriptor)
         
         # Right JoyStick for the base inclination modifier
         MIN_INCLINATION = np.deg2rad(-30.0)
@@ -76,10 +82,15 @@ class TeleOp(Node):
 
         # D-Pad left and right turning the robot in each direction
         if cmd.axes[4] != 0.0:
-            turnAngle = cmd.axes[4] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
-            step_command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_descriptor.direction = 0.0
+            step_descriptor.angle = cmd.axes[6] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
+            step_descriptor.step_len = self.step_length_
+            step_descriptor.gait_alt = self.gait_altitude_
+            step_descriptor.gait_wid = self.gait_width_
+            step_descriptor.dir_component = False
+            step_descriptor.ang_component = True
 
-            self.step_command_.publish(step_command)
+            self.step_command_.publish(step_descriptor)
 
         # D-Pad up and down representing the base height of the robot
         if (cmd.axes[5] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[5] > 0.0 and self.base_altitude_ < 200.0):
