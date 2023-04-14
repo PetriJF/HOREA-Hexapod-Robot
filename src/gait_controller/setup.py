@@ -21,8 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             "waypointer_node = gait_controller.tripodWayPointer:main",
-            "bezier_traj_node = gait_controller.bezierTrajectory:main",
-            "step_ctrl_node = gait_controller.stepController:main"
+            "bezier_traj_node = gait_controller.bezierTrajectory:main"
         ],
     },
 )
