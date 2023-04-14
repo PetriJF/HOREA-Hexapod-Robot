@@ -44,15 +44,15 @@ class TeleOp(Node):
 
     def gamepadCallback(self, cmd = Joy):
         inclination_command = Float64MultiArray()
-        command = Float64MultiArray()
+        step_command = Float64MultiArray()
         
         # Left JoyStick controlling the crab walk
         crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
         if crabMagnitude != 0.0:
             crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
             self.get_logger().info("Going at " + str(crabAngle))
-            command.data = [ crabAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
-            self.step_command_.publish(command)
+            step_command.data = [ crabAngle, (crabMagnitude if crabMagnitude > 0.5 else 0.5) * self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]     
+            self.step_command_.publish(step_command)
         
         # Right JoyStick for the base inclination modifier
         MIN_INCLINATION = np.deg2rad(-30.0)
@@ -69,9 +69,9 @@ class TeleOp(Node):
         # D-Pad left and right turning the robot in each direction
         if cmd.axes[4] != 0.0:
             turnAngle = cmd.axes[4] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
-            command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
-            self.step_command_.publish(command)
+            self.step_command_.publish(step_command)
 
         # D-Pad up and down representing the base height of the robot
         if (cmd.axes[5] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[5] > 0.0 and self.base_altitude_ < 200.0):
