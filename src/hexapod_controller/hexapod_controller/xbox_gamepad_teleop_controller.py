@@ -51,7 +51,7 @@ class TeleOp(Node):
         if crabMagnitude != 0.0:
             crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
             self.get_logger().info("Going at " + str(crabAngle))
-            step_command.data = [ crabAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
+            step_command.data = [ crabAngle, (crabMagnitude if crabMagnitude > 0.5 else 0.5) * self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
             self.step_command_.publish(step_command)
         
         # Right JoyStick for the base inclination modifier
