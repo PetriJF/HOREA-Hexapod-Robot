@@ -3,6 +3,7 @@ from rclpy.node import Node
 import numpy as np
 from time import *
 from hexapod_interfaces.msg import TargetAngles, TargetPositions
+from std_msgs.msg import Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 from geometry_msgs.msg import Point
 
@@ -13,6 +14,9 @@ class inverseKinematics(Node):
         super().__init__("kin_node")
         # Used for transmiting the servo target angles to the servo node
         self.targetAngles = TargetAngles()
+        self.currentPos = TargetPositions()
+        self.xAxisInclination = 0.0 
+        self.yAxisInclination = 0.0
 
         # Declaring the robot design paramteres. Note 3 = PARAMETER_DOUBLE
         pd = ParameterDescriptor(description = "Robot Structure Description", type = 3) 
@@ -54,6 +58,7 @@ class inverseKinematics(Node):
         
         # Subscribing to the target potisions and publishing the target angles
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
+        self.baseInclinationSub_ = self.create_subscription(Float64MultiArray, 'base_inclination', self.inclinationCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
 
         
@@ -102,15 +107,18 @@ class inverseKinematics(Node):
 
     ## This function takes the position subscription and publishes the computed angles
     def posCallback(self, hexPos = TargetPositions):
+        self.currentPos = hexPos
         if hexPos.z_pos[0] != 0.0:
             self.base_altitude_ = hexPos.z_pos[0] 
 
-        self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), self.origin_RF_, 1)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), self.origin_RM_, 2)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), self.origin_RB_, 3)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), self.origin_LB_, 4)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), self.origin_LM_, 5)
-        self.getLegAngles(self.setPoint(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), self.origin_LF_, 6)
+        originSet = self.getPlanarOrigins(self.xAxisInclination, self.yAxisInclination)
+
+        self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), originSet[0], 1)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), originSet[1], 2)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[3], hexPos.y_pos[3], hexPos.z_pos[3]), originSet[2], 3)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[4], hexPos.y_pos[4], hexPos.z_pos[4]), originSet[3], 4)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[5], hexPos.y_pos[5], hexPos.z_pos[5]), originSet[4], 5)
+        self.getLegAngles(self.setPoint(hexPos.x_pos[6], hexPos.y_pos[6], hexPos.z_pos[6]), originSet[5], 6)
 
         self.angles.publish(self.targetAngles)
 
@@ -121,7 +129,8 @@ class inverseKinematics(Node):
         # Distance without the coxa
         L = D - self.coxa_len_
         # Triangle height from the input point and the desired gait altitude
-        A = point.z - self.base_altitude_
+        # Note: The last term represents the tilt modification on the specific leg
+        A = point.z - self.base_altitude_ - origin.z
         # Distance the origin to the tip of the leg
         Lprime = np.sqrt(A * A + L * L)
         
@@ -156,6 +165,28 @@ class inverseKinematics(Node):
         if (publish == True):
             self.angles.publish(self.targetAngles)
 
+    ## Computes the origins of the legs based on the two inclination variables
+    def getPlanarOrigins(self, xTilt = float, yTilt = float):
+        return [
+            self.getIndexPlanarOrigin(self.origin_RF_, xTilt, yTilt, 0),
+            self.getIndexPlanarOrigin(self.origin_RM_, xTilt, yTilt, 1),
+            self.getIndexPlanarOrigin(self.origin_RB_, xTilt, yTilt, 2),
+            self.getIndexPlanarOrigin(self.origin_LB_, xTilt, yTilt, 3),
+            self.getIndexPlanarOrigin(self.origin_LM_, xTilt, yTilt, 4),
+            self.getIndexPlanarOrigin(self.origin_LF_, xTilt, yTilt, 5)
+        ]
+    
+    def getIndexPlanarOrigin(self, origin = Point(), xTilt = float, yTilt = float, index = int):
+        temp = Point()
+        # ground plane 0 axis
+        temp.x = origin.x * np.cos(yTilt)
+        # ground plane
+        temp.y = origin.y * np.cos(xTilt)
+        # depth axis
+        temp.z = origin.x * np.sin(yTilt) + origin.y * np.sin(xTilt)
+
+        return temp
+
     ## Simple function to set the limits of the angles for the servos in order to not get out of bounds or to limit the servo movement. Also used to keep trig values within ranges
     def limiter(self, value, minLimit = 0.0, maxLimit = 180.0):
         if value > maxLimit:
@@ -164,6 +195,12 @@ class inverseKinematics(Node):
             value = minLimit
 
         return value
+
+    def inclinationCallback(self, inclinations):
+        self.xAxisInclination = inclinations.data[0] 
+        self.yAxisInclination = inclinations.data[1]
+
+        self.posCallback(self.currentPos)
 
 def main(args = None):
     # Initialize the node

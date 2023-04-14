@@ -4,7 +4,7 @@ from rclpy.node import Node
 from time import *
 import numpy as np
 from hexapod_interfaces.msg import TargetPositions
-from std_msgs.msg import Int64MultiArray
+from std_msgs.msg import Int64MultiArray, Float64
 
 ## Node use for the control strategy of the robot
 class ControlNode(Node):
@@ -13,6 +13,9 @@ class ControlNode(Node):
         super().__init__("ControlNode")
 
         self.get_logger().info("Init")
+
+        self.resolution_ = 0.01
+        self.robot_iteration_speed = (0.5 * 1.0 * self.resolution_)
 
         self.declare_parameter("coxa_len", 71.5)
         self.declare_parameter("femur_len", 100.02)
@@ -30,6 +33,7 @@ class ControlNode(Node):
 
         self.targetPositions = TargetPositions()
         self.posSub = self.create_subscription(Int64MultiArray, 'animationType', self.legsCommand, 10)
+        self.speedSub_ = self.create_subscription(Float64, 'step_speed', self.robotSpeedCallback, 10)
         self.hexPositions = self.create_publisher(TargetPositions, 'HexLegPos', 10)
 
     ## TODO ADD COMMENTS
@@ -51,6 +55,8 @@ class ControlNode(Node):
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
 
+    def robotSpeedCallback(self, speed):
+        self.robot_iteration_speed = (0.5 * speed.data * self.resolution_)
 
     ## Sets the legs to the initial position of having all the legs straight up.
     def hexInitPosition(self):
@@ -131,9 +137,9 @@ class ControlNode(Node):
             self.hexPositions.publish(self.targetPositions)
 
             # control the speed of the standing transition
-            sleep(raiseTime / ((1.0 / raiseResolution) * (self.base_altitude_ + 1)))
+            sleep(self.robot_iteration_speed)
 
-    def hexChangeAltitude(self, currentAlt = float, newAlt = int, iterDelay = 0.02):
+    def hexChangeAltitude(self, currentAlt = float, newAlt = int):
         self.base_altitude_ = float(newAlt)
         self.targetPositions.x_pos = [0.0, 
                                     self.gait_width_ * np.cos(np.pi/6.0),
@@ -156,7 +162,7 @@ class ControlNode(Node):
             H = float(alt)
             self.targetPositions.z_pos = [ H, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
             self.hexPositions.publish(self.targetPositions)
-            sleep(iterDelay)
+            sleep(self.robot_iteration_speed)
 
             
 
