@@ -12,6 +12,8 @@ class TeleOp(Node):
     def __init__(self):
         super().__init__("teleop_node")
 
+        self.walk_mode_ = 0
+
         pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
         self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
         self.declare_parameter(name = "gait_width", descriptor = pd, value = 300.0)
@@ -43,16 +45,22 @@ class TeleOp(Node):
         self.baseInclinationPub_ = self.create_publisher(Float64MultiArray, 'base_inclination', 10)
 
     def gamepadCallback(self, cmd = Joy):
-        inclination_command = Float64MultiArray()
+        # Some constants for easy code reading
+        CRAB_WALK = 0
+        CURVE_WALK = 1
+
+        # Variables
         step_command = Float64MultiArray()
+        inclination_command = Float64MultiArray()
         
         # Left JoyStick controlling the crab walk
-        crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
-        if crabMagnitude != 0.0:
-            crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
-            self.get_logger().info("Going at " + str(crabAngle))
-            step_command.data = [ crabAngle, (crabMagnitude if crabMagnitude > 0.5 else 0.5) * self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]     
-            self.step_command_.publish(step_command)
+        if self.walk_mode_ == CRAB_WALK:
+            crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
+            if crabMagnitude != 0.0:
+                crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
+                #self.get_logger().info("Going at " + str(crabAngle))
+                step_command.data = [ crabAngle, (crabMagnitude if crabMagnitude > 0.5 else 0.5) * self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
+                self.step_command_.publish(step_command)
         
         # Right JoyStick for the base inclination modifier
         MIN_INCLINATION = np.deg2rad(-30.0)
@@ -114,7 +122,17 @@ class TeleOp(Node):
                 self.prev_Button_ = 7
                 self.step_speed_.data = self.step_speed_.data - 0.25
                 self.stepSpeedPub_.publish(self.step_speed_)
- 
+            
+            # X Button (walk mode toggler)
+            if cmd.buttons[3] == 1:
+                if self.walk_mode_ == CRAB_WALK:
+                    self.walk_mode_ = CURVE_WALK
+                    self.get_logger().info("Curve walk mode")
+                else:
+                    self.walk_mode_ = CRAB_WALK
+                    self.get_logger().info("Crab walk mode")
+                self.prev_Button_ = 3
+
 
 def main(args = None):
     rclpy.init(args = args)
