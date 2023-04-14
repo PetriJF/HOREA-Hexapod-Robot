@@ -3,6 +3,7 @@ from rclpy.node import Node
 import numpy as np
 from time import *
 from hexapod_interfaces.msg import TargetAngles, TargetPositions
+from std_msgs.msg import Float64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
 from geometry_msgs.msg import Point
 
@@ -13,6 +14,9 @@ class inverseKinematics(Node):
         super().__init__("kin_node")
         # Used for transmiting the servo target angles to the servo node
         self.targetAngles = TargetAngles()
+        self.currentPos = TargetPositions()
+        self.xAxisInclination = 0.0 
+        self.yAxisInclination = 0.0
 
         # Declaring the robot design paramteres. Note 3 = PARAMETER_DOUBLE
         pd = ParameterDescriptor(description = "Robot Structure Description", type = 3) 
@@ -54,6 +58,7 @@ class inverseKinematics(Node):
         
         # Subscribing to the target potisions and publishing the target angles
         self.posSub = self.create_subscription(TargetPositions, 'HexLegPos', self.posCallback, 10)
+        self.baseInclinationSub_ = self.create_subscription(Float64MultiArray, 'base_inclination', self.inclinationCallback, 10)
         self.angles = self.create_publisher(TargetAngles, 'HexAngles', 10)
 
         
@@ -102,10 +107,11 @@ class inverseKinematics(Node):
 
     ## This function takes the position subscription and publishes the computed angles
     def posCallback(self, hexPos = TargetPositions):
+        self.currentPos = hexPos
         if hexPos.z_pos[0] != 0.0:
             self.base_altitude_ = hexPos.z_pos[0] 
 
-        originSet = self.getPlanarOrigins(hexPos.x_pos[0], hexPos.y_pos[0])
+        originSet = self.getPlanarOrigins(self.xAxisInclination, self.yAxisInclination)
 
         self.getLegAngles(self.setPoint(hexPos.x_pos[1], hexPos.y_pos[1], hexPos.z_pos[1]), originSet[0], 1)
         self.getLegAngles(self.setPoint(hexPos.x_pos[2], hexPos.y_pos[2], hexPos.z_pos[2]), originSet[1], 2)
@@ -189,6 +195,12 @@ class inverseKinematics(Node):
             value = minLimit
 
         return value
+
+    def inclinationCallback(self, inclinations):
+        self.xAxisInclination = inclinations.data[0] 
+        self.yAxisInclination = inclinations.data[1]
+
+        self.posCallback(self.currentPos)
 
 def main(args = None):
     # Initialize the node

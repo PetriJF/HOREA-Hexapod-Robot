@@ -4,6 +4,7 @@ from rclpy.node import Node
 from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray
 from sensor_msgs.msg import Joy
 from rcl_interfaces.msg import ParameterDescriptor
+import time
 
 import numpy as np
 
@@ -39,25 +40,38 @@ class TeleOp(Node):
         self.animation_type_ = self.create_publisher(Int64MultiArray, 'animationType', 10)
         self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
         self.stepSpeedPub_ = self.create_publisher(Float64, 'step_speed', 10)
+        self.baseInclinationPub_ = self.create_publisher(Float64MultiArray, 'base_inclination', 10)
 
     def gamepadCallback(self, cmd = Joy):
-        command = Float64MultiArray()
+        step_command = Float64MultiArray()
+        inclination_command = Float64MultiArray()
+
         # Left JoyStick controlling the crab walk
         crabMagnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
         if crabMagnitude != 0.0:
             crabAngle = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
             self.get_logger().info("Going at " + str(crabAngle))
-            command.data = [ crabAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
-            self.step_command_.publish(command)
+            step_command.data = [ crabAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]    
+            self.step_command_.publish(step_command)
         
+        # Right JoyStick for the base inclination modifier
+        MIN_INCLINATION = np.deg2rad(-30.0)
+        MAX_INCLINATION = np.deg2rad(30.0)
+        inclinMag = np.maximum(np.abs(cmd.axes[2]), np.abs(cmd.axes[3]))
+        if inclinMag != 0.0:
+            xAxisInclination = MIN_INCLINATION + ((float(cmd.axes[2] - 1.0) / float(-1.0 - 1.0)) * (MAX_INCLINATION - MIN_INCLINATION))
+            yAxisInclination = MIN_INCLINATION + ((float(cmd.axes[3] - 1.0) / float(-1.0 - 1.0)) * (MAX_INCLINATION - MIN_INCLINATION))
+            
+            inclination_command.data = [ xAxisInclination, yAxisInclination ]
+            self.baseInclinationPub_.publish(inclination_command)
+            time.sleep(0.5 * self.step_speed_.data * 0.01)
+
         # D-Pad left and right turning the robot in each direction
         if cmd.axes[6] != 0.0:
             turnAngle = cmd.axes[6] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
-            command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_command.data = [ turnAngle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
 
-            self.get_logger().info("Rotating at " + str(turnAngle))
-
-            self.step_command_.publish(command)
+            self.step_command_.publish(step_command)
 
         # D-Pad up and down representing the base height of the robot
         if (cmd.axes[7] < 0.0 and self.base_altitude_ > 60) or (cmd.axes[7] > 0.0 and self.base_altitude_ < 200.0):
