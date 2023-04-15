@@ -54,19 +54,19 @@ class TeleOp(Node):
         step_descriptor = StepDescriptor()
         inclination_command = Float64MultiArray()
         
-        # Left JoyStick controlling the crab walk
-        if self.walk_mode_ == CRAB_WALK:
-            magnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
-            if magnitude != 0.0:
-                step_descriptor.direction = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
-                step_descriptor.angle = 0.0
-                step_descriptor.step_len = (magnitude if magnitude > 0.5 else 0.5) * self.step_length_
-                step_descriptor.gait_alt = self.gait_altitude_
-                step_descriptor.gait_wid = self.gait_width_
-                step_descriptor.dir_component = True
-                step_descriptor.ang_component = False
+        # Left JoyStick controlling the robot walk direction and magnitude.
+        # If in CURVE_WALK, the angular component is used.
+        magnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
+        if magnitude != 0.0:
+            step_descriptor.direction = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
+            step_descriptor.angle = 0.0
+            step_descriptor.step_len = (magnitude if magnitude > 0.5 else 0.5) * self.step_length_
+            step_descriptor.gait_alt = self.gait_altitude_
+            step_descriptor.gait_wid = self.gait_width_
+            step_descriptor.dir_component = True
+            step_descriptor.ang_component = False if self.walk_mode_ == CRAB_WALK else True
 
-                self.step_command_.publish(step_descriptor)
+            self.step_command_.publish(step_descriptor)
         
         # Right JoyStick for the base inclination modifier
         MIN_INCLINATION = np.deg2rad(-30.0)
