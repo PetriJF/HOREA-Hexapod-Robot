@@ -59,7 +59,7 @@ class TeleOp(Node):
         magnitude = np.maximum(np.abs(cmd.axes[0]), np.abs(cmd.axes[1]))
         if magnitude != 0.0:
             step_descriptor.direction = (-1.0 * np.arctan2(cmd.axes[0], cmd.axes[1])) if cmd.axes[0] <= 0.0 else (2.0 * np.pi - np.arctan2(cmd.axes[0], cmd.axes[1]))
-            step_descriptor.angle = 0.0
+            step_descriptor.angle = 0.0 if self.walk_mode_ == CRAB_WALK else cmd.axes[6] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
             step_descriptor.step_len = (magnitude if magnitude > 0.5 else 0.5) * self.step_length_
             step_descriptor.gait_alt = self.gait_altitude_
             step_descriptor.gait_wid = self.gait_width_
