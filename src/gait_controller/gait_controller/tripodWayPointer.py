@@ -153,7 +153,7 @@ class TripodGait(Node):
     def feedbackCallback(self, feedback_msg):
         self.feedback_ = feedback_msg.feedback.percentage
 
-    def bezierWaypointer4P(self, legIndex = int, direction = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
+    def bezierWaypointer4P(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
         # Note! 0 deg represents forward
         A = Point()
         B = Point()
@@ -176,16 +176,16 @@ class TripodGait(Node):
         if rightDominant == False:
             direction = direction * -1
 
-        B.x = A.x + direction * (stepLength * np.cos(direction)) * B_width_ratio 
-        B.y = A.y + direction * (stepLength * np.sin(direction)) * B_width_ratio
+        B.x = A.x + direction * (stepLength * np.cos(relativeDirRad)) * B_width_ratio 
+        B.y = A.y + direction * (stepLength * np.sin(relativeDirRad)) * B_width_ratio
         B.z = B_height_ratio * (gaitAltitude)
 
-        C.x = A.x + direction * (stepLength * np.cos(direction)) * C_width_ratio
-        C.y = A.y + direction * (stepLength * np.sin(direction)) * C_width_ratio
+        C.x = A.x + direction * (stepLength * np.cos(relativeDirRad)) * C_width_ratio
+        C.y = A.y + direction * (stepLength * np.sin(relativeDirRad)) * C_width_ratio
         C.z = C_height_ratio * gaitAltitude
 
-        D.x = A.x + direction * stepLength * np.cos(direction) 
-        D.y = A.y + direction * stepLength * np.sin(direction) 
+        D.x = A.x + direction * stepLength * np.cos(relativeDirRad) 
+        D.y = A.y + direction * stepLength * np.sin(relativeDirRad) 
         D.z = 0.0
 
         #self.get_logger().info("Index " + str(legIndex) 
