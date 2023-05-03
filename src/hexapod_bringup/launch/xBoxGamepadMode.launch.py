@@ -16,9 +16,9 @@ def generate_launch_description():
     TIBIA_LEN = 194.051 + FOOT_HEIGHT
     BASE_ALTITUDE = 120.0
     BASE_WIDTH = 65.0
-    GAIT_ALTITUDE = 120.0
+    GAIT_ALTITUDE = 200.0
     STEP_LENGTH = 50.0
-    GAIT_WIDTH = 300.0
+    GAIT_WIDTH = 280.0
     ANIMATION_RESOLUTION = 0.01
     STEP_DURATION = 1.0
     
@@ -111,7 +111,9 @@ def generate_launch_description():
         package = "hexapod_controller",
         executable = "teleop_xbox_gamepad_node",
         parameters = [
-            {"base_altitude": BASE_ALTITUDE}
+            {"base_altitude": BASE_ALTITUDE},
+            {"gait_width": GAIT_WIDTH},
+            {"base_altitude": GAIT_ALTITUDE}
         ]
     )
 

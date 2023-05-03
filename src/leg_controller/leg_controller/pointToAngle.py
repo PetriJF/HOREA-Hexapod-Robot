@@ -17,6 +17,7 @@ class inverseKinematics(Node):
         self.currentPos = TargetPositions()
         self.xAxisInclination = 0.0 
         self.yAxisInclination = 0.0
+        self.ratio = 40.0
 
         # Declaring the robot design paramteres. Note 3 = PARAMETER_DOUBLE
         pd = ParameterDescriptor(description = "Robot Structure Description", type = 3) 
@@ -179,9 +180,9 @@ class inverseKinematics(Node):
     def getIndexPlanarOrigin(self, origin = Point(), xTilt = float, yTilt = float, index = int):
         temp = Point()
         # ground plane 0 axis
-        temp.x = origin.x * np.cos(yTilt)
+        temp.x = origin.x * np.cos(yTilt) + yTilt * self.ratio
         # ground plane
-        temp.y = origin.y * np.cos(xTilt)
+        temp.y = origin.y * np.cos(xTilt) + xTilt * self.ratio
         # depth axis
         temp.z = origin.x * np.sin(yTilt) + origin.y * np.sin(xTilt)
 
