@@ -1,10 +1,14 @@
 # ROS2 Hexapod
-
+![HOREA](CAD/H.O.R.E.A.1.png?raw=true "HOREA")
 ## Project Description
 
-As part of the Robotics and Intelligent Devices course, in the final year a final year project has to be undertaken by each student.
+As part of the Robotics and Intelligent Devices degree, in the final year a project has to be undertaken by each student.
 
-For my final year project I chose to fully research, design and develeop a hexapod robot with the appropriate control strategy to traverse highly diffused terrain. I also wanted to apply best practices in order to maximize the quality of the robot while minimizing the price, as I would like to make it a good research and hobby platform for people to take and work with.
+For my final year project I chose to fully research, design and develeop a hexapod robot with the appropriate control strategy to traverse diffused terrain. I also wanted to apply best practices in order to maximize the quality of the robot while minimizing the price, as I would like to make it a good research and hobby platform for people to take and work with.
+
+The Hexapod, named H.O.R.E.A., works on a raspberry Pi running ROS2 humble. It comes equipped with an IMU, for tilt correction, and a switch in each tibia, for leg feedback. With those two perception methods, the hexapod is fully prepared to undertake light to medium off-road challanges (Relative to the robot's size). Some metrics are available at the end.
+
+In the future, the platform might add vision and a more robust control design in order to improve its capabilities even further.
 
 ## OPEN-SOURCE
 
@@ -12,10 +16,11 @@ Please note that the project is open-source, so feel free to fork it. I must men
 
 ## CAD and 3D printing
 
-The version uploaded in the CAD folder is currently printed in PLA. It should be noted that this was a fast placeholder for the robot and an updated version will come soon with leg end-effector switches that enables it to traverse the highly diffused terrain. An image of the CAD assembly ca be seen below
+The version current version of the hexapod is fully 3D printed in ABS, except for the TibiaTips, which are printed in TPU in order to provide more grip. Some images of the CAD assembly can be seen below
 
 ![CAD of Robot](CAD/side_view.png?raw=true "Hexapod Assembly")
 ![CAD of Robot](CAD/front_view.png?raw=true "Hexapod Assembly")
+![CAD of Robot](CAD/top_view.png?raw=true "Hexapod Assembly")
 
 ## Codebase
 
@@ -25,7 +30,7 @@ The hexapod's codebase is designed to work with Ubuntu 22.04 Server and ROS2 Hum
 colcon build
 ```
 
-At the time of writing, there are 2 fully integrated run modes:
+At the time of writing, there are 3 fully integrated run modes separated into launch files under hexapod_bringup. One of them is a keyboard controller, while the other two are gamepad controllers(one for generic style, and one for XBox style). The run procedure for the keyboard and XBox controllers can be seen below:
 
 1. Keyboard TeleOp
 
@@ -44,20 +49,40 @@ At the time of writing, there are 2 fully integrated run modes:
 
 2. Gamepad TeleOp (PS style controller)
 
-    Small note: Currently working on introducing XBox style controller support.
-
     For this mode a single terminal is needed which initializes the robot and you can control the robot through a controller connected via USB or bluetooth. I recommend using a wireless controller with an USB dongle. The code for running in this mode:
 
     ```
-    ros2 launch hexapod_bringup gamepadMode.launch.py
+    ros2 launch hexapod_bringup xBoxGamepadMode.launch.py
     ```
 
-## Electronics
+## Bill Of Materials
 
-I am currently working on finalizing the electronics design to the final version. Will include a schematic and Bill-Of-Materials as soon as available.
-
-The robot runs on a Raspberry Pi 4B with 8Gb of RAM. I experimented with the 1Gb variant and it is barely enough, leaving very little headroom. For this reason I recommend at least 2Gb of RAM.
+A full bill of materials can be found under the CAD directory. Look for "Full BOM.xlsx"
 
 ## When to expect a well rounded version?
 
-By the start of June 2023 a full version with everything needed to build and use the robot will be available.
+By the start of June 2023 a full version with everything needed to build and use the robot will be released. The robot is currently in working order (08/05/2023), but some of the off-road features are on development branches. 
+
+## Metrics
+
+| Metric | Value |
+| :---: | :---:|
+|Weight | 2.68 Kg |
+|Payload | 2.4 Kg |
+|Maximum leg radius | 87 cm |
+|Leg Reach | 37 cm |
+|Robot Height | 17.6 cm (23.6 cm with  gamepad antenna) |
+|Maximum dynamic incline (rough surface) | 23.5° |
+|Maximum static incline (rough surface) | 35.3° |
+|Maximum dynamic incline (smooth surface) | 10.3° |
+|Maximum static incline (smooth surface) | 19.6° |
+|Speed (Tripod gait) | 0.253 m/s |
+
+
+## More pictures of H.O.R.E.A.
+
+![HOREA](CAD/1.png?raw=true "HOREA")
+![HOREA](CAD/2.png?raw=true "HOREA")
+![HOREA](CAD/3.png?raw=true "HOREA")
+![HOREA](CAD/5.png?raw=true "HOREA")
+![HOREA](CAD/4.png?raw=true "HOREA")
