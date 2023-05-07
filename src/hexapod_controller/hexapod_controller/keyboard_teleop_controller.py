@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int64MultiArray, Float64MultiArray
+from std_msgs.msg import String, Int64MultiArray
 from rcl_interfaces.msg import ParameterDescriptor
+from hexapod_interfaces.msg import StepDescriptor
 import numpy as np
 
 
@@ -28,7 +29,7 @@ class TeleOp(Node):
         self.animation_command_list_ = ["1", "2", "3", "4"]
         self.step_command_list_ = ["w", "a", "s", "d", "q", "e"] 
         self.animation_type_ = self.create_publisher(Int64MultiArray, 'animationType', 10)
-        self.step_command_ = self.create_publisher(Float64MultiArray, 'stepCommands', 10)
+        self.step_command_ = self.create_publisher(StepDescriptor, 'stepCommands', 10)
 
     
     def animCommandHandler(self, cmd = int):
@@ -40,36 +41,99 @@ class TeleOp(Node):
             print("Wrong Animation Input! Please try again")
         
     def stepCommandHandler(self, cmd = String):
-        step_description = Float64MultiArray()
+        step_description = StepDescriptor()
         
         if cmd.data == "w":
-            step_description.data = [ np.deg2rad(0.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
-            
+            step_description.direction = np.deg2rad(0.0)
+            step_description.angle = 0.0
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = True
+            step_description.ang_component = False
+
             self.step_command_.publish(step_description)
         elif cmd.data == "a":
-            step_description.data = [ np.deg2rad(270.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            step_description.direction = np.deg2rad(270.0)
+            step_description.angle = 0.0
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = True
+            step_description.ang_component = False
 
             self.step_command_.publish(step_description)
         elif cmd.data == "s":
-            step_description.data = [ np.deg2rad(180.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            step_description.direction = np.deg2rad(180.0)
+            step_description.angle = 0.0
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = True
+            step_description.ang_component = False
 
             self.step_command_.publish(step_description)
         elif cmd.data == "d":
-            step_description.data = [ np.deg2rad(90.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
-            
+            step_description.direction = np.deg2rad(90.0)
+            step_description.angle = 0.0
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = True
+            step_description.ang_component = False
+
             self.step_command_.publish(step_description)
         elif cmd.data == "q":
-            angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
-            step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_description.direction = 0.0
+            step_description.angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = False
+            step_description.ang_component = True
 
             self.step_command_.publish(step_description)
         elif cmd.data == "e":
-            angle = -1.0 * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
-            step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+            step_description.direction = 0.0
+            step_description.angle = -1.0 * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
+            step_description.step_len = self.step_length_
+            step_description.gait_alt = self.gait_altitude_
+            step_description.gait_wid = self.gait_width_
+            step_description.dir_component = False
+            step_description.ang_component = True
 
             self.step_command_.publish(step_description)
         else:
             self.get_logger().warning("Incorrect command sent to the step controller!!")
+
+        # if cmd.data == "w":
+        #     step_description.data = [ np.deg2rad(0.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            
+        #     self.step_command_.publish(step_description)
+        # elif cmd.data == "a":
+        #     step_description.data = [ np.deg2rad(270.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+
+        #     self.step_command_.publish(step_description)
+        # elif cmd.data == "s":
+        #     step_description.data = [ np.deg2rad(180.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+
+        #     self.step_command_.publish(step_description)
+        # elif cmd.data == "d":
+        #     step_description.data = [ np.deg2rad(90.0), self.step_length_, self.gait_altitude_, self.gait_width_, 0.0 ]
+            
+        #     self.step_command_.publish(step_description)
+        # elif cmd.data == "q":
+        #     angle = (np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_))
+        #     step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+
+        #     self.step_command_.publish(step_description)
+        # elif cmd.data == "e":
+        #     angle = -1.0 * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
+        #     step_description.data = [ angle, self.step_length_, self.gait_altitude_, self.gait_width_, 1.0 ]
+
+        #     self.step_command_.publish(step_description)
+        # else:
+        #     self.get_logger().warning("Incorrect command sent to the step controller!!")
         
 
 def main(args = None):
