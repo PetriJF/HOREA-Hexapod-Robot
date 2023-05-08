@@ -129,80 +129,80 @@ class TripodGait(Node):
             centAngle = tetha / 2.0
             pushAngle = [ (-tetha - 2 * tethaIn) / 2.0, (-tetha - 2 * tethaOut) / 2.0 ]
 
-            
-            if (angularRepresentation[0] > 0.0 and angularRepresentation[1] > 0.0):
-                self.get_logger().info("Forward left")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, 2.0 * np.pi - pullAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, 2.0 * np.pi - centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, pushAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, pushAngle[INWARD], m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, 2.0 * np.pi - centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, 2.0 * np.pi - pullAngle[INWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.right_dominant = rightDominant
-            elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] > 0.0):
-                self.get_logger().info("Forward right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, pullAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, 2 * np.pi - pushAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, 2 * np.pi - pushAngle[OUTWARD], m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, pullAngle[OUTWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.right_dominant = rightDominant
-            elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] < 0.0):
-                self.get_logger().info("Backwards right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi + pushAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi - centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi - pullAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi - pullAngle[OUTWARD], m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi - centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi + pushAngle[OUTWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.right_dominant = rightDominant
-            else:
-                self.get_logger().info("Backwards right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi - pushAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi + centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi + pullAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi + pullAngle[INWARD], m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi + centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi - pushAngle[INWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.right_dominant = rightDominant
-
+            # EXPERIMENTAL
             # if (angularRepresentation[0] > 0.0 and angularRepresentation[1] > 0.0):
             #     self.get_logger().info("Forward left")
-            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (-tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (-tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, 2.0 * np.pi - pullAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, 2.0 * np.pi - centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, pushAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, pushAngle[INWARD], m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, 2.0 * np.pi - centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, 2.0 * np.pi - pullAngle[INWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
             #     self.leg_waypoints_.right_dominant = rightDominant
             # elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] > 0.0):
             #     self.get_logger().info("Forward right")
-            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (2*tethaIn + tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (2*tethaOut + tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, pullAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, 2 * np.pi - pushAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, 2 * np.pi - pushAngle[OUTWARD], m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, pullAngle[OUTWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
             #     self.leg_waypoints_.right_dominant = rightDominant
             # elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] < 0.0):
             #     self.get_logger().info("Backwards right")
-            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi - (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi - (tetha / 2.0), m1, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2.0 * np.pi - 2.0 * tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2.0 * np.pi - 2.0 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi - (tetha / 2.0), m4, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi - (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi + pushAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi - centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi - pullAngle[INWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi - pullAngle[OUTWARD], m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi - centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi + pushAngle[OUTWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
             #     self.leg_waypoints_.right_dominant = rightDominant
             # else:
             #     self.get_logger().info("Backwards right")
-            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi + (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi + (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi + (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi + (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi + (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi + (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi - pushAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi + centAngle, m1, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi + pullAngle[OUTWARD], m2, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi + pullAngle[INWARD], m3, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi + centAngle, m4, gaitAltitude, gaitWidth, rightDominant)
+            #     self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi - pushAngle[INWARD] / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
             #     self.leg_waypoints_.right_dominant = rightDominant
+
+            if (angularRepresentation[0] > 0.0 and angularRepresentation[1] > 0.0):
+                self.get_logger().info("Forward left")
+                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (-tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (-tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.right_dominant = rightDominant
+            elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] > 0.0):
+                self.get_logger().info("Forward right")
+                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (2*tethaIn + tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (2*tethaOut + tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.right_dominant = rightDominant
+            elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] < 0.0):
+                self.get_logger().info("Backwards right")
+                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi - (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi - (tetha / 2.0), m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2.0 * np.pi - 2.0 * tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2.0 * np.pi - 2.0 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi - (tetha / 2.0), m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi - (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.right_dominant = rightDominant
+            else:
+                self.get_logger().info("Backwards right")
+                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi + (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi + (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi + (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi + (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi + (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi + (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.right_dominant = rightDominant
 
             goal_msg = StepAnimator.Goal()
             goal_msg.waypointer = self.leg_waypoints_

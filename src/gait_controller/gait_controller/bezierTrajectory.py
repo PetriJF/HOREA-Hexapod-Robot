@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 import rclpy
+import yaml
 from time import *
 from rclpy.node import Node
 from rclpy.action import ActionServer
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Int64
 from geometry_msgs.msg import Point
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import TargetPositions
 from hexapod_interfaces.action import StepAnimator
 
+import os
+from ament_index_python.packages import get_package_share_directory
 import numpy as np
 
 ## Bézier <3
@@ -20,15 +23,38 @@ class BezierTrajectory(Node):
         pd = ParameterDescriptor(description = "Trajectory Parameters", type = 3) 
         self.declare_parameter(name = "resolution", descriptor = pd, value = 0.01)
         self.declare_parameter(name = "step_duration", descriptor = pd, value = 1.0)
+        self.declare_parameter(name = "default_gait", value = 0)
+        
 
         self.resolution_ = self.get_parameter("resolution").value
         self.step_duration_ = self.get_parameter("step_duration").value
+        self.current_gait_ = self.get_parameter("default_gait").value
+
+        gaitConfigPath = os.path.join(get_package_share_directory("gait_controller"), "config", "gaitDescriptors.yaml")
+        with open(gaitConfigPath, 'r') as f:
+            gaits = yaml.safe_load(f)
+        # Form the gait dictionary
+        gait_library = []
+        for gait in gaits:
+            gait_library.append({
+                'name': gait['name'],
+                'tog': gait['tog'],
+                'RF': gait['RF'],
+                'RM': gait['RM'],
+                'RB': gait['RB'],
+                'LB': gait['LB'],
+                'LM': gait['LM'],
+                'LF': gait['LF']
+            })
+
+        print(gait_library)
 
         self.action_server_ = ActionServer(self, StepAnimator, "stepStatus", self.trajectoryPlannerCallBack)
 
         self.targetPos_ = TargetPositions()
         self.posPub_ = self.create_publisher(TargetPositions, 'HexLegPos', 10)
         self.speedSub_ = self.create_subscription(Float64, 'step_speed', self.robotSpeedCallback, 10)
+        self.gaitSub_ = self.create_subscription(Int64, 'current_gait', self.gaitSetterCallback, 10)
 
     def trajectoryPlannerCallBack(self, goal_handle):
         wp = goal_handle.request.waypointer
@@ -118,6 +144,9 @@ class BezierTrajectory(Node):
     
     def robotSpeedCallback(self, speed = Float64):
         self.step_duration_ = speed.data
+
+    def gaitSetterCallback(self, gait = Int64):
+        pass
 
     ## Stupid function used to set the TargetPositions values until I fix the interface to be a point array
     def setTargPosIndex(self, P = Point(), index = int):
