@@ -127,7 +127,7 @@ class TeleOp(Node):
                 self.animation_type_.publish(self.animation_)
             
             # Dealing with the stepSpeed using L2 and R2 triggers
-            if cmd.buttons[8] == 1 and self.step_speed_.data < 3.0:
+            if cmd.buttons[8] == 1 and self.step_speed_.data < 30.0:
                 self.prev_Button_ = 8
                 self.step_speed_.data = self.step_speed_.data + 0.25
                 self.stepSpeedPub_.publish(self.step_speed_)
