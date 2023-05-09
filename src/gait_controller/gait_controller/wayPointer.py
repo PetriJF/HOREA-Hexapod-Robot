@@ -245,9 +245,9 @@ class TripodGait(Node):
         C_width_ratio = 6/5
         C_height_ratio = 1
 
-
-        A.x = gaitWidth * np.cos(self.gamma_[legIndex])
-        A.y = gaitWidth * np.sin(self.gamma_[legIndex])
+        # EE Leg-wise position
+        A.x = 0.0
+        A.y = 0.0
         A.z = 0.0
 
         # Differentiates between the first and second triangles in the tripod gait

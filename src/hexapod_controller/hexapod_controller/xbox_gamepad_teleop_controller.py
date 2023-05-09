@@ -13,7 +13,12 @@ class TeleOp(Node):
     def __init__(self):
         super().__init__("teleop_node")
 
+        self.TRIPOD_GAIT = 0
+        self.WAVE_GAIT = 1
+        self.RIPPLE_GAIT = 2
+
         self.walk_mode_ = 0
+        self.walk_gait_ = self.TRIPOD_GAIT
 
         pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
         self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
@@ -145,7 +150,19 @@ class TeleOp(Node):
                     self.walk_mode_ = CRAB_WALK
                     self.get_logger().info("Crab walk mode")
                 self.prev_Button_ = 3
- 
+
+            # A Button (gait toggler)
+            if cmd.buttons[2] == 1:
+                if self.walk_gait_ == self.TRIPOD_GAIT:
+                    self.walk_gait_ = self.WAVE_GAIT
+                    self.get_logger().info("Switched to wave gait")
+                elif self.walk_gait_ == self.WAVE_GAIT:
+                    self.walk_gait_ = self.RIPPLE_GAIT
+                    self.get_logger().info("Switched to ripple gait")
+                elif self.walk_gait_ == self.RIPPLE_GAIT:
+                    self.walk_gait_ = self.TRIPOD_GAIT
+                    self.get_logger().info("Switched to tripod gait")
+                self.prev_Button_ = 2
 
 def main(args = None):
     rclpy.init(args = args)
