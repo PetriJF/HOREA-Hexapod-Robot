@@ -3,11 +3,14 @@ import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from geometry_msgs.msg import Point
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Int64
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import WaypointSetter, StepDescriptor
 from hexapod_interfaces.action import StepAnimator
 
+import os
+from ament_index_python.packages import get_package_share_directory
+import yaml
 import numpy as np
 
 
@@ -16,6 +19,30 @@ class TripodGait(Node):
         super().__init__("gait_node")
         self.get_logger().info("Init")
 
+        # LOADING IN THE GAITS
+        gaitConfigPath = os.path.join(get_package_share_directory("gait_controller"), "config", "gaitDescriptors.yaml")
+        with open(gaitConfigPath, 'r') as f:
+            gaits = yaml.safe_load(f)
+        # Form the gait dictionary
+        self.gait_library_ = []
+        self.gaitIndex_ = 0
+        for gait in gaits:
+            self.gait_library_.append({
+                'name': gait['name'],
+                'ToG': gait['ToG'],
+                'RF': gait['RF'],
+                'RM': gait['RM'],
+                'RB': gait['RB'],
+                'LB': gait['LB'],
+                'LM': gait['LM'],
+                'LF': gait['LF']
+            })
+
+        print(self.gait_library_)
+        print(self.gait_library_[0])
+        print(self.gait_library_[0]['ToG'])
+
+        self.BEZIER_POINT_COUNT = 4
         # Note 8 = PARAMETER_DOUBLE_ARRAY
         # Declaring the parameters representing each leg origin. Note 8 = PARAMETER_DOUBLE_ARRAY
         pd = ParameterDescriptor(description = "Origin definition for each leg", type = 8) 
@@ -34,6 +61,7 @@ class TripodGait(Node):
 
         # Initialize the publisher to the tranjectory planner
         self.sub = self.create_subscription(StepDescriptor, 'stepCommands', self.commandsCallback, 10)
+        self.gaitSub_ = self.create_subscription(Int64, 'current_gait', self.gaitSetterCallback, 10) 
 
     def commandsCallback(self, cmd = StepDescriptor):
         # Setting the information needed by the waypointer from the topic float array
@@ -58,18 +86,16 @@ class TripodGait(Node):
         if dirComponent and not angComponent:
             self.get_logger().info("Direction")
             # When the robot is not spinning in spot, all legs must aim for the robot relative angle in order to produce the movement
-            self.leg_waypoints_.rf = self.bezierWaypointer4P(0, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.rm = self.bezierWaypointer4P(1, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.rb = self.bezierWaypointer4P(2, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lb = self.bezierWaypointer4P(3, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lm = self.bezierWaypointer4P(4, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lf = self.bezierWaypointer4P(5, direction, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.right_dominant = rightDominant
+            self.leg_waypoints_.rf, self.leg_waypoints_.rf_timings = self.gaitWaypointer(0, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RF')
+            self.leg_waypoints_.rm, self.leg_waypoints_.rm_timings = self.gaitWaypointer(1, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RM')
+            self.leg_waypoints_.rb, self.leg_waypoints_.rb_timings = self.gaitWaypointer(2, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RB')
+            self.leg_waypoints_.lb, self.leg_waypoints_.lb_timings = self.gaitWaypointer(3, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LB')
+            self.leg_waypoints_.lm, self.leg_waypoints_.lm_timings = self.gaitWaypointer(4, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LM')
+            self.leg_waypoints_.lf, self.leg_waypoints_.lf_timings = self.gaitWaypointer(5, direction, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LF')
             
             goal_msg = StepAnimator.Goal()
             goal_msg.waypointer = self.leg_waypoints_
             self.action_client_.wait_for_server()
-
             self.send_goal_ = self.action_client_.send_goal_async(
                 goal_msg,
                 feedback_callback = self.feedbackCallback
@@ -79,13 +105,12 @@ class TripodGait(Node):
         elif angComponent and not dirComponent:
             self.get_logger().info("Spin")
             # When the robot is spinning in spot, all legs must move in terms of their own orientation 
-            self.leg_waypoints_.rf = self.bezierWaypointer4P(0, self.gamma_[0] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.rm = self.bezierWaypointer4P(1, self.gamma_[1] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.rb = self.bezierWaypointer4P(2, self.gamma_[2] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lb = self.bezierWaypointer4P(3, self.gamma_[3] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lm = self.bezierWaypointer4P(4, self.gamma_[4] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.lf = self.bezierWaypointer4P(5, self.gamma_[5] - angle, stepLength, gaitAltitude, gaitWidth, rightDominant)
-            self.leg_waypoints_.right_dominant = rightDominant
+            self.leg_waypoints_.rf, self.leg_waypoints_.rf_timings = self.gaitWaypointerC(0, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RF')
+            self.leg_waypoints_.rm, self.leg_waypoints_.rm_timings = self.gaitWaypointerC(1, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RM')
+            self.leg_waypoints_.rb, self.leg_waypoints_.rb_timings = self.gaitWaypointerC(2, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'RB')
+            self.leg_waypoints_.lb, self.leg_waypoints_.lb_timings = self.gaitWaypointerC(3, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LB')
+            self.leg_waypoints_.lm, self.leg_waypoints_.lm_timings = self.gaitWaypointerC(4, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LM')
+            self.leg_waypoints_.lf, self.leg_waypoints_.lf_timings = self.gaitWaypointerC(5, angle, stepLength, gaitAltitude, gaitWidth, self.gait_library_[self.gaitIndex_], 'LF')
             
             goal_msg = StepAnimator.Goal()
             goal_msg.waypointer = self.leg_waypoints_
@@ -169,39 +194,39 @@ class TripodGait(Node):
 
             if (angularRepresentation[0] > 0.0 and angularRepresentation[1] > 0.0):
                 self.get_logger().info("Forward left")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (-tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (-tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rf = self.bezierWaypointer4PC(0, (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4PC(1, (-tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4PC(2, (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4PC(3, (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4PC(4, (-tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4PC(5, (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
                 self.leg_waypoints_.right_dominant = rightDominant
             elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] > 0.0):
                 self.get_logger().info("Forward right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, (2*tethaIn + tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, (2*tethaOut + tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rf = self.bezierWaypointer4PC(0, (2*tethaIn + tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4PC(1, (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4PC(2, (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4PC(3, (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4PC(4, (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4PC(5, (2*tethaOut + tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
                 self.leg_waypoints_.right_dominant = rightDominant
             elif (angularRepresentation[0] < 0.0 and angularRepresentation[1] < 0.0):
                 self.get_logger().info("Backwards right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi - (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi - (tetha / 2.0), m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, (2.0 * np.pi - 2.0 * tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, (2.0 * np.pi - 2.0 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi - (tetha / 2.0), m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi - (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rf = self.bezierWaypointer4PC(0, np.pi - (tetha - 2*tethaIn) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4PC(1, np.pi - (tetha / 2.0), m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4PC(2, (2.0 * np.pi - 2.0 * tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4PC(3, (2.0 * np.pi - 2.0 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4PC(4, np.pi - (tetha / 2.0), m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4PC(5, np.pi - (tetha - 2*tethaOut) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
                 self.leg_waypoints_.right_dominant = rightDominant
             else:
                 self.get_logger().info("Backwards right")
-                self.leg_waypoints_.rf = self.bezierWaypointer4P(0, np.pi + (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rm = self.bezierWaypointer4P(1, np.pi + (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.rb = self.bezierWaypointer4P(2, np.pi + (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lb = self.bezierWaypointer4P(3, np.pi + (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lm = self.bezierWaypointer4P(4, np.pi + (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
-                self.leg_waypoints_.lf = self.bezierWaypointer4P(5, np.pi + (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rf = self.bezierWaypointer4PC(0, np.pi + (-2 * tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rm = self.bezierWaypointer4PC(1, np.pi + (tetha) / 2.0, m4, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.rb = self.bezierWaypointer4PC(2, np.pi + (2*tethaOut - tetha) / 2.0, m3, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lb = self.bezierWaypointer4PC(3, np.pi + (2*tethaIn - tetha) / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lm = self.bezierWaypointer4PC(4, np.pi + (tetha) / 2.0, m1, gaitAltitude, gaitWidth, rightDominant)
+                self.leg_waypoints_.lf = self.bezierWaypointer4PC(5, np.pi + (-2.0 * tethaIn - tetha)  / 2.0, m2, gaitAltitude, gaitWidth, rightDominant)
                 self.leg_waypoints_.right_dominant = rightDominant
 
             goal_msg = StepAnimator.Goal()
@@ -231,8 +256,137 @@ class TripodGait(Node):
     # Getting the current percentage feedback for the 
     def feedbackCallback(self, feedback_msg):
         self.feedback_ = feedback_msg.feedback.percentage
+    
+    ## Gait setter
+    def gaitSetterCallback(self, gait = Int64):
+        self.gaitIndex_ = gait.data
 
-    def bezierWaypointer4P(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool):
+    ## Gait waypointer
+    def gaitWaypointer(self, index = int, direction = float, stepLength = float, gaitAltitude = float, gaitWidth = float, gaitDesc = [], leg = ""):
+        InitPoint = Point()
+        P = Point()
+        
+        # If the leg variable is not initialized properly, it is considered a critical error => shutdown node!
+        if (leg == ""):
+            self.get_logger().error("LEG REFERENCING IN WAYPOINTER IS INCORRECT. leg should be RF, RM, RB, LB, LM or LF, but leg = " + leg)
+            self.destroy_node()
+
+        # Each step can be described as stride-swing-stride. This represents the timings for each. 
+        # Note that if the first stride is 0, then it is the equivalent of swing-stride
+        timings = [gaitDesc[leg], gaitDesc[leg] + (1.0 - gaitDesc['ToG'])]
+
+        # stride before the swing
+        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * stepLength
+        # stride after the swing
+        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * stepLength
+
+        pointArray = []
+
+        # Start and end point in the leg's motion plan
+        InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
+        InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
+        InitPoint.z = 0.0 
+        pointArray.append(InitPoint)       
+
+        P.x = InitPoint.x + stride1Len * np.cos(direction - np.pi)
+        P.y = InitPoint.y + stride1Len * np.sin(direction - np.pi)
+        P.z = 0.0
+
+        pointArray.append(P)
+        
+        # Adding the swing points; A - starting point; B, C - weights; D - end poitn
+        bez = []
+        bez = self.bezierWaypointer4PC(index, direction, stepLength, gaitAltitude, gaitWidth, True, initial = [P.x, P.y, P.z])
+        for point in [0, 1, 2, 3]:
+            pointArray.append(bez[point])
+        #[pointArray.append(bez[point]) for point in range(4)]
+
+        P = Point()
+        P.x = pointArray[-1].x
+        P.y = pointArray[-1].y
+        P.z = pointArray[-1].z
+
+        pointArray.append(P)
+
+        P = Point()
+        P.x = pointArray[-2].x + stride2Len * np.cos(direction - np.pi)
+        P.y = pointArray[-2].y + stride2Len * np.sin(direction - np.pi)
+        P.z = pointArray[-2].z
+
+        pointArray.append(P)
+        # self.get_logger().info(str(stride1Len) + " " + str(stride2Len))
+        # print(str(index) + "\n") 
+        # print(pointArray)
+
+        return pointArray, timings
+
+    def gaitWaypointerC(self, index = int, angle = float, stepLength = float, gaitAltitude = float, gaitWidth = float, gaitDesc = [], leg = ""):
+        InitPoint = Point()
+        P = Point()
+        
+        # If the leg variable is not initialized properly, it is considered a critical error => shutdown node!
+        if (leg == ""):
+            self.get_logger().error("LEG REFERENCING IN WAYPOINTER IS INCORRECT. leg should be RF, RM, RB, LB, LM or LF, but leg = " + leg)
+            self.destroy_node()
+
+        # Each step can be described as stride-swing-stride. This represents the timings for each. 
+        # Note that if the first stride is 0, then it is the equivalent of swing-stride
+        timings = [gaitDesc[leg], gaitDesc[leg] + (1.0 - gaitDesc['ToG'])]
+
+        # stride before the swing
+        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * stepLength
+        # stride after the swing
+        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * stepLength
+
+        stride1RelAng = angle * ((np.pi / 2.0) + np.arcsin((stride1Len) / (2.0 * gaitWidth)))
+        stride2RelAng = angle * ((np.pi / 2.0) + np.arcsin((stride2Len) / (2.0 * gaitWidth)))
+        swingRelAng = -angle * (np.arcsin((stride1Len) / (2.0 * gaitWidth)) + (np.pi - (2*np.arcsin(stride1Len/(2*gaitWidth)) + 2*np.arcsin(stride2Len/(2*gaitWidth))))/2.0)
+        swingLen = 2 * gaitWidth * np.sin(2*np.arcsin(stride1Len/(2*gaitWidth)) + 2*np.arcsin(stride2Len/(2*gaitWidth)))
+        
+        #self.get_logger().info(str(stride1RelAng) + " " + str(stride1Len) + " " + str(swingRelAng) + " " + str(swingLen) + " " + str(stride2RelAng) + " " + str(stride2Len))
+        
+        pointArray = []
+
+        # Start and end point in the leg's motion plan
+        InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
+        InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
+        InitPoint.z = 0.0 
+        pointArray.append(InitPoint)
+
+        P.x = InitPoint.x + stride1Len * np.cos(self.gamma_[index] + stride1RelAng)
+        P.y = InitPoint.y + stride1Len * np.sin(self.gamma_[index] + stride1RelAng)
+        P.z = 0.0
+
+        pointArray.append(P)
+
+        # Adding the swing points; A - starting point; B, C - weights; D - end poitn
+        bez = []
+        bez = self.bezierWaypointer4PC(index, self.gamma_[index] + swingRelAng, swingLen, gaitAltitude, gaitWidth, True, initial = [P.x, P.y, P.z])
+        for point in [0, 1, 2, 3]:
+            pointArray.append(bez[point])
+        #[pointArray.append(bez[point]) for point in range(4)]
+
+        P = Point()
+        P.x = pointArray[-1].x
+        P.y = pointArray[-1].y
+        P.z = pointArray[-1].z
+
+        pointArray.append(P)
+
+        P = Point()
+        P.x = pointArray[-2].x + stride2Len * np.cos(self.gamma_[index] + stride2RelAng)
+        P.y = pointArray[-2].y + stride2Len * np.sin(self.gamma_[index] + stride2RelAng)
+        P.z = pointArray[-2].z
+
+        pointArray.append(P)
+        # self.get_logger().info(str(stride1Len) + " " + str(stride2Len))
+        #print(str(index) + "\n") 
+        #print(pointArray)
+
+        return pointArray, timings
+
+    ## Legacy waypointer
+    def bezierWaypointer4PC(self, legIndex = int, relativeDirRad = float, stepLength = float, gaitAltitude = float, gaitWidth = float, rightDominant = bool, initial = None):
         # Note! 0 deg represents forward
         A = Point()
         B = Point()
@@ -245,13 +399,18 @@ class TripodGait(Node):
         C_width_ratio = 6/5
         C_height_ratio = 1
 
-        # EE Leg-wise position
-        A.x = 0.0
-        A.y = 0.0
+        A.x = gaitWidth * np.cos(self.gamma_[legIndex])
+        A.y = gaitWidth * np.sin(self.gamma_[legIndex])
         A.z = 0.0
+        if initial != None:
+            A.x = initial[0]
+            A.y = initial[1]
+            A.z = initial[2]
 
         # Differentiates between the first and second triangles in the tripod gait
-        direction = 1 if (legIndex % 2 == 1) else -1
+        direction = 1
+        if initial == None:
+            direction = 1 if (legIndex % 2 == 1) else -1
         if rightDominant == False:
             direction = direction * -1
 

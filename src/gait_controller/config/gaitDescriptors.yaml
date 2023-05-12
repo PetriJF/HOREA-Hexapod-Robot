@@ -1,6 +1,6 @@
 - name: tripod
   index: 0
-  tog: 0.5
+  ToG: 0.5
   RF: 0.0
   RM: 0.5
   RB: 0.0
@@ -10,7 +10,7 @@
 
 - name: wave
   index: 1
-  tog: 0.833333
+  ToG: 0.833333
   RF: 0.0
   RM: 0.166666
   RB: 0.333333
@@ -20,7 +20,7 @@
 
 - name: ripple
   index: 2
-  tog: 0.66666
+  ToG: 0.66666
   RF: 0.66666
   RM: 0.0
   RB: 0.333333

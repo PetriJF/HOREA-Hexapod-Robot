@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray
+from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray, Int64
 from sensor_msgs.msg import Joy
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import StepDescriptor
 import time
+
+import os
+from ament_index_python.packages import get_package_share_directory
+import yaml
 
 import numpy as np
 
@@ -13,12 +17,19 @@ class TeleOp(Node):
     def __init__(self):
         super().__init__("teleop_node")
 
-        self.TRIPOD_GAIT = 0
-        self.WAVE_GAIT = 1
-        self.RIPPLE_GAIT = 2
+        gaitConfigPath = os.path.join(get_package_share_directory("gait_controller"), "config", "gaitDescriptors.yaml")
+        with open(gaitConfigPath, 'r') as f:
+            gaits = yaml.safe_load(f)
+        
+        self.TRIPOD_GAIT = gaits[0]['index']
+        self.WAVE_GAIT = gaits[1]['index']
+        self.RIPPLE_GAIT = gaits[2]['index']
+        
+        self.get_logger().info("Gaits with index " + str(self.TRIPOD_GAIT) + " " + str(self.WAVE_GAIT) + " " + str(self.RIPPLE_GAIT) + " initialized")
 
         self.walk_mode_ = 0
-        self.walk_gait_ = self.TRIPOD_GAIT
+        self.walk_gait_ = Int64()
+        self.walk_gait_.data = self.TRIPOD_GAIT
 
         pd = ParameterDescriptor(description = "parameter definition for the gait waypoint planning", type = 3) 
         self.declare_parameter(name = "base_width", descriptor = pd, value = 65.0)
@@ -49,6 +60,7 @@ class TeleOp(Node):
         self.step_command_ = self.create_publisher(StepDescriptor, 'stepCommands', 10)
         self.stepSpeedPub_ = self.create_publisher(Float64, 'step_speed', 10)
         self.baseInclinationPub_ = self.create_publisher(Float64MultiArray, 'base_inclination', 10)
+        self.gaitPub_ = self.create_publisher(Int64, 'current_gait', 10) 
 
     def gamepadCallback(self, cmd = Joy):
         # Some constants for easy code reading
@@ -89,7 +101,7 @@ class TeleOp(Node):
         # D-Pad left and right turning the robot in each direction
         if cmd.axes[6] != 0.0:
             step_descriptor.direction = 0.0
-            step_descriptor.angle = cmd.axes[6] * ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
+            step_descriptor.angle = cmd.axes[6] #* ((np.pi / 2.0) + np.arcsin((self.step_length_) / (2.0 * self.gait_width_)))
             step_descriptor.ang_rep = [ 0.0, 0.0 ]
             step_descriptor.step_len = self.step_length_
             step_descriptor.gait_alt = self.gait_altitude_
@@ -152,17 +164,20 @@ class TeleOp(Node):
                 self.prev_Button_ = 3
 
             # A Button (gait toggler)
-            if cmd.buttons[2] == 1:
-                if self.walk_gait_ == self.TRIPOD_GAIT:
-                    self.walk_gait_ = self.WAVE_GAIT
+            if cmd.buttons[1] == 1:
+                if self.walk_gait_.data == self.TRIPOD_GAIT:
+                    self.walk_gait_.data = self.WAVE_GAIT
+                    self.gaitPub_.publish(self.walk_gait_)
                     self.get_logger().info("Switched to wave gait")
-                elif self.walk_gait_ == self.WAVE_GAIT:
-                    self.walk_gait_ = self.RIPPLE_GAIT
+                elif self.walk_gait_.data == self.WAVE_GAIT:
+                    self.walk_gait_.data = self.RIPPLE_GAIT
+                    self.gaitPub_.publish(self.walk_gait_)
                     self.get_logger().info("Switched to ripple gait")
-                elif self.walk_gait_ == self.RIPPLE_GAIT:
-                    self.walk_gait_ = self.TRIPOD_GAIT
+                elif self.walk_gait_.data == self.RIPPLE_GAIT:
+                    self.walk_gait_.data = self.TRIPOD_GAIT
+                    self.gaitPub_.publish(self.walk_gait_)
                     self.get_logger().info("Switched to tripod gait")
-                self.prev_Button_ = 2
+                self.prev_Button_ = 1
 
 def main(args = None):
     rclpy.init(args = args)

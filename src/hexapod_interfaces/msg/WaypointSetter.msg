@@ -1,7 +1,13 @@
 geometry_msgs/Point[] rf
+float32[2] rf_timings
 geometry_msgs/Point[] rm
+float32[2] rm_timings
 geometry_msgs/Point[] rb
+float32[2] rb_timings
 geometry_msgs/Point[] lb
+float32[2] lb_timings
 geometry_msgs/Point[] lm
+float32[2] lm_timings
 geometry_msgs/Point[] lf
-bool right_dominant
+float32[2] lf_timings
+#bool right_dominant

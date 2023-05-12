@@ -87,7 +87,8 @@ def generate_launch_description():
         executable = "waypointer_node",
         parameters = [
             {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]}
-        ]
+        ],
+        output = 'screen'
     )
 
     bezier_node = Node(
