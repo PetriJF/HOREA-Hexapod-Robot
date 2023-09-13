@@ -35,7 +35,8 @@ class TripodGait(Node):
                 'RB': gait['RB'],
                 'LB': gait['LB'],
                 'LM': gait['LM'],
-                'LF': gait['LF']
+                'LF': gait['LF'],
+                'stepMult': gait['stepMult']
             })
 
         print(self.gait_library_)
@@ -276,9 +277,9 @@ class TripodGait(Node):
         timings = [gaitDesc[leg], gaitDesc[leg] + (1.0 - gaitDesc['ToG'])]
 
         # stride before the swing
-        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * stepLength
+        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * (stepLength * gaitDesc['stepMult'])
         # stride after the swing
-        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * stepLength
+        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * (stepLength * gaitDesc['stepMult'])
 
         pointArray = []
 
@@ -296,7 +297,7 @@ class TripodGait(Node):
         
         # Adding the swing points; A - starting point; B, C - weights; D - end poitn
         bez = []
-        bez = self.bezierWaypointer4PC(index, direction, stepLength, gaitAltitude, gaitWidth, True, initial = [P.x, P.y, P.z])
+        bez = self.bezierWaypointer4PC(index, direction, stride1Len + stride2Len, gaitAltitude, gaitWidth, True, initial = [P.x, P.y, P.z])
         for point in [0, 1, 2, 3]:
             pointArray.append(bez[point])
         #[pointArray.append(bez[point]) for point in range(4)]
@@ -334,14 +335,19 @@ class TripodGait(Node):
         timings = [gaitDesc[leg], gaitDesc[leg] + (1.0 - gaitDesc['ToG'])]
 
         # stride before the swing
-        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * stepLength
+        stride1Len = (gaitDesc[leg] / gaitDesc['ToG']) * (stepLength * gaitDesc['stepMult'])
         # stride after the swing
-        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * stepLength
+        stride2Len = (1.0 - (gaitDesc[leg] / gaitDesc['ToG'])) * (stepLength * gaitDesc['stepMult'])
 
         stride1RelAng = angle * ((np.pi / 2.0) + np.arcsin((stride1Len) / (2.0 * gaitWidth)))
         stride2RelAng = angle * ((np.pi / 2.0) + np.arcsin((stride2Len) / (2.0 * gaitWidth)))
+        #stride1RelAng = angle * (np.arcsin((stride1Len) / (2.0 * gaitWidth)))
+        #stride2RelAng = angle * (np.arcsin((stride2Len) / (2.0 * gaitWidth)))
         swingRelAng = -angle * (np.arcsin((stride1Len) / (2.0 * gaitWidth)) + (np.pi - (2*np.arcsin(stride1Len/(2*gaitWidth)) + 2*np.arcsin(stride2Len/(2*gaitWidth))))/2.0)
+        #swingRelAng = np.abs(stride1RelAng) + np.abs(stride2RelAng)
         swingLen = 2 * gaitWidth * np.sin(2*np.arcsin(stride1Len/(2*gaitWidth)) + 2*np.arcsin(stride2Len/(2*gaitWidth)))
+        #self.get_logger().info(str(stride1RelAng) + " " + str(stride2RelAng) + " " + str(swingRelAng))
+        #swingLen = 2.0 * gaitWidth * np.arcsin(swingRelAng / 2.0)
         
         #self.get_logger().info(str(stride1RelAng) + " " + str(stride1Len) + " " + str(swingRelAng) + " " + str(swingLen) + " " + str(stride2RelAng) + " " + str(stride2Len))
         

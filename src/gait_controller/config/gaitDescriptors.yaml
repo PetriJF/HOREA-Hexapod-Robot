@@ -7,6 +7,7 @@
   LB: 0.5
   LM: 0.0
   LF: 0.5
+  stepMult: 1.0
 
 - name: wave
   index: 1
@@ -17,6 +18,7 @@
   LB: 0.5
   LM: 0.666666
   LF: 0.833333
+  stepMult: 1.5
 
 - name: ripple
   index: 2
@@ -27,3 +29,4 @@
   LB: 0.66666
   LM: 0.333333
   LF: 0.0
+  stepMult: 1.2
