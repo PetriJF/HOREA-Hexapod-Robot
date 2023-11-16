@@ -87,15 +87,18 @@ def generate_launch_description():
         executable = "waypointer_node",
         parameters = [
             {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]}
-        ]
+        ],
+        output = 'screen'
     )
 
     bezier_node = Node(
         package = "gait_controller",
         executable = "bezier_traj_node",
         parameters = [
+            {"leg_angular_orientation": [RF.base_angle, RM.base_angle, RB.base_angle, LB.base_angle, LM.base_angle, LF.base_angle]},
             {"resolution": ANIMATION_RESOLUTION},
-            {"step_duration": STEP_DURATION}
+            {"step_duration": STEP_DURATION}, 
+            {"gait_width": GAIT_WIDTH}
         ]
     )
 
@@ -111,7 +114,9 @@ def generate_launch_description():
         package = "hexapod_controller",
         executable = "teleop_std_gamepad_node",
         parameters = [
-            {"base_altitude": BASE_ALTITUDE}
+            {"base_altitude": BASE_ALTITUDE},
+            {"gait_width": GAIT_WIDTH},
+            {"base_altitude": GAIT_ALTITUDE}
         ]
     )
 
