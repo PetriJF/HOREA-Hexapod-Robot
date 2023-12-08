@@ -13,7 +13,7 @@ A quick list of some of the features in progress:
 - Better femur design
 - Jumping
 - Enabling the hexapod to walk on 4 or 5 legs
-- Enabling the hexapod to walk in a crawl state (reducing the profile widthwise for fitting into thigh spots)
+- Enabling the hexapod to walk in a crawl state (reducing the profile widthwise for fitting into narrow spots)
 - A more efficient node communication method for the data heavy transfers
 - Battery support.
 
