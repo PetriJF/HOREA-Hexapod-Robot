@@ -39,10 +39,6 @@ class TripodGait(Node):
                 'stepMult': gait['stepMult']
             })
 
-        print(self.gait_library_)
-        print(self.gait_library_[0])
-        print(self.gait_library_[0]['ToG'])
-
         self.BEZIER_POINT_COUNT = 4
         # Note 8 = PARAMETER_DOUBLE_ARRAY
         # Declaring the parameters representing each leg origin. Note 8 = PARAMETER_DOUBLE_ARRAY

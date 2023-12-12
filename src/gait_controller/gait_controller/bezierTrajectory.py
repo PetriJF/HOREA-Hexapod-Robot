@@ -3,7 +3,7 @@ import rclpy
 from time import *
 from rclpy.node import Node
 from rclpy.action import ActionServer
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Bool
 from geometry_msgs.msg import Point
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import TargetPositions
@@ -42,6 +42,9 @@ class BezierTrajectory(Node):
         self.targetPos_ = TargetPositions()
         self.posPub_ = self.create_publisher(TargetPositions, 'HexLegPos', 10)
         self.speedSub_ = self.create_subscription(Float64, 'step_speed', self.robotSpeedCallback, 10)
+        self.dynamicStopSub_ = self.create_subscription(Bool, 'dynamic_stop', self.updateDynamicStop, 10)
+
+        self.dynamicStopFlag_ = False
 
     def trajectoryPlannerCallBack(self, goal_handle):
         wp = goal_handle.request.waypointer
@@ -50,10 +53,12 @@ class BezierTrajectory(Node):
         for t in np.arange(0, 1 + self.resolution_, self.resolution_):
             feedback_msg.percentage = t
             goal_handle.publish_feedback(feedback_msg)
-
+            legInSwing = False
+            
             # RIGHT FRONT LEG
             if (t >= wp.rf_timings[0] and t < wp.rf_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.rf[2], wp.rf[3], wp.rf[4], wp.rf[5], t, wp.rf_timings[0], wp.rf_timings[1]), 1)
+                legInSwing = True
             elif t < wp.rf_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.rf[0], wp.rf[1], t, 0.0, wp.rf_timings[0]), 1)
             else:
@@ -61,6 +66,7 @@ class BezierTrajectory(Node):
             # RIGHT MIDDLE LEG
             if (t >= wp.rm_timings[0] and t < wp.rm_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.rm[2], wp.rm[3], wp.rm[4], wp.rm[5], t, wp.rm_timings[0], wp.rm_timings[1]), 2)
+                legInSwing = True
             elif t < wp.rm_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.rm[0], wp.rm[1], t, 0.0, wp.rm_timings[0]), 2)
             else:
@@ -68,6 +74,7 @@ class BezierTrajectory(Node):
             # RIGHT BACK LEG
             if (t >= wp.rb_timings[0] and t < wp.rb_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.rb[2], wp.rb[3], wp.rb[4], wp.rb[5], t, wp.rb_timings[0], wp.rb_timings[1]), 3)
+                legInSwing = True
             elif t < wp.rb_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.rb[0], wp.rb[1], t, 0.0, wp.rb_timings[0]), 3)
             else:
@@ -75,6 +82,7 @@ class BezierTrajectory(Node):
             # LEFT BACK LEG
             if (t >= wp.lb_timings[0] and t < wp.lb_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.lb[2], wp.lb[3], wp.lb[4], wp.lb[5], t, wp.lb_timings[0], wp.lb_timings[1]), 4)
+                legInSwing = True
             elif t < wp.lb_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.lb[0], wp.lb[1], t, 0.0, wp.lb_timings[0]), 4)
             else:
@@ -82,6 +90,7 @@ class BezierTrajectory(Node):
             # LEFT MIDDLE LEG
             if (t >= wp.lm_timings[0] and t < wp.lm_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.lm[2], wp.lm[3], wp.lm[4], wp.lm[5], t, wp.lm_timings[0], wp.lm_timings[1]), 5)
+                legInSwing = True
             elif t < wp.lm_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.lm[0], wp.lm[1], t, 0.0, wp.lm_timings[0]), 5)
             else:
@@ -89,6 +98,7 @@ class BezierTrajectory(Node):
             # LEFT FRONT LEG
             if (t >= wp.lf_timings[0] and t < wp.lf_timings[1]):
                 self.setTargPosIndex(self.bezier4P(wp.lf[2], wp.lf[3], wp.lf[4], wp.lf[5], t, wp.lf_timings[0], wp.lf_timings[1]), 6)
+                legInSwing = True
             elif t < wp.lf_timings[0]:
                 self.setTargPosIndex(self.linear2P(wp.lf[0], wp.lf[1], t, 0.0, wp.lf_timings[0]), 6)
             else:
@@ -96,6 +106,12 @@ class BezierTrajectory(Node):
 
             self.posPub_.publish(self.targetPos_)
             
+            # The dynamic stop flag was set. We need to stop the gait.
+            # We must ensure that no legs are in the swing state
+            if self.dynamicStopFlag_ and not legInSwing:
+                self.dynamicStopFlag_ = False
+                break
+
             sleep(self.step_duration_ * self.resolution_)
             
         goal_handle.succeed()
@@ -198,6 +214,9 @@ class BezierTrajectory(Node):
     
     def robotSpeedCallback(self, speed = Float64):
         self.step_duration_ = speed.data
+
+    def updateDynamicStop(self, flag = Bool):
+        self.dynamicStopFlag_ = flag
 
     ## Stupid function used to set the TargetPositions values until I fix the interface to be a point array
     def setTargPosIndex(self, P = Point(), index = int):

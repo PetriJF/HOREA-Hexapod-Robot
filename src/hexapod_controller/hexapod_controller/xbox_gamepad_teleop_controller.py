@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray, Int64
+from std_msgs.msg import Int64MultiArray, Float64, Float64MultiArray, Bool
 from sensor_msgs.msg import Joy
 from rcl_interfaces.msg import ParameterDescriptor
 from hexapod_interfaces.msg import StepDescriptor
@@ -61,6 +61,9 @@ class TeleOp(Node):
         self.stepSpeedPub_ = self.create_publisher(Float64, 'step_speed', 10)
         self.baseInclinationPub_ = self.create_publisher(Float64MultiArray, 'base_inclination', 10)
         self.gaitPub_ = self.create_publisher(Int64, 'current_gait', 10) 
+        self.dynamicStopPub_ = self.create_publisher(Bool, 'dynamic_stop', 10)
+
+        self.prevMagnitude = 0.0
 
     def gamepadCallback(self, cmd = Joy):
         # Some constants for easy code reading
@@ -83,8 +86,13 @@ class TeleOp(Node):
             step_descriptor.gait_wid = self.gait_width_
             step_descriptor.dir_component = True
             step_descriptor.ang_component = False if self.walk_mode_ == CRAB_WALK else True
-
+            
+            self.dynamicStopPub_.publish(False)
             self.step_command_.publish(step_descriptor)
+            self.prevMagnitude = magnitude
+        elif magnitude == 0.0 and self.prevMagnitude != magnitude:
+            self.dynamicStopPub_.publish(True)
+            self.prevMagnitude = magnitude
 
         # Right JoyStick for the base inclination modifier
         MIN_INCLINATION = np.deg2rad(-30.0)
@@ -178,6 +186,9 @@ class TeleOp(Node):
                     self.gaitPub_.publish(self.walk_gait_)
                     self.get_logger().info("Switched to tripod gait")
                 self.prev_Button_ = 1
+
+                elif magnitude == 0.0 and self.prevMagnitude != magnitude:
+                    self.dynamicStopPub_.publish(True)
 
 def main(args = None):
     rclpy.init(args = args)
