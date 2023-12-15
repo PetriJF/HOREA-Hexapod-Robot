@@ -55,6 +55,7 @@ class TripodGait(Node):
         # Action Client and feedback for ensuring the step is done before trying to start another one
         self.action_client_ = ActionClient(self, StepAnimator, "stepStatus")  # Note this should be changes to have some sort of end location feedback
         self.feedback_ = 1.0
+        self.legLocations_ = TargetPositions()
 
         # Initialize the publisher to the tranjectory planner
         self.sub = self.create_subscription(StepDescriptor, 'stepCommands', self.commandsCallback, 10)
@@ -249,6 +250,7 @@ class TripodGait(Node):
     # Getting the 100% done value representing that the step was done
     def get_result_callback(self, status):
         self.feedback_ = status.result().result.completed_percentage
+        self.legLocations_ = status.result().result.leg_location
 
     # Getting the current percentage feedback for the 
     def feedbackCallback(self, feedback_msg):
@@ -280,9 +282,12 @@ class TripodGait(Node):
         pointArray = []
 
         # Start and end point in the leg's motion plan
-        InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
-        InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
-        InitPoint.z = 0.0 
+        #InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
+        #InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
+        #InitPoint.z = 0.0
+        InitPoint.x = self.legLocations_.x_pos[index]
+        InitPoint.y = self.legLocations_.y_pos[index]
+        InitPoint.z = self.legLocations_.z_pos[index]
         pointArray.append(InitPoint)       
 
         P.x = InitPoint.x + stride1Len * np.cos(direction - np.pi)
@@ -350,9 +355,12 @@ class TripodGait(Node):
         pointArray = []
 
         # Start and end point in the leg's motion plan
-        InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
-        InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
-        InitPoint.z = 0.0 
+        # InitPoint.x = gaitWidth * np.cos(self.gamma_[index])
+        # InitPoint.y = gaitWidth * np.sin(self.gamma_[index])
+        # InitPoint.z = 0.0 
+        InitPoint.x = self.legLocations_.x_pos[index]
+        InitPoint.y = self.legLocations_.y_pos[index]
+        InitPoint.z = self.legLocations_.z_pos[index]
         pointArray.append(InitPoint)
 
         P.x = InitPoint.x + stride1Len * np.cos(self.gamma_[index] + stride1RelAng)
