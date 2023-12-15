@@ -3,6 +3,7 @@ float64 complete
 ---
 #result
 float64 completed_percentage
+TargetPositions leg_location
 ---
 #feedback
 float64 percentage

@@ -110,6 +110,7 @@ class BezierTrajectory(Node):
             # We must ensure that no legs are in the swing state
             if self.dynamicStopFlag_ and not legInSwing:
                 self.dynamicStopFlag_ = False
+
                 break
 
             sleep(self.step_duration_ * self.resolution_)
@@ -118,6 +119,7 @@ class BezierTrajectory(Node):
         
         result = StepAnimator.Result()
         result.completed_percentage = 1.0
+        result.leg_location = self.targetPos_
 
         return result
 
