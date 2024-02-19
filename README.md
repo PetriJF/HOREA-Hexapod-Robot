@@ -1,27 +1,29 @@
-# ROS2 Hexapod (IMPORTANT: CODE REFACTORING ONGOING!!)
+# ROS2 Hexapod (Major update coming up!!)
 ![HOREA](CAD/H.O.R.E.A.1.png?raw=true "HOREA")
 
 ## IMPORTANT: Code refactoring in progress
 
 Hello everyone! Just letting you know that the code is currently being refactored for the robot. The Hardware design of the robot was simplified, making it easier to work with and even cheaper, and those changes need to be reflected into the walking model as well.
 A quick list of some of the features in progress:
-- Dynamic Gait Switching
-- Leg Fault handling
-- Gazebo integration
-- Vision/LiDAR support
-- Better step feedback
-- Better femur design
-- Jumping
-- Enabling the hexapod to walk on 4 or 5 legs
-- Enabling the hexapod to walk in a crawl state (reducing the profile widthwise for fitting into narrow spots)
-- A more efficient node communication method for the data heavy transfers
-- Battery support.
+- [x] Dynamic Gait Switching
+- [x] Leg Fault handling
+- [ ] Gazebo integration (RViz is implemented, Gazebo comes next)
+- [ ] Vision/LiDAR support (Progress was made but more is needed)
+- [x] Better step feedback
+- [x] Better femur design
+- [x] Jumping
+- [x] Enabling the hexapod to walk on 4 or 5 legs
+- [ ] Enabling the hexapod to walk in a crawl state (reducing the profile widthwise for fitting into narrow spots)
+- [x] A more efficient node communication method for the data heavy transfers
+- [x] Battery support.
+Once all of those are completed, the new update will be pushed and the repository will be cleaned.
+Also, after this update, the project will move from an alpha-like phase to beta.
 
 WHY NOT WORKING HERE?
 Because I am using this version of the codebase for demos and project sharing. I don't want to add something that might be unstable or buggy here
 
 WHEN WILL THE CHANGES BE UPLOADED?
-My plan for it is to have the new hardware design uploaded by the end of December with the code changes required to run the software on it. All the other features should be online by late January 2023 when the private branch will be fully integrated with main.
+My plan for it is to have the new hardware design uploaded by the end of December with the code changes required to run the software on it. All the other features should be online by late March 2024 when the private branch will be fully integrated with main.
 
 SHOULD I BUILD THE CURRENT VERSION OF THE ROBOT?
 Personally, I would say no, as the new version fixes a lot of the problems this iteration has. The new version will also be cheaper and easier to assemble and service! If you can't wait, email me at "jamespetri28@gmail.com" and we can work together for a quicker solution!
